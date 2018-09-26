@@ -1,6 +1,16 @@
-.DS_Store
+# dependencies
 node_modules
-/dist
+
+# logs
+npm-debug.log
+
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
+
+.DS_Store
 
 # local env files
 .env.local
