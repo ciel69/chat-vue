@@ -28,15 +28,46 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+    <input type="text" v-model="textInput" />
+    <button @click="onEvent">event</button>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
+import Di from '@/app';
+
+const socket = Di.get('io');
 
 @Component
 export default class HelloWorld extends Vue {
+  textInput: string = '';
+
   @Prop() private msg!: string;
+
+  @Emit()
+  onEvent () {
+      socket.emit('events', this.textInput);
+  }
+
+  created () {
+      socket.on('connect', () => {
+          console.log('Connected');
+          socket.emit('identity', 0, (response: any) => console.log('Identity:', response));
+      });
+      socket.on('events', (data: any) => {
+          console.log('event', data);
+      });
+      socket.on('identity', (data: any) => {
+          console.log('identity', data);
+      });
+      socket.on('exception', (data: any) => {
+          console.log('event', data);
+      });
+      socket.on('disconnect', () => {
+          console.log('Disconnected');
+      });
+  }
 }
 </script>
 
