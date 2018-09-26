@@ -6,6 +6,8 @@ import './registerServiceWorker';
 
 Vue.config.productionTip = false;
 
+store.dispatch('chatInitial');
+
 new Vue({
   router,
   store,

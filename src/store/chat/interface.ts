@@ -1,8 +1,9 @@
-export type TMessage = {
-    name: String,
-    text: String
+export interface TMessage {
+    name: string;
+    text: string;
 }
 
 export interface IState {
-    list: Array<TMessage>;
+    inputText: string;
+    list: TMessage[];
 }

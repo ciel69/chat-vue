@@ -1,11 +1,11 @@
-import actions from './actions'
-import mutations from './mutations'
+import actions from './actions';
+import mutations from './mutations';
 
 export default {
     state: {
+        inputText: '',
         list: [],
-        cmsPages: []
     },
     actions,
-    mutations
-}
+    mutations,
+};
