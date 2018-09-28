@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <md-app md-mode="reveal">
+    <md-app>
       <md-app-toolbar class="md-primary">
         <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
           <md-icon>menu</md-icon>
@@ -58,9 +58,7 @@ export default class Chat extends Vue {
 
 <style lang="scss">
 @import "material-design-icons/iconfont/material-icons.css";
-.md-app-scroller {
-  margin-top: 64px !important;
-}
+
 .page-container {
   height: 100vh;
   display: flex;
