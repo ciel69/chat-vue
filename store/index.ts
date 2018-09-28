@@ -1,3 +1,5 @@
+import {actions as actionsChat} from './chat';
+
 export const state = () => ({
   people: [],
 });
@@ -9,13 +11,7 @@ export const mutations = {
 };
 
 export const actions = {
-  testActions() {
-      console.log('testActions');
-  },
   async nuxtServerInit({ commit }, { app }) {
-    const people = await app.$axios.$get(
-      "./random-data.json"
-    )
-    commit("setPeople", people.slice(0, 10))
+    await actionsChat.getMessage(commit, app);
   }
 };

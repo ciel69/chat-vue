@@ -34,7 +34,9 @@ export default class Chat extends Vue {
 
     @Emit()
     sendForm () {
-        this.chatSendMessage(this.textMessage);
+        if (this.textMessage.trim().length > 0) {
+            this.chatSendMessage(this.textMessage);
+        }
     }
 }
 </script>

@@ -1,32 +1,73 @@
-import Di from '~/app';
-const socket = Di.get('io');
+import gql from 'graphql-tag'
+
 
 export default {
-    testChat() {
-        console.log('testChat');
+    async getMessage(commit, app) {
+        let client = app.apolloProvider.defaultClient;
+
+        let result;
+        try {
+            result = await client.query({
+                query: gql`
+                query {
+                  getMessage {
+                    id
+                    text
+                  }
+                }
+            `
+            });
+            commit('chat/loadMessage', result.data.getMessage);
+        } catch (e) {
+            console.error(e)
+        }
+        return result;
     },
     chatInitial(context: any) {
-        socket.on('connect', () => {
-            console.log('Connected');
-            socket.emit('identity', 0, (response: any) => console.log('Identity:', response));
-        });
-        socket.on('events', (data: any) => {
-            context.commit('sendMessage', data);
-            context.commit('chatChangeInput', '');
-            console.log('event', data);
-        });
-        socket.on('identity', (data: any) => {
-            console.log('identity', data);
-        });
-        socket.on('exception', (data: any) => {
-            console.log('event', data);
-        });
-        socket.on('disconnect', () => {
-            console.log('Disconnected');
+
+        let client = this.app.apolloProvider.defaultClient;
+
+        const observer = client.subscribe({
+            query: gql`
+              subscription chatCreated {
+                  chatCreated {
+                    id 
+                    text
+                  }
+              }
+            `
+        })
+
+        observer.subscribe({
+            next(res) {
+                if (res) {
+                    context.commit('sendMessage', res.data.chatCreated);
+                    context.commit('chatChangeInput', '');
+                    console.log('data', res)
+                }
+            },
+            error(error) {
+                console.error('error', error)
+            },
         });
     },
     chatSendMessage(context: any, data: object) {
-        socket.emit('events', data);
+        // socket.emit('events', data);
+        let client = this.app.apolloProvider.defaultClient
+        console.log('chatSendMessage serv');
+        client.mutate({
+            mutation: gql`
+                mutation createMessage($text: String) {
+                  createMessage(createChatInput: { text: $text }) {
+                    id
+                    text
+                  }
+                }
+            `,
+            variables: {
+                text: data
+            }
+        })
     },
     chatChangeInput(context: any, data: object) {
         context.commit('chatChangeInput', data);
