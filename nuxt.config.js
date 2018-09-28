@@ -57,6 +57,9 @@ module.exports = {
   css: ["~/assets/css/main.css"],
   build: {},
   modules: [
+    ['nuxt-vue-material', {
+      theme: 'default-dark'
+    }],
     "@nuxtjs/apollo",
     "~/modules/typescript.js"
   ],

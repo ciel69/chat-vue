@@ -1,22 +1,25 @@
 <template>
-    <div>
-        <ListMessage />
+    <div class="md-layout-item md-size-45">
+        <ListMessage/>
         <form @submit.prevent="sendForm">
-            <input type="text" v-model="textMessage" />
-            <button>send</button>
+            <md-field>
+                <label>Initial Value</label>
+                <md-input v-model="textMessage"></md-input>
+                <md-button class="md-raised md-primary">send</md-button>
+            </md-field>
         </form>
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from 'nuxt-property-decorator';
-import { State, Action } from 'vuex-class'
+import {Component, Vue, Emit} from 'nuxt-property-decorator';
+import {State, Action} from 'vuex-class'
 
 import ListMessage from '~/components/Chat/ListMessage';
 
 @Component({
     components: {
-        ListMessage
+        ListMessage,
     }
 })
 export default class Chat extends Vue {
@@ -28,12 +31,13 @@ export default class Chat extends Vue {
     get textMessage() {
         return this.inputText
     }
+
     set textMessage(value: string) {
         this.chatChangeInput(value);
     }
 
     @Emit()
-    sendForm () {
+    sendForm() {
         if (this.textMessage.trim().length > 0) {
             this.chatSendMessage(this.textMessage);
         }
