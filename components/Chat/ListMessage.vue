@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="listMessage.length > 0" class="list-message" v-for="(message, key) in listMessage" :key="key">
-            <div class="list-message__text">{{message.text}}</div>
+            <div v-if="message" class="list-message__text">{{message.text}}</div>
         </div>
     </div>
 </template>

@@ -53,6 +53,7 @@ export default {
     },
     chatSendMessage(context: any, data: object) {
         // socket.emit('events', data);
+        console.log('this.app.apolloProvider', this.app.apolloProvider);
         let client = this.app.apolloProvider.defaultClient
         console.log('chatSendMessage serv');
         client.mutate({
