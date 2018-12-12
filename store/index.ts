@@ -1,4 +1,5 @@
 import {actions as actionsChat} from './chat';
+import {actions as actionsUser} from './user';
 
 export const state = () => ({
   people: [],
@@ -16,6 +17,7 @@ export const mutations = {
 
 export const actions = {
   async nuxtServerInit({ commit }, { app }) {
+    await actionsUser.checkToken(commit, app);
     await actionsChat.getMessage(commit, app);
     // commit('setToken');
   }

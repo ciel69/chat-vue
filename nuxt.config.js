@@ -66,6 +66,7 @@ module.exports = {
     css: ["~/assets/css/main.css"],
     build: {},
     modules: [
+        'cookie-universal-nuxt',
         ['nuxt-vue-material', {
             theme: 'default-dark'
         }],

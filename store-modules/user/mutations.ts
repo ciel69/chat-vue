@@ -1,4 +1,7 @@
 export default {
+    checkToken(state, token) {
+        state.token = token;
+    },
     loadToken(state, data) {
         state.token = data;
     },

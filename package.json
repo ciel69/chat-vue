@@ -12,6 +12,7 @@
     "apollo-link-ws": "^1.0.10",
     "apollo-utilities": "^1.0.26",
     "bottlejs": "^1.7.1",
+    "cookie-universal-nuxt": "^2.0.11",
     "graphql-tag": "^2.9.2",
     "material-design-icons": "^3.0.1",
     "nuxt": "^1.3.0",
