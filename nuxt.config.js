@@ -66,7 +66,12 @@ module.exports = {
     css: ["~/assets/css/main.css"],
     build: {},
     modules: [
+        '@nuxtjs/pwa',
         'cookie-universal-nuxt',
+        ['nuxt-validate', {
+            lang: 'ru',
+            inject: false,
+        }],
         ['nuxt-vue-material', {
             theme: 'default-dark'
         }],

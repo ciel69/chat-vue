@@ -1,0 +1,18 @@
+@import "variables";
+@import "~vue-material/dist/theme/engine"; // Import the theme engine
+
+@include md-register-theme("default", (
+        primary: #2f6bab, // The primary color of your application
+        accent: #ff0000, // The accent or secondary color
+        theme: dark // This can be dark or light
+));
+
+@import "~vue-material/dist/theme/all"; // Apply the theme
+
+.md-card-actions {
+  padding: 16px;
+}
+
+.md-content.md-theme-default {
+  background-color: $darkBg;
+}

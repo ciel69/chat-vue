@@ -1,7 +1,5 @@
 <template>
     <div class="md-layout-item md-size-45">
-        <md-button class="md-raised md-primary" @click="getToken">Login</md-button>
-        <md-button class="md-raised md-primary" @click="logout">Logout</md-button>
         <ListMessage/>
         <form @submit.prevent="sendForm">
             <md-field>
@@ -29,8 +27,6 @@ export default class Chat extends Vue {
 
     @Action('chat/chatSendMessage') chatSendMessage: any;
     @Action('chat/chatChangeInput') chatChangeInput: any;
-    @Action('user/getToken') userGetToken: any;
-    @Action('user/logout') userLogout: any;
 
     get textMessage() {
         return this.inputText
@@ -42,20 +38,9 @@ export default class Chat extends Vue {
 
     @Emit()
     sendForm() {
-        console.log('sendForm', this);
         if (this.textMessage.trim().length > 0) {
             this.chatSendMessage(this.textMessage);
         }
-    }
-
-    @Emit()
-    getToken() {
-        this.userGetToken()
-    }
-
-    @Emit()
-    logout() {
-        this.userLogout()
     }
 }
 </script>

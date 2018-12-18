@@ -2,6 +2,11 @@ export default {
     checkToken(state, token) {
         state.token = token;
     },
+    login(state, data) {
+        state.login = data.login;
+        state.uid = data.uid;
+        state.token = data.token;
+    },
     loadToken(state, data) {
         state.token = data;
     },

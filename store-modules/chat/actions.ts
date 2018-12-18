@@ -10,10 +10,13 @@ export default {
             result = await client.query({
                 query: gql`
                 query {
-                  getMessage {
-                    id
-                    text
-                  }
+                    getMessage {
+                        id
+                        text
+                        user {
+                            name
+                        }
+                    }
                 }
             `
             });
@@ -23,7 +26,35 @@ export default {
         }
         return result;
     },
+    async getMessageFront({commit}) {
+        let client = this.app.apolloProvider.defaultClient;
+
+        let result;
+        try {
+            result = await client.query({
+                query: gql`
+                query {
+                    getMessage {
+                        id
+                        text
+                        user {
+                            id
+                            name
+                        }
+                    }
+                }
+            `
+            });
+            commit('loadMessage', result.data.getMessage);
+        } catch (e) {
+            console.error(e)
+        }
+        return result;
+    },
     chatInitial(context: any) {
+        const token = this.app.$cookies.get('token');
+
+        if (!token) return;
 
         let client = this.app.apolloProvider.defaultClient;
 
@@ -33,6 +64,10 @@ export default {
                   chatCreated {
                     id 
                     text
+                    user {
+                      id
+                      name
+                    }
                   }
               }
             `
@@ -41,9 +76,9 @@ export default {
         observer.subscribe({
             next(res) {
                 if (res) {
+                    console.log('subscribe', res);
                     context.commit('sendMessage', res.data.chatCreated);
                     context.commit('chatChangeInput', '');
-                    console.log('data', res)
                 }
             },
             error(error) {
@@ -53,20 +88,28 @@ export default {
     },
     chatSendMessage(context: any, data: object) {
         // socket.emit('events', data);
-        console.log('this.app.apolloProvider', this.app.apolloProvider);
-        let client = this.app.apolloProvider.defaultClient
-        console.log('chatSendMessage serv');
+        if (!data) return;
+        console.log('this.app', this.app);
+        const { store } = this.app;
+        const { user } = store.state;
+        console.log('user', user);
+        let client = this.app.apolloProvider.defaultClient;
         client.mutate({
             mutation: gql`
-                mutation createMessage($text: String) {
-                  createMessage(createChatInput: { text: $text }) {
+                mutation createMessage($text: String, $uid: ID) {
+                  createMessage(createChatInput: { text: $text, uid: $uid }) {
                     id
                     text
+                    user {
+                      id
+                      name
+                    }
                   }
                 }
             `,
             variables: {
-                text: data
+                text: data,
+                uid: user.uid
             }
         })
     },

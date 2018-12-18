@@ -5,16 +5,19 @@ export default {
     async checkToken(commit, app) {
         try {
             const token = app.$cookies.get('token');
-            console.log('checkToken', token);
-            commit('user/loadToken', token || null);
+            const uid = app.$cookies.get('uid');
+
+            console.log('token', token);
+            console.log('uid', uid);
+
+            if (token && uid) {
+                commit('user/login', {token, uid} || null);
+            }
         } catch (e) {
             console.error(e)
         }
     },
     async getToken({ commit }) {
-        console.log('app', this.app);
-        console.log('commit', commit);
-
         let client = this.app.apolloProvider.defaultClient;
 
         let result;
@@ -37,9 +40,14 @@ export default {
         }
         return result;
     },
+    loginUser({ commit }, data){
+        commit('login', data);
+    },
     logout({ commit }){
         commit('loadToken', null);
         this.app.$cookies.remove('token');
+        this.app.$cookies.remove('uid');
+        this.app.router.push('/auth');
     },
     chatChangeInput(context: any, data: object) {
         context.commit('chatChangeInput', data);
