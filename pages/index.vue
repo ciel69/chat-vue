@@ -1,6 +1,5 @@
 <template>
   <section>
-    <h1 class="md-display-2">Nuxt TypeScript Starter</h1>
     <div class="md-layout md-alignment-top-center">
       <Chat />
     </div>

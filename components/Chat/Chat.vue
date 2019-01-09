@@ -5,7 +5,7 @@
             <md-field>
                 <label>Initial Value</label>
                 <md-input v-model="textMessage"></md-input>
-                <md-button class="md-raised md-primary" @click="sendForm">send</md-button>
+                <md-button class="md-raised md-primary" @click="sendForm"><md-icon>send</md-icon></md-button>
             </md-field>
         </form>
     </div>
