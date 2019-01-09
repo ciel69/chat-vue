@@ -9,6 +9,13 @@
 
 @import "~vue-material/dist/theme/all"; // Apply the theme
 
+.dark-bg {
+  background-color: $darkBg !important;
+  & > * {
+    background-color: $darkBg !important;
+  }
+}
+
 .md-card-actions {
   padding: 16px;
 }

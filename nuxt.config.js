@@ -64,7 +64,11 @@ module.exports = {
     ** Build configuration
     */
     css: ["~/assets/css/main.css"],
-    build: {},
+    build: {
+        extractCSS: {
+            allChunks: true
+        }
+    },
     modules: [
         '@nuxtjs/pwa',
         'cookie-universal-nuxt',

@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import {Component, Vue, Emit} from 'nuxt-property-decorator';
-import {State, Action} from 'vuex-class'
+import {State, Action} from 'vuex-class';
 
 import ListMessage from '~/components/Chat/ListMessage';
 
@@ -27,6 +27,16 @@ export default class Chat extends Vue {
 
     @Action('chat/chatSendMessage') chatSendMessage: any;
     @Action('chat/chatChangeInput') chatChangeInput: any;
+
+    head () {
+        return {
+            title: 'Чат',
+            meta: [
+                // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+                { hid: 'description', name: 'description', content: 'My custom description' }
+            ]
+        }
+    }
 
     get textMessage() {
         return this.inputText
@@ -45,6 +55,10 @@ export default class Chat extends Vue {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.custom-input {
+    border: 1px solid #ccc;
+    height: 40px;
+    width: 100%;
+}
 </style>

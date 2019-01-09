@@ -7,9 +7,6 @@ export default {
             const token = app.$cookies.get('token');
             const uid = app.$cookies.get('uid');
 
-            console.log('token', token);
-            console.log('uid', uid);
-
             if (token && uid) {
                 commit('user/login', {token, uid} || null);
             }

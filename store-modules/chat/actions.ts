@@ -14,6 +14,7 @@ export default {
                         id
                         text
                         user {
+                            id
                             name
                         }
                     }
