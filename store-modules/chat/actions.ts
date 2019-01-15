@@ -5,23 +5,29 @@ export default {
     async getMessage(commit, app) {
         let client = app.apolloProvider.defaultClient;
 
+        console.log('getMessage');
+
         let result;
         try {
             result = await client.query({
                 query: gql`
-                query {
-                    getMessage {
-                        id
-                        text
-                        user {
+                    query {
+                        getChannel(id: 0) {
                             id
-                            name
+                            messages {
+                                id
+                                text
+                                user {
+                                    id
+                                    name
+                                }
+                            }
                         }
                     }
-                }
-            `
+                `
             });
-            commit('chat/loadMessage', result.data.getMessage);
+            commit('loadMessage', result.data.getChannel.messages);
+            // commit('chat/loadMessage', result.data.getMessage);
         } catch (e) {
             console.error(e)
         }
@@ -30,23 +36,28 @@ export default {
     async getMessageFront({commit}) {
         let client = this.app.apolloProvider.defaultClient;
 
+        console.log('getMessageFront');
+
         let result;
         try {
             result = await client.query({
                 query: gql`
                 query {
-                    getMessage {
+                    getChannel(id: 0) {
                         id
-                        text
-                        user {
+                        messages {
                             id
-                            name
+                            text
+                            user {
+                                id
+                                name
+                            }
                         }
                     }
                 }
             `
             });
-            commit('loadMessage', result.data.getMessage);
+            commit('loadMessage', result.data.getChannel.messages);
         } catch (e) {
             console.error(e)
         }
@@ -62,7 +73,7 @@ export default {
         const observer = client.subscribe({
             query: gql`
               subscription chatCreated {
-                  chatCreated {
+                  messageAdded(channelId: 0) {
                     id 
                     text
                     user {
@@ -78,7 +89,7 @@ export default {
             next(res) {
                 if (res) {
                     console.log('subscribe', res);
-                    context.commit('sendMessage', res.data.chatCreated);
+                    context.commit('sendMessage', res.data.messageAdded);
                     context.commit('chatChangeInput', '');
                 }
             },
@@ -97,8 +108,8 @@ export default {
         let client = this.app.apolloProvider.defaultClient;
         client.mutate({
             mutation: gql`
-                mutation createMessage($text: String, $uid: ID) {
-                  createMessage(createChatInput: { text: $text, uid: $uid }) {
+                mutation createMessage($text: String, $uid: ID $channelId: ID) {
+                  createMessage(createChatInput: { text: $text, uid: $uid, channelId: $channelId }) {
                     id
                     text
                     user {
@@ -110,6 +121,7 @@ export default {
             `,
             variables: {
                 text: data,
+                channelId: 0,
                 uid: user.uid
             }
         })
