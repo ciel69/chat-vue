@@ -1,7 +1,7 @@
 <template>
     <div>
         <md-list class="md-triple-line list-message">
-            <md-list-item class="md-triple-line list-message__item" :class="{'my-message': userId === message.user.id}" v-for="(message, key) in listMessage" v-if="message" :key="key">
+            <md-list-item class="md-triple-line list-message__item" :class="{'my-message': +userId === +message.user.id}" v-for="(message, key) in listMessage" v-if="message" :key="key">
                 <md-avatar>
                     <img src="https://placeimg.com/40/40/people/1" alt="People">
                 </md-avatar>
