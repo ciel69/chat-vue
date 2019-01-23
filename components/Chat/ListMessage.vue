@@ -19,67 +19,76 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import { State } from 'vuex-class'
+import { State, Getter } from 'vuex-class';
 
 @Component
 export default class ListMessage extends Vue {
-    @State(state => state.chat.list) listMessage!: string[];
-    @State(state => state.user.uid) userId!: number;
+  @State(state => state.user.uid)
+  userId!: number;
+  @Getter('channels/getChannel') getChannel;
 
-    uName(message) {
-        return message.user && message.user.name
-    }
+  listMessage = [];
+
+  created() {
+    const id = this.$route.params.id;
+    console.log('this.getChannel', this.getChannel);
+    this.listMessage = this.getChannel(id);
+  }
+
+  uName(message) {
+    return message.user && message.user.name;
+  }
 }
 </script>
 
 <style lang="scss">
 .list-message {
-    &__item {
-        &:after {
-            content: '';
-            display: block;
-            height: 1px;
-            background: #ccc;
-            width: 90%;
-            margin: auto;
-            margin-bottom: 0;
-        }
-        &:last-child {
-            &:after {
-                display: none;
-            }
-        }
-
-        &:hover {
-            .md-button.md-icon-button.button-star {
-                opacity: 1;
-            }
-        }
-
-        &.my-message {
-            .md-list-item-content {
-                flex-direction: row-reverse;
-            }
-            .md-avatar {
-                margin-right: 0;
-                margin-left: 16px;
-            }
-            .list-message__user-name {
-                text-align: right;
-            }
-        }
-
-        .md-button.md-icon-button.button-star {
-            opacity: 0;
-            margin: auto;
-        }
+  &__item {
+    &:after {
+      content: '';
+      display: block;
+      height: 1px;
+      background: #ccc;
+      width: 90%;
+      margin: auto;
+      margin-bottom: 0;
     }
-    &__text {
-        display: flex;
-        max-width: 80%;
-        flex-direction: column;
-        white-space: normal;
-        flex: 1;
+    &:last-child {
+      &:after {
+        display: none;
+      }
     }
+
+    &:hover {
+      .md-button.md-icon-button.button-star {
+        opacity: 1;
+      }
+    }
+
+    &.my-message {
+      .md-list-item-content {
+        flex-direction: row-reverse;
+      }
+      .md-avatar {
+        margin-right: 0;
+        margin-left: 16px;
+      }
+      .list-message__user-name {
+        text-align: right;
+      }
+    }
+
+    .md-button.md-icon-button.button-star {
+      opacity: 0;
+      margin: auto;
+    }
+  }
+  &__text {
+    display: flex;
+    max-width: 80%;
+    flex-direction: column;
+    white-space: normal;
+    flex: 1;
+  }
 }
 </style>

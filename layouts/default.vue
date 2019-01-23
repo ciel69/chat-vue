@@ -20,14 +20,19 @@
         </md-toolbar>
 
         <md-list>
-          <md-list-item @click="$refs.sidebar.toggle(); $router.push('/');">
+          <md-list-item to="/">
             <md-icon>home</md-icon>
             <span class="md-list-item-text">Главная</span>
           </md-list-item>
 
-          <md-list-item>
-            <md-icon>send</md-icon>
-            <span class="md-list-item-text">Sent Mail</span>
+          <md-list-item  to="/users">
+            <md-icon>face</md-icon>
+            <span class="md-list-item-text">Люди</span>
+          </md-list-item>
+
+          <md-list-item  to="/channels">
+            <md-icon>mode_comment</md-icon>
+            <span class="md-list-item-text">Сообщения</span>
           </md-list-item>
 
           <md-list-item>
