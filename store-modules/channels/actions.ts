@@ -25,7 +25,6 @@ export default {
   },
   async getChannelsFront(context) {
     const client = this.app.apolloProvider.defaultClient;
-    const self = this;
 
     let result;
     try {
@@ -47,7 +46,6 @@ export default {
           }
         `,
       });
-      console.log('getChannels', result);
       context.commit('loadChannels', result.data.getChannels);
       result.data.getChannels.forEach(item => {
         if (!context.state.subscribe.includes(item.id)) {
@@ -57,6 +55,76 @@ export default {
       });
     } catch (e) {
       console.error(e);
+    }
+    return result;
+  },
+  async getMessage(commit, app) {
+    const client = app.apolloProvider.defaultClient;
+
+    let result;
+    try {
+      result = await client.query({
+        query: gql`
+          query getChannel($id: ID!) {
+            getChannel(id: $id) {
+              id
+              messages {
+                id
+                text
+                user {
+                  id
+                  name
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          id: 0,
+        },
+      });
+      // commit('loadMessage', result.data.getChannel.messages);
+      // commit('chat/loadMessage', result.data.getMessage);
+      commit('channels/loadChannelMessage', {cid: 0, messages: result.data.getChannel.messages});
+    } catch (e) {
+      console.error(e);
+    }
+    return result;
+  },
+  async getMessageFront({ commit }, id) {
+    const client = this.app.apolloProvider.defaultClient;
+    console.log('getMessageFront', commit);
+    console.log('getMessageFront', id);
+
+    let result;
+    try {
+      result = await client.query({
+        query: gql`
+          query getChannel($id: ID!) {
+            getChannel(id: $id) {
+              id
+              name
+              messages {
+                id
+                text
+                user {
+                  id
+                  name
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          id,
+        },
+      });
+      // commit('loadMessage', result.data.getChannel.messages);
+      commit('loadChannelMessage', result.data.getChannel);
+      return result.data.getChannel;
+    } catch (e) {
+      console.error(e);
+      return e;
     }
     return result;
   },
@@ -92,12 +160,18 @@ export default {
 
     observer.subscribe({
       next(res) {
-        if (res) {
-          // self.state.channels.list.find(item => item.id ===  res.data.messageAdded.channel.id);
-          console.log('messageAdded', res);
+        if (res && res.data.messageAdded) {
+          const isChannel = self.state.channels.list.find(
+              item => item.id === res.data.messageAdded.channel.id,
+          );
+          if (!isChannel) {
+            context.commit('channels/newChannel', res.data.messageAdded.channel, {
+              root: true,
+            });
+          }
           context.commit('sendMessage', {
             message: res.data.messageAdded,
-            cid,
+            cid: res.data.messageAdded.channel.id,
           });
           context.commit('chat/chatChangeInput', '', { root: true });
         }

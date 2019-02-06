@@ -1,70 +1,6 @@
 import gql from 'graphql-tag';
 
 export default {
-  async getMessage(commit, app) {
-    const client = app.apolloProvider.defaultClient;
-
-    let result;
-    try {
-      result = await client.query({
-        query: gql`
-          query getChannel($id: ID!) {
-            getChannel(id: $id) {
-              id
-              messages {
-                id
-                text
-                user {
-                  id
-                  name
-                }
-              }
-            }
-          }
-        `,
-        variables: {
-          id: 0,
-        },
-      });
-      commit('loadMessage', result.data.getChannel.messages);
-      // commit('chat/loadMessage', result.data.getMessage);
-    } catch (e) {
-      console.error(e);
-    }
-    return result;
-  },
-
-  async getMessageFront({ commit }, id) {
-    const client = this.app.apolloProvider.defaultClient;
-
-    let result;
-    try {
-      result = await client.query({
-        query: gql`
-          query getChannel($id: ID!) {
-            getChannel(id: $id) {
-              id
-              messages {
-                id
-                text
-                user {
-                  id
-                  name
-                }
-              }
-            }
-          }
-        `,
-        variables: {
-          id,
-        },
-      });
-      commit('loadMessage', result.data.getChannel.messages);
-    } catch (e) {
-      console.error(e);
-    }
-    return result;
-  },
   chatInitial(context: any) {
     const token = this.app.$cookies.get('token');
     const self = this;
@@ -94,14 +30,6 @@ export default {
         if (res) {
           const channel = res.data.subscribeChannel;
           if (channel) {
-            const isChannel = self.state.channels.list.find(
-              item => item.id === channel.id,
-            );
-            if (!isChannel) {
-              context.commit('channels/newChannel', channel, {
-                root: true,
-              });
-            }
             context.dispatch('channels/subscribeChannel', channel.id, {
               root: true,
             });

@@ -56,32 +56,37 @@
 
 <script lang="ts">
 import { Component, Vue, Emit } from 'nuxt-property-decorator';
-import { Action } from 'vuex-class'
+import { Action } from 'vuex-class';
 
 @Component
 export default class Layout extends Vue {
   menuVisible: boolean = false;
-  @Action('chat/chatInitial') chatInitial
-  @Action('user/logout') actionLogout
+  @Action('chat/chatInitial') chatInitial;
+  @Action('channels/getChannelsFront') actionGetChannelsFront;
+  @Action('user/logout') actionLogout;
 
   created() {
-      this.chatInitial()
+    this.chatInitial();
+  }
+
+  mounted() {
+    this.actionGetChannelsFront();
   }
 
   @Emit()
-  toggleMenu () {
-    this.menuVisible = !this.menuVisible
+  toggleMenu() {
+    this.menuVisible = !this.menuVisible;
   }
   @Emit()
   logout() {
-    this.actionLogout()
+    this.actionLogout();
   }
 }
 </script>
 
 <style lang="scss">
-@import "material-design-icons/iconfont/material-icons.css";
-@import "../assets/scss/custom-material";
+@import 'material-design-icons/iconfont/material-icons.css';
+@import '../assets/scss/custom-material';
 
 .page-container {
   height: 100vh;

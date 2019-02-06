@@ -21,8 +21,12 @@ import { State } from 'vuex-class';
 export default class Channels extends Vue {
   @Action('channels/getChannelsFront') actionsGetChannels: any;
 
-  created() {
-    this.actionsGetChannels();
+  // created() {
+  //   this.actionsGetChannels();
+  // }
+  async fetch({ store, params }) {
+    console.log('fetch message', params);
+    await store.dispatch('channels/getChannelsFront');
   }
 
   @State(state => state.channels.list)

@@ -18,22 +18,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
-import { State, Getter } from 'vuex-class';
+import { Component, Vue, Prop } from 'nuxt-property-decorator';
+import { State } from 'vuex-class';
 
 @Component
 export default class ListMessage extends Vue {
-  @State(state => state.user.uid)
-  userId!: number;
-  @Getter('channels/getChannel') getChannel;
-
-  listMessage = [];
-
-  created() {
-    const id = this.$route.params.id;
-    console.log('this.getChannel', this.getChannel);
-    this.listMessage = this.getChannel(id);
-  }
+  @State(state => state.user.uid) userId!: number;
+  @Prop(Array) listMessage: any[];
 
   uName(message) {
     return message.user && message.user.name;

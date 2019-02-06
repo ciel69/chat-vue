@@ -1,7 +1,13 @@
 export default {
   loadChannels(state, data) {
-    console.log('loadChannels', data);
     state.list = data;
+  },
+  loadChannelMessage(state, data) {
+    console.log('loadChannelMessage', data);
+    const channel = state.list.find(item => +item.id === +data.id);
+    if (!channel) {
+      state.list.push(data);
+    }
   },
   newChannel(state, data) {
     state.list.push({ ...data, messages: [] });
@@ -12,5 +18,5 @@ export default {
   },
   addSubscribe(state, data) {
     state.subscribe.push(data);
-  }
+  },
 };

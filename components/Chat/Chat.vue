@@ -1,6 +1,6 @@
 <template>
     <div class="md-layout-item md-size-45">
-        <ListMessage/>
+        <ListMessage :list-message="listMessage"/>
         <form @submit.prevent="sendForm">
             <md-field>
                 <label>Initial Value</label>
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from 'nuxt-property-decorator';
+import { Component, Vue, Emit, Prop } from 'nuxt-property-decorator';
 import { State, Action } from 'vuex-class';
 
 import ListMessage from '~/components/Chat/ListMessage';
@@ -23,8 +23,9 @@ import ListMessage from '~/components/Chat/ListMessage';
   },
 })
 export default class Chat extends Vue {
-  @State(state => state.chat.inputText)
-  inputText!: string;
+  @State(state => state.chat.inputText) inputText!: string;
+
+  @Prop(Array) listMessage: any[];
 
   @Action('chat/chatSendMessage') chatSendMessage: any;
   @Action('chat/chatChangeInput') chatChangeInput: any;
