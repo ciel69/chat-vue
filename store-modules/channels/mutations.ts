@@ -3,7 +3,6 @@ export default {
     state.list = data;
   },
   loadChannelMessage(state, data) {
-    console.log('loadChannelMessage', data);
     const channel = state.list.find(item => +item.id === +data.id);
     if (!channel) {
       state.list.push(data);
@@ -18,5 +17,11 @@ export default {
   },
   addSubscribe(state, data) {
     state.subscribe.push(data);
+  },
+  loadMessage(state, data) {
+    state.list = data;
+  },
+  chatChangeInput(state, data: string) {
+    state.inputText = data;
   },
 };

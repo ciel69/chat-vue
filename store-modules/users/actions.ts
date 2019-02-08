@@ -4,8 +4,6 @@ export default {
   async getUsers(commit, app) {
     let client = app.apolloProvider.defaultClient;
 
-    console.log('getUsers');
-
     let result;
     try {
       result = await client.query({

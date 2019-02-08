@@ -23,12 +23,12 @@ import ListMessage from '~/components/Chat/ListMessage';
   },
 })
 export default class Chat extends Vue {
-  @State(state => state.chat.inputText) inputText!: string;
+  @State(state => state.channels.inputText) inputText!: string;
 
   @Prop(Array) listMessage: any[];
 
-  @Action('chat/chatSendMessage') chatSendMessage: any;
-  @Action('chat/chatChangeInput') chatChangeInput: any;
+  @Action('channels/chatSendMessage') chatSendMessage: any;
+  @Action('channels/chatChangeInput') chatChangeInput: any;
 
   head() {
     return {

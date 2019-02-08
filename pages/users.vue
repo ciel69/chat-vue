@@ -10,13 +10,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Action, Emit, Inject, Vue } from 'nuxt-property-decorator';
+import { Component, Action, Emit, Vue } from 'nuxt-property-decorator';
 import { State } from 'vuex-class';
 
 @Component({})
 export default class Users extends Vue {
   @Action('users/getUsersFront') actionsGetUsers: any;
-  @Action('chat/createChannel') actionsNewChannel: any;
+  @Action('channels/createChannel') actionsNewChannel: any;
 
   created() {
     this.actionsGetUsers();

@@ -32,7 +32,6 @@ export default class extends Vue {
 
   created() {
     const id = this.$route.params.id;
-    console.log('this.getChannel', this.getChannel);
     this.actionsGetMessage(id)
     // this.listMessage = this.getChannel(id);
   }

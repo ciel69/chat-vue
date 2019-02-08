@@ -30,14 +30,9 @@
             <span class="md-list-item-text">Люди</span>
           </md-list-item>
 
-          <md-list-item  to="/channels">
+          <md-list-item  to="/channels" @click="actionGetChannelsFront">
             <md-icon>mode_comment</md-icon>
             <span class="md-list-item-text">Сообщения</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>delete</md-icon>
-            <span class="md-list-item-text">Trash</span>
           </md-list-item>
 
           <md-list-item @click="logout">
@@ -61,15 +56,13 @@ import { Action } from 'vuex-class';
 @Component
 export default class Layout extends Vue {
   menuVisible: boolean = false;
-  @Action('chat/chatInitial') chatInitial;
+  @Action('channels/chatInitial') chatInitial;
   @Action('channels/getChannelsFront') actionGetChannelsFront;
   @Action('user/logout') actionLogout;
 
-  created() {
-    this.chatInitial();
-  }
-
   mounted() {
+    console.log('Layout mounted');
+    this.chatInitial();
     this.actionGetChannelsFront();
   }
 

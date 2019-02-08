@@ -6,7 +6,7 @@ export default {
         try {
             const token = app.$cookies.get('token');
             const uid = app.$cookies.get('uid');
-            console.log('checkToken', token);
+
             if (token && uid) {
                 commit('user/login', {token, uid});
             } else {
@@ -40,7 +40,6 @@ export default {
         return result;
     },
     loginUser({ commit }, data){
-        console.log('loginUser');
         commit('login', data);
     },
     logout({ commit }){

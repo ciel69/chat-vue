@@ -1,5 +1,4 @@
 export default function (ctx) {
-    console.log('ctx', ctx);
     const hasToken = !!ctx && !!ctx.app && !!ctx.app.$apolloHelpers && ctx.app.$apolloHelpers.getToken();
     // const hasToken = '123';
 

@@ -85,7 +85,6 @@ export default class Auth extends Vue {
     @Emit()
     loginUser() {
         this.$validator.validateAll().then((result) => {
-            console.log('result', result);
             if (result) {
                 this.actionUserLogin({
                     login: this.login,

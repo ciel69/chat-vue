@@ -1,5 +1,11 @@
 import gql from 'graphql-tag';
 
+interface Process {
+  browser: boolean
+  client: boolean
+}
+declare var process: Process
+
 export default {
   async getChannels(commit, app) {
     const client = app.apolloProvider.defaultClient;
@@ -29,6 +35,7 @@ export default {
     let result;
     try {
       result = await client.query({
+        fetchPolicy: 'no-cache',
         query: gql`
           query {
             getChannels {
@@ -46,13 +53,16 @@ export default {
           }
         `,
       });
+
       context.commit('loadChannels', result.data.getChannels);
-      result.data.getChannels.forEach(item => {
-        if (!context.state.subscribe.includes(item.id)) {
-          context.dispatch('subscribeChannel', item.id);
-        }
-        // self.subscribeChannel(context, item.id)
-      });
+      if (process.browser) {
+        result.data.getChannels.forEach(item => {
+          if (!context.state.subscribe.includes(item.id)) {
+            context.dispatch('subscribeChannel', item.id);
+          }
+          // self.subscribeChannel(context, item.id)
+        });
+      }
     } catch (e) {
       console.error(e);
     }
@@ -93,8 +103,6 @@ export default {
   },
   async getMessageFront({ commit }, id) {
     const client = this.app.apolloProvider.defaultClient;
-    console.log('getMessageFront', commit);
-    console.log('getMessageFront', id);
 
     let result;
     try {
@@ -132,7 +140,7 @@ export default {
     const client = this.app.apolloProvider.defaultClient;
     const self = this;
 
-    console.log('subscribeChannel', cid);
+    if (!process.browser) return;
 
     context.commit('addSubscribe', cid);
 
@@ -173,7 +181,7 @@ export default {
             message: res.data.messageAdded,
             cid: res.data.messageAdded.channel.id,
           });
-          context.commit('chat/chatChangeInput', '', { root: true });
+          context.commit('chatChangeInput', '');
         }
       },
       error(error) {
@@ -183,5 +191,110 @@ export default {
   },
   newChannel(context: any, data: object) {
     context.commit('newChannel', data);
+  },
+
+  chatInitial(context: any) {
+    const token = this.app.$cookies.get('token');
+
+    if (!token) return;
+
+    const client = this.app.apolloProvider.defaultClient;
+    const uid = this.state.user.uid;
+
+    const observerChannel = client.subscribe({
+      query: gql`
+        subscription subscribeChannel($uid: ID!) {
+          subscribeChannel(uid: $uid) {
+            id
+            name
+          }
+        }
+      `,
+      variables: {
+        uid,
+      },
+    });
+
+    observerChannel.subscribe({
+      next(res) {
+        if (res) {
+          const channel = res.data.subscribeChannel;
+          if (channel) {
+            context.dispatch('subscribeChannel', channel.id);
+          }
+        }
+      },
+      error(error) {
+        console.error('error', error);
+      },
+    });
+  },
+  async chatSendMessage(context: any, data) {
+    if (!data) return;
+
+    const { store } = this.app;
+    const { user } = store.state;
+
+    const client = this.app.apolloProvider.defaultClient;
+    client.mutate({
+      mutation: gql`
+        mutation createMessage($text: String, $uid: ID, $channelId: ID) {
+          createMessage(
+            createChatInput: { text: $text, uid: $uid, channelId: $channelId }
+          ) {
+            id
+            text
+            user {
+              id
+              name
+            }
+          }
+        }
+      `,
+      variables: {
+        text: data.text,
+        channelId: data.cid,
+        uid: user.uid,
+      },
+    });
+  },
+  async createChannel(context: any, uid: number) {
+    if (!uid) return;
+
+    const client = this.app.apolloProvider.defaultClient;
+    const result = await client.mutate({
+      mutation: gql`
+        mutation createChannel($uid: ID!) {
+          createChannel(uid: $uid) {
+            id
+          }
+        }
+      `,
+      variables: {
+        uid,
+      },
+    });
+
+    if (
+        result.data.createChannel.id &&
+        !this.state.channels.subscribe.includes(result.data.createChannel.id)
+    ) {
+      context.dispatch(
+          'subscribeChannel',
+          result.data.createChannel.id
+      );
+    }
+
+    const isChannel = this.state.channels.list.find(
+        item => item.id === result.data.createChannel.id,
+    );
+    if (!isChannel) {
+      context.commit('newChannel', result.data.createChannel);
+    }
+
+    this.app.router.push(`/channel/${result.data.createChannel.id}`);
+  },
+  chatChangeInput(context: any, data: object) {
+    context.commit('chatChangeInput', data);
   },
 };
