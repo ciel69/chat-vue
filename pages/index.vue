@@ -1,8 +1,6 @@
 <template>
   <section>
-    <div class="md-layout md-alignment-top-center">
-      <Chat />
-    </div>
+    <span class="md-display-4">Dev chat</span>
   </section>
 </template>
 
@@ -21,13 +19,6 @@ import Chat from "~/components/Chat/Chat"
   }
 })
 export default class extends Vue {
-  @State people
-
-  @Action('chat/getMessageFront') actionsGetMessage: any;
-
-  created() {
-    this.actionsGetMessage();
-  }
 
   fetch ({ store, redirect }) {
     if (!store.state.user.token) {
