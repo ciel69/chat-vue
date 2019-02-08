@@ -1,35 +1,41 @@
 importScripts('/_nuxt/workbox.4c4f5ca6.js')
 
-
-
 workbox.precaching.precacheAndRoute([
   {
-    "url": "/_nuxt/app.2768e48d4bcba51122c25a3ea7b935bc.css",
-    "revision": "2768e48d4bcba51122c25a3ea7b935bc"
+    "url": "/_nuxt/0513dad41551cb7fe14c.js",
+    "revision": "1b829ba3ef23efc271d05a83e63569ba"
   },
   {
-    "url": "/_nuxt/app.9c49551213c9776b9514.js",
-    "revision": "55581d1e902a916d35a19a977096b1da"
+    "url": "/_nuxt/299858907a4165708a40.js",
+    "revision": "942b2ed73cad56654c43698a1ee317c1"
   },
   {
-    "url": "/_nuxt/layouts/default.79ce02833228e86ee967.js",
-    "revision": "29cd9ae38611f5dce8828a78d8bf6c8b"
+    "url": "/_nuxt/6c30fc314435387f6300.js",
+    "revision": "8acb464032fc2b6ad3c6b904d66d7029"
   },
   {
-    "url": "/_nuxt/manifest.497f37270203dd11c5c8.js",
-    "revision": "b0a7b91c40e054f3e4903e2c43407375"
+    "url": "/_nuxt/7e549e54e536d65a1af2.js",
+    "revision": "1b8ce693a1151068cea134c71f7ff1fe"
   },
   {
-    "url": "/_nuxt/pages/auth.d0dd3f0692afbf48070d.js",
-    "revision": "9a10e2312ad3185b3846a0ef285e8f5a"
+    "url": "/_nuxt/8d3206d0782ddd1b7e45.js",
+    "revision": "1e56bf56c6ca688ad4139f47099fd194"
   },
   {
-    "url": "/_nuxt/pages/index.ef76aaec9a9fff813b17.js",
-    "revision": "86d0697c125161ff74e3ae3f226a6157"
+    "url": "/_nuxt/98b1d65aa3cbcdc6bba8.js",
+    "revision": "a8c5fb7ddf03bbf90ea4a0394e8212bc"
   },
   {
-    "url": "/_nuxt/vendor.80de24c985ba81e06206.js",
-    "revision": "8c71ffc817e6ca56b1a847b695351aeb"
+    "url": "/_nuxt/9f4f7ecce5f9b76847b6.js",
+    "revision": "6f8c2f03907741c0009d61da3ebc392e"
+  },
+  {
+    "url": "/_nuxt/ab49ae6f6bdd5ec4ca91.js",
+    "revision": "683a5480d5d1b61baed5d62f85a81f2c"
+  },
+  {
+    "url": "/_nuxt/c52ac5ef79f42044018e.js",
+    "revision": "79ccbd4f065dde38eaab35d87080ab98"
   }
 ], {
   "cacheId": "chat-nuxt",
@@ -37,17 +43,9 @@ workbox.precaching.precacheAndRoute([
   "cleanUrls": false
 })
 
-
-
 workbox.clientsClaim()
 workbox.skipWaiting()
-
 
 workbox.routing.registerRoute(new RegExp('/_nuxt/.*'), workbox.strategies.cacheFirst({}), 'GET')
 
 workbox.routing.registerRoute(new RegExp('/.*'), workbox.strategies.networkFirst({}), 'GET')
-
-
-
-
-

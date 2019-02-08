@@ -21,9 +21,9 @@ const host =
 module.exports = {
     env: {
         apolloConfig: {
-            wsUrl: 'ws://localhost:3030/graphql',
+            wsUrl: process.env.production ? 'ws://ciel-chat-api.herokuapp.com/graphql' : 'ws://localhost:3030/graphql',
             optionsLink: {
-                uri: 'http://localhost:3030/graphql',
+                uri: process.env.production ? 'https://ciel-chat-api.herokuapp.com/graphql' : 'http://localhost:3030/graphql',
                 // Additional fetch options like `credentials` or `headers`
                 credentials: 'same-origin',
                 transportBatching: true
