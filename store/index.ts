@@ -1,4 +1,4 @@
-import { actions as actionsChat } from './chat';
+//import { actions as actionsChat } from './chat';
 import { actions as actionsUser } from './user';
 
 export const state = () => ({
