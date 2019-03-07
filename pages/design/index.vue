@@ -17,11 +17,5 @@ export default class extends Vue {
   layout() {
     return 'design';
   }
-
-  fetch ({ store, redirect }) {
-    if (!store.state.user.token) {
-      return redirect('/auth')
-    }
-  }
 }
 </script>
