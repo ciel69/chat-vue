@@ -1,23 +1,24 @@
 @import "variables";
-@import "~vue-material/dist/theme/engine"; // Import the theme engine
+@import "~vue-material/dist/theme/engine";
 
 @include md-register-theme("default", (
-        primary: #2f6bab, // The primary color of your application
-        accent: #ff0000, // The accent or secondary color
-        theme: dark // This can be dark or light
+        primary: $primary,
+        text-primary: $textPrimary,
+        accent: $accent,
+        fieldvariant: $accent,
+        background: $lightBg,
+        theme: dark
 ));
 
 @import "~vue-material/dist/theme/all"; // Apply the theme
 
-.dark-bg {
-  background-color: $darkBg !important;
-  & > * {
-    background-color: $darkBg !important;
-  }
-}
-
 .md-card-actions {
   padding: 16px;
+}
+
+.md-content {
+  display: table;
+  width: 100%;
 }
 
 .md-content.md-theme-default {

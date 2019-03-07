@@ -12,6 +12,7 @@ import {
   Vue
 } from "nuxt-property-decorator"
 import {State, Action, Getter} from 'vuex-class'
+
 import Chat from "~/components/Chat/Chat"
 
 @Component({
