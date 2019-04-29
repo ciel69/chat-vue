@@ -1,24 +1,21 @@
-//import { actions as actionsChat } from './chat';
+import { RootState, Person } from "~/types";
+
+import { MutationTree, ActionTree } from "vuex";
+
 import { actions as actionsUser } from './user';
 
-export const state = () => ({
-  people: [],
-  token: null,
-});
+export const state = (): RootState => ({
+  people: []
+})
 
-export const mutations = {
-  setPeople(state, people) {
-    state.people = people;
-  },
-  setToken(state, people) {
-    state.token = 'ABC123';
-  },
-};
+export const mutations: MutationTree<RootState> = {
+  setPeople(state: RootState, people: Person[]): void {
+    state.people = people
+  }
+}
 
-export const actions = {
-  async nuxtServerInit({ commit }, { app }) {
-    await actionsUser.checkToken(commit, app);
-    // await actionsChat.getMessage(commit, app);
-    // commit('setToken');
-  },
-};
+export const actions: ActionTree<RootState, RootState> = {
+  async nuxtServerInit({ commit }, context) {
+    await actionsUser.checkToken(commit, context.app);
+  }
+}

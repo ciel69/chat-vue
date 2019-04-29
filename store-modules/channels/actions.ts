@@ -1,11 +1,5 @@
 import gql from 'graphql-tag';
 
-interface Process {
-  browser: boolean
-  client: boolean
-}
-declare var process: Process
-
 export default {
   async getChannels(commit, app) {
     const client = app.apolloProvider.defaultClient;
@@ -31,32 +25,42 @@ export default {
   },
   async getChannelsFront(context) {
     const client = this.app.apolloProvider.defaultClient;
+    const { uid } = context.rootState.user;
+
+    if (!uid) return;
 
     let result;
     try {
       result = await client.query({
         fetchPolicy: 'no-cache',
         query: gql`
-          query {
-            getChannels {
+          query user($id: ID!){
+            user(id: $id) {
               id
               name
-              messages {
+              dialogs {
                 id
-                text
-                user {
+                name
+                messages {
                   id
-                  name
+                  text
+                  user {
+                    id
+                    name
+                  }
                 }
               }
             }
           }
         `,
+        variables: {
+          id: uid,
+        },
       });
 
-      context.commit('loadChannels', result.data.getChannels);
+      context.commit('loadChannels', result.data.user.dialogs);
       if (process.browser) {
-        result.data.getChannels.forEach(item => {
+        result.data.user.dialogs.forEach(item => {
           if (!context.state.subscribe.includes(item.id)) {
             context.dispatch('subscribeChannel', item.id);
           }
@@ -103,15 +107,19 @@ export default {
   },
   async getMessageFront({ commit }, id) {
     const client = this.app.apolloProvider.defaultClient;
-
+    console.log('getMessageFront', id);
     let result;
     try {
       result = await client.query({
+        fetchPolicy: 'no-cache',
         query: gql`
           query getChannel($id: ID!) {
             getChannel(id: $id) {
               id
-              name
+              users {
+                id
+                name
+              }
               messages {
                 id
                 text
@@ -128,6 +136,7 @@ export default {
         },
       });
       // commit('loadMessage', result.data.getChannel.messages);
+      console.log('result.data.getChannel', result.data.getChannel);
       commit('loadChannelMessage', result.data.getChannel);
       return result.data.getChannel;
     } catch (e) {
@@ -144,50 +153,52 @@ export default {
 
     context.commit('addSubscribe', cid);
 
-    const observer = client.subscribe({
-      query: gql`
-        subscription messageAdded($channelId: ID!) {
-          messageAdded(channelId: $channelId) {
-            id
-            text
-            channel {
-              id
-              name
-            }
-            user {
-              id
-              name
-            }
-          }
-        }
-      `,
-      variables: {
-        channelId: cid,
-      },
-    });
-
-    observer.subscribe({
-      next(res) {
-        if (res && res.data.messageAdded) {
-          const isChannel = self.state.channels.list.find(
-              item => item.id === res.data.messageAdded.channel.id,
-          );
-          if (!isChannel) {
-            context.commit('channels/newChannel', res.data.messageAdded.channel, {
-              root: true,
-            });
-          }
-          context.commit('sendMessage', {
-            message: res.data.messageAdded,
-            cid: res.data.messageAdded.channel.id,
-          });
-          context.commit('chatChangeInput', '');
-        }
-      },
-      error(error) {
-        console.error('error', error);
-      },
-    });
+    // const observer = client.subscribe({
+    //   query: gql`
+    //     subscription messageAdded($channelId: ID!) {
+    //       messageAdded(channelId: $channelId) {
+    //         id
+    //         text
+    //         channel {
+    //           id
+    //           name
+    //         }
+    //         user {
+    //           id
+    //           name
+    //         }
+    //       }
+    //     }
+    //   `,
+    //   variables: {
+    //     channelId: cid,
+    //   },
+    // });
+    //
+    // observer.subscribe({
+    //   next(res) {
+    //     console.log('messageAdded', res);
+    //     if (res && res.data.messageAdded) {
+    //       const isChannel = self.state.channels.list.find(
+    //           item => item.id === res.data.messageAdded.channel.id,
+    //       );
+    //       if (!isChannel) {
+    //         context.commit('channels/newChannel', res.data.messageAdded.channel, {
+    //           root: true,
+    //         });
+    //       }
+    //       context.commit('sendMessage', {
+    //         message: res.data.messageAdded,
+    //         cid: res.data.messageAdded.channel.id,
+    //       });
+    //       context.commit('chatChangeInput', '');
+    //     }
+    //   },
+    //   error(error) {
+    //     console.log('messageAdded error', error);
+    //     console.error('error', error);
+    //   },
+    // });
   },
   newChannel(context: any, data: object) {
     context.commit('newChannel', data);
@@ -203,10 +214,32 @@ export default {
 
     const observerChannel = client.subscribe({
       query: gql`
-        subscription subscribeChannel($uid: ID!) {
-          subscribeChannel(uid: $uid) {
-            id
-            name
+        subscription subscribeUser($uid: ID!) {
+          subscribeUser(uid: $uid) {
+            message {
+              id
+              text
+              channel {
+                id
+                name
+              }
+              user {
+                id
+                name
+              }
+            }
+            channel {
+              id
+              name
+              messages {
+                id
+                text
+                user {
+                  id
+                }
+              }
+            }
+            type
           }
         }
       `,
@@ -217,15 +250,24 @@ export default {
 
     observerChannel.subscribe({
       next(res) {
+        console.log('subscribe', res);
         if (res) {
-          const channel = res.data.subscribeChannel;
-          if (channel) {
-            context.dispatch('subscribeChannel', channel.id);
+          const data = res.data.subscribeUser;
+
+          if (data.type === 'message') {
+            context.commit('sendMessage', {
+              message: data.message,
+              cid: data.message.channel.id,
+            });
+            context.commit('chatChangeInput', '');
           }
+          // if (channel) {
+          //   context.dispatch('subscribeChannel', channel.id);
+          // }
         }
       },
       error(error) {
-        console.error('error', error);
+        console.error('subscribeChannel error', error);
       },
     });
   },
@@ -261,17 +303,21 @@ export default {
   async createChannel(context: any, uid: number) {
     if (!uid) return;
 
+    const { uid: userId } = context.rootState.user;
+
+    const usersId = [uid, +userId];
+
     const client = this.app.apolloProvider.defaultClient;
     const result = await client.mutate({
       mutation: gql`
-        mutation createChannel($uid: ID!) {
-          createChannel(uid: $uid) {
+        mutation createChannel($usersId: [Int]) {
+          createChannel(usersId: $usersId) {
             id
           }
         }
       `,
       variables: {
-        uid,
+        usersId
       },
     });
 

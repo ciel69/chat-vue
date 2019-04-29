@@ -1,4 +1,4 @@
-# chat-nuxt
+# my-project
 
 > Nuxt.js TypeScript project
 

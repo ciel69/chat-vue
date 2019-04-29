@@ -50,43 +50,43 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from 'nuxt-property-decorator';
-import { Action } from 'vuex-class';
+  import { Component, Vue, Emit } from 'nuxt-property-decorator';
+  import { Action } from 'vuex-class';
 
-@Component
-export default class Layout extends Vue {
-  menuVisible: boolean = false;
-  @Action('channels/chatInitial') chatInitial;
-  @Action('channels/getChannelsFront') actionGetChannelsFront;
-  @Action('user/logout') actionLogout;
+  @Component
+  export default class Layout extends Vue {
+    menuVisible: boolean = false;
+    @Action('channels/chatInitial') chatInitial;
+    @Action('channels/getChannelsFront') actionGetChannelsFront;
+    @Action('user/logout') actionLogout;
 
-  mounted() {
-    console.log('Layout mounted');
-    this.chatInitial();
-    this.actionGetChannelsFront();
-  }
+    mounted() {
+      console.log('Layout mounted');
+      this.chatInitial();
+      this.actionGetChannelsFront();
+    }
 
-  @Emit()
-  toggleMenu() {
-    this.menuVisible = !this.menuVisible;
+    @Emit()
+    toggleMenu() {
+      this.menuVisible = !this.menuVisible;
+    }
+    @Emit()
+    logout() {
+      this.actionLogout();
+    }
   }
-  @Emit()
-  logout() {
-    this.actionLogout();
-  }
-}
 </script>
 
 <style lang="scss">
-@import 'material-design-icons/iconfont/material-icons.css';
-@import '../assets/scss/custom-material';
+  @import 'material-design-icons/iconfont/material-icons.css';
+  @import '../assets/scss/custom-material';
 
-.page-container {
-  height: 100vh;
-  display: flex;
+  .page-container {
+    height: 100vh;
+    display: flex;
 
-  .md-app {
-    width: 100%;
+    .md-app {
+      width: 100%;
+    }
   }
-}
 </style>

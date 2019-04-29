@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="md-layout md-alignment-top-center">
-      <Chat :list-message="listMessage || []"/>
+      <Chat />
     </div>
   </section>
 </template>
@@ -27,19 +27,7 @@ export default class extends Vue {
   @Getter('channels/getChannel') getChannel;
 
   async asyncData(context) {
-    const result = await context.app.store.dispatch('channels/getMessageFront', context.route.params.id);
-    // return { listMessage: result.messages}
-  }
-
-  created() {
-    const id = this.$route.params.id;
-    this.actionsGetMessage(id)
-    // this.listMessage = this.getChannel(id);
-  }
-
-  get listMessage() {
-    const id = this.$route.params.id;
-    return this.getChannel(id);
+    await context.app.store.dispatch('channels/getMessageFront', context.route.params.id);
   }
 
   fetch ({ store, redirect }) {

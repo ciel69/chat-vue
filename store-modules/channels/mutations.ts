@@ -1,12 +1,22 @@
+import _merge from 'lodash/merge';
+
 export default {
   loadChannels(state, data) {
-    state.list = data;
+    if (state.list.length > 0) {
+      state.list = [
+        ...data.filter(item => +item.id !== +state.list[0].id),
+        state.list[0],
+      ]
+    } else {
+      state.list = _merge(state.list, data);
+    }
   },
   loadChannelMessage(state, data) {
-    const channel = state.list.find(item => +item.id === +data.id);
-    if (!channel) {
-      state.list.push(data);
-    }
+    let channel = state.list.find(item => +item.id === +data.id);
+    state.list = [
+      ...state.list.filter(item => +item.id !== +data.id),
+      {...channel, ...data},
+    ]
   },
   newChannel(state, data) {
     state.list.push({ ...data, messages: [] });
@@ -17,9 +27,6 @@ export default {
   },
   addSubscribe(state, data) {
     state.subscribe.push(data);
-  },
-  loadMessage(state, data) {
-    state.list = data;
   },
   chatChangeInput(state, data: string) {
     state.inputText = data;

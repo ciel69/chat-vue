@@ -1,5 +1,6 @@
 export default {
     inputText: '',
     list: [],
-    subscribe: []
+    subscribe: [],
+    current: {}
 }
