@@ -25,7 +25,7 @@ export default {
   },
   async getUsersFront({ commit }) {
     const client = this.app.apolloProvider.defaultClient;
-
+    console.log('getUsersFront');
     let result;
     try {
       result = await client.query({
@@ -38,6 +38,7 @@ export default {
           }
         `,
       });
+      console.log('getUsersFront result', result);
       commit('loadUsers', result.data.allUsers);
     } catch (e) {
       console.error(e);

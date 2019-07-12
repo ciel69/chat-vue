@@ -47,23 +47,34 @@ export default {
   },
   loading: { color: "#3B8070" },
   css: ["~/assets/css/main.css"],
-  build: {},
+  build: {
+    babel: {
+      plugins: [
+        ["@babel/plugin-proposal-decorators", { legacy: true }],
+        ["@babel/plugin-proposal-class-properties", { loose: true }]
+      ]
+    }
+  },
   modules: [
+    ['@nuxtjs/axios', {
+      baseURL: 'http://localhost:8081/'
+    }],
     '@nuxtjs/pwa',
     'cookie-universal-nuxt',
     ['nuxt-validate', {
       lang: 'ru',
       inject: false,
     }],
-    ['nuxt-vue-material', {
-      theme: 'default-dark'
-    }],
     "@nuxtjs/apollo",
+    "nuxt-session",
   ],
   apollo: {
     clientConfigs: {
       default: '~/services/apollo/network-interfaces/'
     }
   },
-  plugins: ['~plugins/vue-router']
+  plugins: ['~plugins/vue-router'],
+  serverMiddleware: [
+    { path: '/api', handler: '~/api/index.js' },
+  ],
 }

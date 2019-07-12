@@ -24,6 +24,7 @@ export default {
     return result;
   },
   async getChannelsFront(context) {
+    console.log('getChannelsFront');
     const client = this.app.apolloProvider.defaultClient;
     const { uid } = context.rootState.user;
 

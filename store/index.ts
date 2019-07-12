@@ -15,7 +15,9 @@ export const mutations: MutationTree<RootState> = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  async nuxtServerInit({ commit }, context) {
+  async nuxtServerInit({ dispatch, commit }, context) {
     await actionsUser.checkToken(commit, context.app);
+    await dispatch('channels/getChannelsFront');
+    await dispatch('session/initSession', context);
   }
 }

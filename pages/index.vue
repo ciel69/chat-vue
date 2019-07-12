@@ -7,22 +7,15 @@
 <script lang="ts">
   import {
     Component,
-    Vue
-  } from "nuxt-property-decorator"
-  import {State, Action} from 'vuex-class'
-  import Chat from "~/components/Chat/Chat"
+    Vue,
+  } from 'nuxt-property-decorator';
 
-  @Component({
-    name: 'Index',
-    components: {
-      Chat
-    }
-  })
-  export default class extends Vue {
+  @Component
+  export default class Index extends Vue {
 
-    fetch ({ store, redirect }) {
+    fetch({ store, redirect }) {
       if (!store.state.user.token) {
-        return redirect('/auth')
+        // return redirect('/auth')
       }
     }
   }

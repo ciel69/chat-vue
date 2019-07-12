@@ -3,9 +3,9 @@ export default {
     if (!id || state.list.length === 0) return [];
     const channel = state.list.find(item => item.id === +id);
     if (channel) {
-      return channel.messages;
+      return channel;
     }
-    return [];
+    return null;
   },
   getNameCurrentUser: state => (channelId, uId) => {
     let user;

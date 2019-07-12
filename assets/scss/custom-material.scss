@@ -1,26 +1,26 @@
 @import "variables";
-@import "~vue-material/dist/theme/engine";
-
-@include md-register-theme("default", (
-        primary: $primary,
-        text-primary: $textPrimary,
-        accent: $accent,
-        fieldvariant: $accent,
-        background: $lightBg,
-        theme: dark
-));
-
-@import "~vue-material/dist/theme/all"; // Apply the theme
-
-.md-card-actions {
-  padding: 16px;
-}
-
-.md-content {
-  display: table;
-  width: 100%;
-}
-
-.md-content.md-theme-default {
-  background-color: $darkBg;
-}
+//@import "~vue-material/dist/theme/engine";
+//
+//@include md-register-theme("default", (
+//        primary: $primary,
+//        text-primary: $textPrimary,
+//        accent: $accent,
+//        fieldvariant: $accent,
+//        background: $lightBg,
+//        theme: dark
+//));
+//
+//@import "~vue-material/dist/theme/all"; // Apply the theme
+//
+//.md-card-actions {
+//  padding: 16px;
+//}
+//
+//.md-content {
+//  display: table;
+//  width: 100%;
+//}
+//
+//.md-content.md-theme-default {
+//  background-color: $darkBg;
+//}

@@ -1,35 +1,46 @@
 <template>
     <section>
         <form novalidate class="md-layout md-alignment-top-center" @submit.prevent="loginUser">
-            <md-card class="md-layout-item md-size-30 md-small-size-100 form-auth">
-                <md-card-header>
+            <div class="md-layout-item md-size-30 md-small-size-100 form-auth">
+                <div>
                     <div class="md-title">Авториация</div>
-                </md-card-header>
-                <md-card-content>
+                </div>
+                <div>
                     <div class="md-layout md-gutter">
                         <div class="md-layout-item md-small-size-100">
-                            <md-field :class="getValidationClass('login')">
-                                <label for="login">Логин</label>
-                                <md-input v-validate="'required|min:3'" name="login" id="login" v-model="login" autocomplete="off" :disabled="sending"/>
+                            <div :class="getValidationClass('login')">
+                                <v-text-field
+                                    v-model="login"
+                                    v-validate="'required|min:3'"
+                                    label="Логин"
+                                    required
+                                    :disabled="sending"
+                                ></v-text-field>
                                 <span class="md-error">{{ errors.first('login') }}</span>
-                            </md-field>
+                            </div>
                         </div>
                         <div class="md-layout-item md-small-size-100">
-                            <md-field :class="getValidationClass('password')">
-                                <label for="password">Пароль</label>
-                                <md-input v-validate="'required|min:5'" type="password" name="password" id="password" v-model="password" :disabled="sending"/>
+                            <div :class="getValidationClass('password')">
+                                <v-text-field
+                                    type="password"
+                                    v-model="password"
+                                    v-validate="'required|min:5'"
+                                    label="Пароль"
+                                    required
+                                    :disabled="sending"
+                                ></v-text-field>
                                 <span class="md-error">{{ errors.first('password') }}</span>
-                            </md-field>
+                            </div>
                         </div>
                     </div>
-                </md-card-content>
+                </div>
 
-                <md-progress-bar md-mode="indeterminate" v-if="sending" />
+<!--                <md-progress-bar md-mode="indeterminate" v-if="sending" />-->
 
-                <md-card-actions md-alignment="space-between">
-                    <md-button type="submit" class="md-dense md-raised md-primary" :disabled="sending">Авторизоваться</md-button>
-                </md-card-actions>
-            </md-card>
+                <div>
+                    <v-btn type="submit" color="primary" small :disabled="sending">Авторизоваться</v-btn>
+                </div>
+            </div>
         </form>
     </section>
 </template>

@@ -1,21 +1,28 @@
 <template>
   <div class="md-layout-item md-size-45">
-    <ListMessage />
+    <ListMessage/>
     <form @submit.prevent="sendForm">
-      <md-field>
-        <label>Initial Value</label>
-        <md-input v-model="textMessage"></md-input>
-        <md-button class="md-raised md-primary" @click="sendForm">
-          <md-icon>send</md-icon>
-        </md-button>
-      </md-field>
+      <v-layout>
+        <v-flex xs12>
+          <v-text-field
+              v-model="textMessage"
+              label="Введите сообщение"
+              required
+          ></v-text-field>
+        </v-flex>
+        <v-flex>
+          <v-btn color="primary" small @click="sendForm">
+            <v-icon>send</v-icon>
+          </v-btn>
+        </v-flex>
+      </v-layout>
     </form>
   </div>
 </template>
 
 <script lang="ts">
-  import {Component, Vue, Emit, Prop} from 'nuxt-property-decorator';
-  import {State, Action} from 'vuex-class';
+  import { Component, Vue, Emit } from 'nuxt-property-decorator';
+  import { State, Action } from 'vuex-class';
 
   import ListMessage from '~/components/Chat/ListMessage';
 
@@ -35,7 +42,6 @@
         title: 'Чат',
 
         meta: [
-          // hid is used as unique identifier. Do not use `vmid` for it as it will not work
           {
             hid: 'description',
             name: 'description',
@@ -57,7 +63,7 @@
     sendForm() {
       if (this.textMessage.trim().length > 0) {
         const cid = this.$route.params.id;
-        this.chatSendMessage({text: this.textMessage, cid});
+        this.chatSendMessage({ text: this.textMessage, cid });
       }
     }
   }
