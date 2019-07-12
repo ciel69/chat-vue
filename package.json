@@ -3,6 +3,9 @@
   "description": "Nuxt.js TypeScript project",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "9.x"
+  },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc4",
     "@nuxtjs/axios": "5.4.1",
