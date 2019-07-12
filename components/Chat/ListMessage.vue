@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Watch } from 'nuxt-property-decorator';
+  import { Component, Vue, Watch } from 'vue-property-decorator';
   import { State, Getter } from 'vuex-class';
 
   import { IDialog } from '~/types';
@@ -60,7 +60,6 @@
 
     @Watch('listMessage')
     listMessageChanged() {
-      console.log('listMessageChanged');
       setTimeout(() => {
         let container = this.$el.querySelector('.list-message .v-card');
         container.scrollTop = container.scrollHeight;

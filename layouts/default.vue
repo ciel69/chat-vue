@@ -14,14 +14,14 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Emit } from 'nuxt-property-decorator';
+  import { Component, Vue, Emit } from 'vue-property-decorator';
   import { Action } from 'vuex-class';
 
-  import DialogList from '~/components/Dialog/DialogList';
+  import DialogList from '~/components/Dialog/DialogList.vue';
 
   @Component({
     components: {
-      DialogList,
+      DialogList
     },
   })
   export default class Layout extends Vue {
@@ -49,7 +49,6 @@
 <style lang="scss">
   @import 'material-design-icons/iconfont/material-icons.css';
   @import 'vuetify/dist/vuetify.min.css';
-  @import '../assets/scss/custom-material';
 
   .page-container {
     height: 100vh;

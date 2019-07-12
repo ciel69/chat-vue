@@ -17,6 +17,6 @@ export default {
     }
     if (!user) return '';
 
-    return user.name
+    return user.name;
   }
 };

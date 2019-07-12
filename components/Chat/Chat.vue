@@ -21,10 +21,10 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Emit } from 'nuxt-property-decorator';
+  import { Component, Vue, Emit } from 'vue-property-decorator';
   import { State, Action } from 'vuex-class';
 
-  import ListMessage from '~/components/Chat/ListMessage';
+  import ListMessage from '~/components/Chat/ListMessage.vue';
 
   @Component({
     components: {

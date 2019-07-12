@@ -1,4 +1,9 @@
+// @ts-ignore
 import gql from 'graphql-tag';
+
+import {Process} from 'types'
+
+declare var process: Process;
 
 export default {
   async getChannels(commit, app) {
@@ -24,7 +29,6 @@ export default {
     return result;
   },
   async getChannelsFront(context) {
-    console.log('getChannelsFront');
     const client = this.app.apolloProvider.defaultClient;
     const { uid } = context.rootState.user;
 
@@ -108,7 +112,6 @@ export default {
   },
   async getMessageFront({ commit }, id) {
     const client = this.app.apolloProvider.defaultClient;
-    console.log('getMessageFront', id);
     let result;
     try {
       result = await client.query({
@@ -136,8 +139,6 @@ export default {
           id,
         },
       });
-      // commit('loadMessage', result.data.getChannel.messages);
-      console.log('result.data.getChannel', result.data.getChannel);
       commit('loadChannelMessage', result.data.getChannel);
       return result.data.getChannel;
     } catch (e) {
@@ -153,53 +154,6 @@ export default {
     if (!process.browser) return;
 
     context.commit('addSubscribe', cid);
-
-    // const observer = client.subscribe({
-    //   query: gql`
-    //     subscription messageAdded($channelId: ID!) {
-    //       messageAdded(channelId: $channelId) {
-    //         id
-    //         text
-    //         channel {
-    //           id
-    //           name
-    //         }
-    //         user {
-    //           id
-    //           name
-    //         }
-    //       }
-    //     }
-    //   `,
-    //   variables: {
-    //     channelId: cid,
-    //   },
-    // });
-    //
-    // observer.subscribe({
-    //   next(res) {
-    //     console.log('messageAdded', res);
-    //     if (res && res.data.messageAdded) {
-    //       const isChannel = self.state.channels.list.find(
-    //           item => item.id === res.data.messageAdded.channel.id,
-    //       );
-    //       if (!isChannel) {
-    //         context.commit('channels/newChannel', res.data.messageAdded.channel, {
-    //           root: true,
-    //         });
-    //       }
-    //       context.commit('sendMessage', {
-    //         message: res.data.messageAdded,
-    //         cid: res.data.messageAdded.channel.id,
-    //       });
-    //       context.commit('chatChangeInput', '');
-    //     }
-    //   },
-    //   error(error) {
-    //     console.log('messageAdded error', error);
-    //     console.error('error', error);
-    //   },
-    // });
   },
   newChannel(context: any, data: object) {
     context.commit('newChannel', data);

@@ -1,4 +1,10 @@
-const parseArgs = require("minimist");
+import NuxtConfiguration from '@nuxt/config'
+
+interface INuxtConfiguration extends NuxtConfiguration {
+  env: any
+}
+
+const parseArgs = require('minimist');
 const argv = parseArgs(process.argv.slice(2), {
   alias: {
     H: "hostname",
@@ -19,7 +25,9 @@ const host =
   process.env.npm_package_config_nuxt_host ||
   "localhost";
 
-export default {
+
+const config: INuxtConfiguration = {
+  mode: 'universal',
   env: {
     apolloConfig: {
       wsUrl: process.env.NODE_ENV === 'production' ? 'wss://ciel-chat-api.herokuapp.com/graphql' : 'ws://localhost:3030/graphql',
@@ -34,47 +42,62 @@ export default {
       process.env.BASE_URL ||
       `http://${host}:${port}`
   },
+  /*
+  ** Headers of the page
+  */
   head: {
-    title: "my-project",
+    title: process.env.npm_package_name || '',
     meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "Nuxt.js TypeScript project" }
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  loading: { color: "#3B8070" },
-  css: ["~/assets/css/main.css"],
-  build: {
-    babel: {
-      plugins: [
-        ["@babel/plugin-proposal-decorators", { legacy: true }],
-        ["@babel/plugin-proposal-class-properties", { loose: true }]
-      ]
-    }
-  },
+  /*
+  ** Customize the progress-bar color
+  */
+  loading: { color: '#fff' },
+  /*
+  ** Global CSS
+  */
+  css: [
+  ],
+  /*
+  ** Plugins to load before mounting the App
+  */
+  plugins: ['~plugins/vuetify'],
+  /*
+  ** Nuxt.js modules
+  */
   modules: [
-    ['@nuxtjs/axios', {
-      baseURL: 'http://localhost:8081/'
-    }],
+    "@nuxtjs/apollo",
     '@nuxtjs/pwa',
-    'cookie-universal-nuxt',
     ['nuxt-validate', {
       lang: 'ru',
       inject: false,
     }],
-    "@nuxtjs/apollo",
-    "nuxt-session",
+    'nuxt-session',
+    'cookie-universal-nuxt',
   ],
   apollo: {
     clientConfigs: {
       default: '~/services/apollo/network-interfaces/'
     }
   },
-  plugins: ['~plugins/vue-router'],
-  serverMiddleware: [
-    { path: '/api', handler: '~/api/index.js' },
-  ],
+  /*
+  ** Build configuration
+  */
+  build: {
+    /*
+    ** You can extend webpack config here
+    */
+    extend(config, ctx) {
+    }
+  }
 }
+
+
+export default config

@@ -12,8 +12,8 @@
 </template>
 
 <script lang="ts">
-  import {Component, Action, Emit, Vue} from 'nuxt-property-decorator';
-  import {State} from 'vuex-class';
+  import {Component, Emit, Vue} from 'vue-property-decorator';
+  import {State, Action} from 'vuex-class';
 
   @Component({})
   export default class Users extends Vue {

@@ -45,9 +45,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from 'nuxt-property-decorator';
+import { Component, Vue, Emit } from 'vue-property-decorator';
 
-@Component
+@Component({
+  asyncData() {
+    console.log('asyncData ');
+
+    return {test: 'test'}
+  }
+})
 export default class Layout extends Vue {
   menuVisible: boolean = false;
 
@@ -59,8 +65,6 @@ export default class Layout extends Vue {
 </script>
 
 <style lang="scss">
-@import 'material-design-icons/iconfont/material-icons.css';
-@import '../assets/scss/custom-material';
 
 .page-container {
   height: 100vh;

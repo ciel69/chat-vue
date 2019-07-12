@@ -10,25 +10,20 @@
 import {
   Component,
   Vue
-} from "nuxt-property-decorator"
-import {Action, Getter} from 'vuex-class';
+} from 'vue-property-decorator'
 
-import Chat from '~/components/Chat/Chat';
+import Chat from '~/components/Chat/Chat.vue';
 
 @Component({
+  name: 'ChannelDetail',
   components: {
     Chat
+  },
+  async asyncData(ctx) {
+    await ctx.app.store.dispatch('channels/getMessageFront', ctx.route.params.id);
   }
 })
-export default class ChannelDetail extends Vue {
-  // @Action('chat/getMessageFront') actionsGetMessage: any;
-  @Action('channels/getMessageFront') actionsGetMessage: any;
-  @Getter('channels/getChannel') getChannel;
-
-  async asyncData(context) {
-    console.log('asyncData', context.route.params.id);
-    await context.app.store.dispatch('channels/getMessageFront', context.route.params.id);
-  }
+export default class extends Vue {
 
   fetch ({ store, redirect }) {
     if (!store.state.user.token) {

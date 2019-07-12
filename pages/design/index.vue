@@ -8,7 +8,7 @@
 import {
   Component,
   Vue
-} from "nuxt-property-decorator"
+} from 'vue-property-decorator'
 
 @Component({
   name: 'Index'

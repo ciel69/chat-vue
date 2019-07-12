@@ -1,6 +1,11 @@
 export * from './state';
 export * from './dialog';
 
+
+export interface Process {
+  browser: boolean
+}
+
 export interface Person {
   id: number;
   first_name: string;
