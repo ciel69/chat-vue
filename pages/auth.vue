@@ -56,8 +56,14 @@
   import russian from 'vee-validate/dist/locale/ru';
 
 
-  @Component
-  export default class Auth extends Vue {
+  @Component({
+    name: 'AuthForm',
+    layout() {
+      return 'auth';
+    }
+  })
+  export default class extends Vue {
+
     @State(state => state.form.auth.error) errorForm!: boolean;
 
     @Inject() $validator!: any;

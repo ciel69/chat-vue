@@ -10,13 +10,14 @@
     Vue,
   } from 'vue-property-decorator';
 
-  @Component
-  export default class Index extends Vue {
-
-    fetch({ store, redirect }) {
-      if (!store.state.user.token) {
-        // return redirect('/auth')
+  @Component({
+    name: 'Index',
+    async asyncData(ctx) {
+      if (!ctx.store.state.user.token) {
+        return ctx.redirect('/auth')
       }
-    }
+    },
+  })
+  export default class Index extends Vue {
   }
 </script>

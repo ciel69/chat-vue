@@ -20,12 +20,15 @@ import Chat from '~/components/Chat/Chat.vue';
     Chat
   },
   async asyncData(ctx) {
+    if (!ctx.store.state.user.token) {
+      return ctx.redirect('/auth')
+    }
     await ctx.app.store.dispatch('channels/getMessageFront', ctx.route.params.id);
-  }
+  },
 })
 export default class extends Vue {
-
-  fetch ({ store, redirect }) {
+  fetch({ store, redirect }) {
+    console.log('fetch');
     if (!store.state.user.token) {
       return redirect('/auth')
     }

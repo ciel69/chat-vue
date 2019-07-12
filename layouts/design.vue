@@ -47,13 +47,7 @@
 <script lang="ts">
 import { Component, Vue, Emit } from 'vue-property-decorator';
 
-@Component({
-  asyncData() {
-    console.log('asyncData ');
-
-    return {test: 'test'}
-  }
-})
+@Component
 export default class Layout extends Vue {
   menuVisible: boolean = false;
 
