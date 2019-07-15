@@ -66,6 +66,7 @@
       if (this.textMessage.trim().length > 0) {
         const cid = this.$route.params.id;
         this.chatSendMessage({text: this.textMessage, cid});
+        this.chatChangeInput('');
       }
     }
   }

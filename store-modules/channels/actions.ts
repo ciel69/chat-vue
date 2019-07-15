@@ -218,7 +218,6 @@ export default {
               message: data.message,
               cid: data.message.channel.id,
             });
-            context.commit('chatChangeInput', '');
           }
           // if (channel) {
           //   context.dispatch('subscribeChannel', channel.id);
