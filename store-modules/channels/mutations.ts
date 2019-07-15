@@ -32,4 +32,7 @@ export default {
   chatChangeInput(state, data: string) {
     state.inputText = data;
   },
+  chatInitialSubscribe(state, data) {
+    state.isSubscribe = data;
+  },
 };

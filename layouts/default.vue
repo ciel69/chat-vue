@@ -35,6 +35,7 @@
 
     beforeMount() {
       console.log('Layout mounted');
+      this.chatInitial();
       OverlayScrollbars(document.querySelectorAll('body'), { });
     }
 

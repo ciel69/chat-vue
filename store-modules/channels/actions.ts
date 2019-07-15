@@ -164,8 +164,9 @@ export default {
   chatInitial(context: any) {
     const token = this.app.$cookies.get('token');
 
-    if (!token) return;
-    console.log('chatInitial');
+
+    if (!token || this.state.channels.isSubscribe) return;
+    context.commit('chatInitialSubscribe', true);
 
     const client = this.app.apolloProvider.defaultClient;
     const uid = this.state.user.uid;
