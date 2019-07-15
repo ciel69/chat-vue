@@ -1,5 +1,6 @@
 export * from './state';
 export * from './dialog';
+export * from './vue';
 
 
 export interface Process {

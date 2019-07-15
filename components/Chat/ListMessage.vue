@@ -41,15 +41,16 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Watch } from 'vue-property-decorator';
+  import { Component, Watch } from 'nuxt-property-decorator';
   import { State, Getter } from 'vuex-class';
 
-  import { IDialog } from '~/types';
+  import OverlayScrollbars from 'overlayscrollbars';
+
+  import { IDialog, VueNuxt } from '~/types';
 
   @Component
-  export default class ListMessage extends Vue {
+  export default class ListMessage extends VueNuxt {
     @State(state => state.user.uid) userId!: number;
-    // @State(state => state.channels.current) currentDialog!: IDialog;
 
     @Getter('channels/getChannel') currentDialog!: Function;
     @Getter('channels/getNameCurrentUser') getNameCurrentUser;
@@ -61,8 +62,7 @@
     @Watch('listMessage')
     listMessageChanged() {
       setTimeout(() => {
-        let container = this.$el.querySelector('.list-message .v-card');
-        container.scrollTop = container.scrollHeight;
+        OverlayScrollbars(this.$el.querySelector('.list-message .v-card'), {}).scrollStop().scroll({ y : '100%' }, 100);
       }, 50)
     }
 

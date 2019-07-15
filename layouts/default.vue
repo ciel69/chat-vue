@@ -14,8 +14,12 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Emit } from 'vue-property-decorator';
+  import { Component, Emit } from 'nuxt-property-decorator';
   import { Action } from 'vuex-class';
+
+  import {VueNuxt} from '~/types'
+
+  import OverlayScrollbars from 'overlayscrollbars';
 
   import DialogList from '~/components/Dialog/DialogList.vue';
 
@@ -24,14 +28,14 @@
       DialogList
     },
   })
-  export default class Layout extends Vue {
+  export default class Layout extends VueNuxt {
     menuVisible: boolean = false;
     @Action('channels/chatInitial') chatInitial;
     @Action('user/logout') actionLogout;
 
     beforeMount() {
       console.log('Layout mounted');
-      this.chatInitial();
+      OverlayScrollbars(document.querySelectorAll('body'), { });
     }
 
     @Emit()
@@ -48,7 +52,17 @@
 
 <style lang="scss">
   @import 'material-design-icons/iconfont/material-icons.css';
+  @import 'overlayscrollbars/css/OverlayScrollbars.css';
   @import 'vuetify/dist/vuetify.min.css';
+
+  ::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+  }
+  /* Optional: show position indicator in red */
+  ::-webkit-scrollbar-thumb {
+    background: #FF0000;
+  }
 
   .page-container {
     height: 100vh;

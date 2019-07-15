@@ -34,6 +34,8 @@ export default {
 
     if (!uid) return;
 
+    console.log('getChannelsFront');
+
     let result;
     try {
       result = await client.query({
@@ -163,6 +165,7 @@ export default {
     const token = this.app.$cookies.get('token');
 
     if (!token) return;
+    console.log('chatInitial');
 
     const client = this.app.apolloProvider.defaultClient;
     const uid = this.state.user.uid;

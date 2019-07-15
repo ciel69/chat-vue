@@ -5,11 +5,11 @@
         <v-list subheader>
           <v-subheader>Список диалогов</v-subheader>
           <v-list-tile
-              v-for="(channel, key) in listChannels"
-              :key="key"
-              avatar
-              ripple
-              :to="`/channel/${channel.id}`"
+            v-for="(channel, key) in listChannels"
+            :key="key"
+            avatar
+            ripple
+            :to="`/channel/${channel.id}`"
           >
             <v-list-tile-avatar>
               <img src="https://placeimg.com/40/40/people/1"/>
@@ -17,7 +17,8 @@
 
             <v-list-tile-content>
               <v-list-tile-title v-html="channel.name"></v-list-tile-title>
-              <v-list-tile-sub-title v-html="channel.messages[channel.messages.length - 1].text"></v-list-tile-sub-title>
+              <v-list-tile-sub-title
+                v-html="channel.messages[channel.messages.length - 1].text"></v-list-tile-sub-title>
             </v-list-tile-content>
 
             <v-list-tile-action>
@@ -31,11 +32,13 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  import { State } from 'vuex-class';
+  import {Component} from 'nuxt-property-decorator';
+  import {State} from 'vuex-class';
+
+  import {VueNuxt} from '~/types'
 
   @Component
-  export default class DialogList extends Vue {
+  export default class DialogList extends VueNuxt {
 
     @State(state => state.channels.list)
     listChannels!: any[];

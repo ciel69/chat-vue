@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-  import {Component, Emit, Vue} from 'vue-property-decorator';
+  import {Component, Emit, Vue} from 'nuxt-property-decorator';
   import {State, Action} from 'vuex-class';
 
   @Component({})

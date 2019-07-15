@@ -10,7 +10,7 @@ import {
   Component,
   Prop,
   Vue
-} from 'vue-property-decorator'
+} from 'nuxt-property-decorator'
 import { Person } from "~/types";
 
 @Component({})

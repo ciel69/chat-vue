@@ -5,9 +5,9 @@
       <v-layout>
         <v-flex xs12>
           <v-text-field
-              v-model="textMessage"
-              label="Введите сообщение"
-              required
+            v-model="textMessage"
+            label="Введите сообщение"
+            required
           ></v-text-field>
         </v-flex>
         <v-flex>
@@ -21,8 +21,10 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Emit } from 'vue-property-decorator';
-  import { State, Action } from 'vuex-class';
+  import {Component, Emit} from 'nuxt-property-decorator';
+  import {State, Action} from 'vuex-class';
+
+  import {VueNuxt} from '~/types'
 
   import ListMessage from '~/components/Chat/ListMessage.vue';
 
@@ -31,7 +33,7 @@
       ListMessage,
     },
   })
-  export default class Chat extends Vue {
+  export default class Chat extends VueNuxt {
     @State(state => state.channels.inputText) inputText!: string;
 
     @Action('channels/chatSendMessage') chatSendMessage: any;
@@ -63,7 +65,7 @@
     sendForm() {
       if (this.textMessage.trim().length > 0) {
         const cid = this.$route.params.id;
-        this.chatSendMessage({ text: this.textMessage, cid });
+        this.chatSendMessage({text: this.textMessage, cid});
       }
     }
   }

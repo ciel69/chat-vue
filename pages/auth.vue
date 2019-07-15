@@ -50,19 +50,20 @@
     Component,
     Emit,
     Inject,
-    Vue
-  } from 'vue-property-decorator'
-  import {State, Action} from "vuex-class"
+  } from 'nuxt-property-decorator'
+  import {State, Action} from 'vuex-class'
+
+  import {VueNuxt} from '~/types';
+
   import russian from 'vee-validate/dist/locale/ru';
 
 
   @Component({
-    name: 'AuthForm',
     layout() {
       return 'auth';
     }
   })
-  export default class extends Vue {
+  export default class AuthForm extends VueNuxt {
 
     @State(state => state.form.auth.error) errorForm!: boolean;
 

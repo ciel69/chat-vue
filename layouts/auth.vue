@@ -11,10 +11,12 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+  import {Component} from 'nuxt-property-decorator';
+
+  import {VueNuxt} from '~/types'
 
   @Component
-  export default class extends Vue {
+  export default class extends VueNuxt {
   }
 </script>
 
