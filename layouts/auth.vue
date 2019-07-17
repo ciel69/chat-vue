@@ -16,7 +16,8 @@
   import {VueNuxt} from '~/types'
 
   @Component
-  export default class extends VueNuxt {
+  export default class Auth extends VueNuxt {
+
   }
 </script>
 
