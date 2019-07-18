@@ -41,8 +41,8 @@
 
   import {VueNuxt} from '~/types';
 
-  import Login from '~/components/Auth/Login';
-  import Registration from '~/components/Auth/Registration';
+  import Login from '~/components/Auth/Login.vue';
+  import Registration from '~/components/Auth/Registration.vue';
 
 
   @Component({
