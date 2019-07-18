@@ -1,58 +1,80 @@
 <template>
-  <form novalidate class="md-layout md-alignment-top-center" @submit.prevent="loginUser">
-    <div class="md-layout-item md-size-30 md-small-size-100 form-auth">
-      <div>
-        <div class="md-layout md-gutter">
-          <div class="md-layout-item md-small-size-100">
-            <div :class="getValidationClass('login')">
-              <v-text-field
-                v-model="login"
-                v-validate="'email'"
-                data-vv-as="email"
-                name="email"
-                label="Email"
-                required
-                :disabled="sending"
-              ></v-text-field>
-              <span class="md-error">{{ errors.first('email') }}</span>
-            </div>
+  <v-form novalidate class="form-reg" @submit.prevent="regUser" data-vv-scope="form-reg">
+    <v-container>
+      <v-layout row wrap>
+        <v-flex xs12>
+          <div :class="getValidationClass('name')">
+            <v-text-field
+              v-model="firstName"
+              v-validate="'required'"
+              name="firstName"
+              label="Имя"
+              required
+              :disabled="sending"
+            ></v-text-field>
+            <span class="md-error">{{ errors.first('firstName') }}</span>
           </div>
-          <div class="md-layout-item md-small-size-100">
-            <div :class="getValidationClass('password')">
-              <v-text-field
-                ref="password"
-                type="password"
-                v-model="password"
-                v-validate="'required|min:5'"
-                label="Пароль"
-                required
-                :disabled="sending"
-              ></v-text-field>
-              <span class="md-error">{{ errors.first('password') }}</span>
-            </div>
+        </v-flex>
+        <v-flex xs12>
+          <div :class="getValidationClass('lastName')">
+            <v-text-field
+              v-model="lastName"
+              name="lastName"
+              label="Фамилия"
+              :disabled="sending"
+            ></v-text-field>
+            <span class="md-error">{{ errors.first('lastName') }}</span>
           </div>
-          <div class="md-layout-item md-small-size-100">
-            <div :class="getValidationClass('password')">
-              <v-text-field
-                type="password"
-                v-model="passwordConfirmation"
-                v-validate="'required|confirmed:password'"
-                name="password_confirmation"
-                label="Подтвердите пароль"
-                required
-                :disabled="sending"
-              ></v-text-field>
-              <span class="md-error">{{ errors.first('password_confirmation') }}</span>
-            </div>
+        </v-flex>
+        <v-flex xs12>
+          <div :class="getValidationClass('login')">
+            <v-text-field
+              v-model="email"
+              v-validate="'required|email'"
+              data-vv-as="email"
+              name="email"
+              label="Email"
+              required
+              :disabled="sending"
+            ></v-text-field>
+            <span class="md-error">{{ errors.first('email') }}</span>
           </div>
-        </div>
-      </div>
-
-      <div>
-        <v-btn type="submit" color="primary" small :disabled="sending">Авторизоваться</v-btn>
-      </div>
-    </div>
-  </form>
+        </v-flex>
+        <v-flex xs12>
+          <div :class="getValidationClass('regPassword')">
+            <v-text-field
+              ref="regPassword"
+              type="password"
+              v-model="regPassword"
+              v-validate="'required|min:5'"
+              name="regPassword"
+              label="Пароль"
+              required
+              :disabled="sending"
+            ></v-text-field>
+            <span class="md-error">{{ errors.first('regPassword') }}</span>
+          </div>
+        </v-flex>
+        <v-flex xs12 class="md-layout-item md-small-size-100">
+          <div :class="getValidationClass('passwordConfirmation')">
+            <v-text-field
+              type="password"
+              v-model="passwordConfirmation"
+              v-validate="'required|confirmed:regPassword'"
+              name="passwordConfirmation"
+              label="Подтвердите пароль"
+              required
+              :disabled="sending"
+            ></v-text-field>
+            <span class="md-error">{{ errors.first('passwordConfirmation') }}</span>
+          </div>
+        </v-flex>
+        <v-flex xs12>
+          <v-btn type="submit" color="primary" small :disabled="sending">Регистрация</v-btn>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-form>
 </template>
 
 <script lang="ts">
@@ -76,46 +98,77 @@
     @Inject() $validator!: any;
 
     @Action('form/registration/changeField') changeField: any;
-    @Action('form/registration/send') actionRegSend: any;
+    @Action('form/registration/sendReg') actionRegSend: any;
 
     sending: boolean = false;
     errors: any;
-    passwordConfirmation: string = '';
 
     created() {
       this.$validator.localize('ru', {
         messages: russian.messages,
         attributes: {
+          firstName: 'имя',
+          lastName: 'фамилия',
           login: 'логин',
-          password: 'пароль',
+          regPassword: 'пароль',
           password_confirmation: 'подтвердите пароль'
         }
       });
     }
 
+    get firstName() {
+      return this.$store.state.form.registration.firstName
+    }
+    set firstName(value) {
+      this.changeField({name: 'firstName', value})
+    }
+
+    get lastName() {
+      return this.$store.state.form.registration.lastName
+    }
+    set lastName(value) {
+      this.changeField({name: 'lastName', value})
+    }
+
     get login() {
       return this.$store.state.form.registration.login
     }
-
     set login(value) {
       this.changeField({name: 'login', value})
     }
 
-    get password() {
-      return this.$store.state.form.registration.password
+    get email() {
+      return this.$store.state.form.registration.email
+    }
+    set email(value) {
+      this.changeField({name: 'email', value})
     }
 
-    set password(value) {
+    get regPassword() {
+      return this.$store.state.form.registration.password
+    }
+    set regPassword(value) {
       this.changeField({name: 'password', value})
     }
 
+    get passwordConfirmation() {
+      return this.$store.state.form.registration.passwordConfirmation
+    }
+    set passwordConfirmation(value) {
+      this.changeField({name: 'passwordConfirmation', value})
+    }
+
     @Emit()
-    loginUser() {
-      this.$validator.validateAll().then((result) => {
+    regUser() {
+      console.log('regUser');
+      this.$validator.validateAll('form-reg').then((result) => {
         if (result) {
           this.actionRegSend({
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
             login: this.login,
-            password: this.password
+            password: this.regPassword
           });
 
           return;
@@ -129,6 +182,10 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.form-reg {
+  .v-btn {
+    margin: 0;
+  }
+}
 </style>

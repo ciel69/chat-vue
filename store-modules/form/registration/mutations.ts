@@ -3,6 +3,8 @@ export default {
         state = data;
     },
     changeField(state, {name , value}) {
-        state[name] = value;
+      console.log('changeField', name);
+      console.log('changeField', value);
+      state[name] = value;
     },
 };

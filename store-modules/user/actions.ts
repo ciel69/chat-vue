@@ -5,39 +5,16 @@ export default {
     async checkToken(commit, app) {
         try {
             const token = app.$cookies.get('token');
-            const uid = app.$cookies.get('uid');
+            const id = app.$cookies.get('id');
 
-            if (token && uid) {
-                commit('user/login', {token, uid});
+            if (token && id) {
+                commit('user/login', {token, id});
             } else {
-                commit('user/login', {token: null, uid: null});
+                commit('user/login', {token: null, id: null});
             }
         } catch (e) {
             console.error(e)
         }
-    },
-    async getToken({ commit }) {
-        let client = this.app.apolloProvider.defaultClient;
-
-        let result;
-        try {
-            result = await client.query({
-                query: gql`
-                query {
-                  login(login: "test") {
-                    token
-                  }
-                }
-            `
-            });
-            // localStorage.setItem('token', result.data.login.token);
-            commit('loadToken', result.data.login.token);
-            this.app.$cookies.set('token', result.data.login.token);
-            // this.app.$apolloHelpers.onLogin(result.data.login.token);
-        } catch (e) {
-            console.error(e)
-        }
-        return result;
     },
     loginUser({ commit }, data){
         commit('login', data);
@@ -45,7 +22,7 @@ export default {
     logout({ commit }){
         commit('loadToken', null);
         this.app.$cookies.remove('token');
-        this.app.$cookies.remove('uid');
+        this.app.$cookies.remove('id');
         this.app.router.push('/auth');
     },
     chatChangeInput(context: any, data: object) {

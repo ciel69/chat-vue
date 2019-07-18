@@ -11,7 +11,7 @@ export default {
                 query: gql`
                 query login($login: String!, $password: String!) {
                   login(login: $login, password: $password) {
-                    uid
+                    id
                     login
                     token
                   }
@@ -23,7 +23,7 @@ export default {
             context.commit('user/login', result.data.login, { root: true });
             context.commit('login', result.data.login.token);
             this.app.$cookies.set('token', result.data.login.token);
-            this.app.$cookies.set('uid', result.data.login.uid);
+            this.app.$cookies.set('id', result.data.login.id);
             context.dispatch('channels/getChannelsFront', {}, { root: true });
             context.dispatch('channels/chatInitial', {}, { root: true });
             this.app.router.push('/');

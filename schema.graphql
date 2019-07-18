@@ -14,9 +14,12 @@ type Channel {
 }
 
 type JwtToken {
+  email: String
+  firstName: String
+  id: ID!
+  lastName: String
   login: String
   token: String
-  uid: ID!
 }
 
 type Message {
@@ -54,8 +57,8 @@ type SubUser {
 
 type Subscription {
   messageAdded(channelId: ID!): Message
-  subscribeChannel(uid: ID!): Channel
-  subscribeUser(uid: ID!): SubUser
+  subscribeChannel(id: ID!): Channel
+  subscribeUser(id: ID!): SubUser
   userCreated: User
 }
 
@@ -72,13 +75,14 @@ type User {
 input CreateChatInput {
   channelId: ID
   creationDate: String
+  id: ID
   text: String
-  uid: ID
 }
 
 input CreateUserInput {
   email: String
   firstName: String
+  lastName: String
   login: String
   password: String
 }

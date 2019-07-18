@@ -30,9 +30,9 @@ export default {
   },
   async getChannelsFront(context) {
     const client = this.app.apolloProvider.defaultClient;
-    const { uid } = context.rootState.user;
+    const { id } = context.rootState.user;
 
-    if (!uid) return;
+    if (!id) return;
 
     console.log('getChannelsFront');
 
@@ -44,7 +44,7 @@ export default {
           query user($id: ID!){
             user(id: $id) {
               id
-              name
+              firstName
               dialogs {
                 id
                 name
@@ -53,7 +53,7 @@ export default {
                   text
                   user {
                     id
-                    name
+                    firstName
                   }
                 }
               }
@@ -61,7 +61,7 @@ export default {
           }
         `,
         variables: {
-          id: uid,
+          id: id,
         },
       });
 
@@ -94,7 +94,7 @@ export default {
                 text
                 user {
                   id
-                  name
+                  firstName
                 }
               }
             }
@@ -124,14 +124,14 @@ export default {
               id
               users {
                 id
-                name
+                firstName
               }
               messages {
                 id
                 text
                 user {
                   id
-                  name
+                  firstName
                 }
               }
             }
@@ -169,12 +169,14 @@ export default {
     context.commit('chatInitialSubscribe', true);
 
     const client = this.app.apolloProvider.defaultClient;
-    const uid = this.state.user.uid;
+    const id = this.state.user.id;
+
+    console.log('chatInitial', id);
 
     const observerChannel = client.subscribe({
       query: gql`
-        subscription subscribeUser($uid: ID!) {
-          subscribeUser(uid: $uid) {
+        subscription subscribeUser($id: ID!) {
+          subscribeUser(id: $id) {
             message {
               id
               text
@@ -184,7 +186,7 @@ export default {
               }
               user {
                 id
-                name
+                firstName
               }
             }
             channel {
@@ -203,7 +205,7 @@ export default {
         }
       `,
       variables: {
-        uid,
+        id,
       },
     });
 
@@ -238,15 +240,15 @@ export default {
     const client = this.app.apolloProvider.defaultClient;
     client.mutate({
       mutation: gql`
-        mutation createMessage($text: String, $uid: ID, $channelId: ID) {
+        mutation createMessage($text: String, $id: ID, $channelId: ID) {
           createMessage(
-            createChatInput: { text: $text, uid: $uid, channelId: $channelId }
+            createChatInput: { text: $text, id: $id, channelId: $channelId }
           ) {
             id
             text
             user {
               id
-              name
+              firstName
             }
           }
         }
@@ -254,7 +256,7 @@ export default {
       variables: {
         text: data.text,
         channelId: data.cid,
-        uid: user.uid,
+        id: user.id,
       },
     });
   },

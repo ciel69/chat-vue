@@ -28,8 +28,8 @@
     listUsers!: any[];
 
     @Emit()
-    newChannel(uid) {
-      this.$router.push(`/channel/${uid}`);
+    newChannel(id) {
+      this.$router.push(`/channel/${id}`);
     }
   }
 </script>

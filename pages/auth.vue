@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="auth-page">
     <v-tabs
       v-model="active"
       color="cyan"
@@ -58,3 +58,11 @@
     active: number = null;
   }
 </script>
+
+<style lang="scss" scoped>
+  .auth-page {
+    .v-tabs {
+      overflow: hidden;
+    }
+  }
+</style>

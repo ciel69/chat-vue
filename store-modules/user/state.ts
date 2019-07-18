@@ -1,6 +1,6 @@
 export default {
     token: null,
     login: null,
-    uid: null,
+    id: null,
     list: [],
 }

@@ -50,7 +50,7 @@
 
   @Component
   export default class ListMessage extends VueNuxt {
-    @State(state => state.user.uid) userId!: number;
+    @State(state => state.user.id) userId!: number;
 
     @Getter('channels/getChannel') currentDialog!: Function;
     @Getter('channels/getNameCurrentUser') getNameCurrentUser;

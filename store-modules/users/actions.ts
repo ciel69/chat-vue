@@ -11,7 +11,7 @@ export default {
           query {
             allUsers {
               id
-              name
+              firstName
             }
           }
         `,
@@ -33,7 +33,7 @@ export default {
           query {
             allUsers {
               id
-              name
+              firstName
             }
           }
         `,
