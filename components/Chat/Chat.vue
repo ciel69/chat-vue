@@ -22,9 +22,9 @@
 
 <script lang="ts">
   import {Component, Emit} from 'nuxt-property-decorator';
-  import {State, Action} from 'vuex-class';
+  import {State, Action, Getter} from 'vuex-class';
 
-  import {VueNuxt} from '~/types'
+  import {VueNuxt, IDialog} from '~/types'
 
   import ListMessage from '~/components/Chat/ListMessage.vue';
 
@@ -39,9 +39,15 @@
     @Action('channels/chatSendMessage') chatSendMessage: any;
     @Action('channels/chatChangeInput') chatChangeInput: any;
 
+    @Getter('channels/getChannel') currentDialog!: Function;
+
+    get dialog(): IDialog {
+      return this.currentDialog(this.$route.params.id);
+    }
+
     head() {
       return {
-        title: 'Чат',
+        title: `VChate | ${this.dialog.name}`,
 
         meta: [
           {
