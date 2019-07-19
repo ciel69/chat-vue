@@ -84,6 +84,7 @@
 
   .vchat {
     &__top-panel {
+      background-color: #424242 !important;
       .container {
         padding: 0;
       }
