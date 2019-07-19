@@ -1,7 +1,7 @@
 <template>
   <v-app dark class="vchat__app">
-    <v-toolbar dark fixed app class="vchat__top-panel">
-      <v-container>
+    <v-toolbar fixed app class="vchat__top-panel">
+      <v-container grid-list-md fluid fill-height>
         <v-layout row wrap>
           <v-flex xs2>
             <current-user-info/>
@@ -85,8 +85,7 @@
   .vchat {
     &__top-panel {
       .container {
-        padding-top: 0;
-        padding-bottom: 0;
+        padding: 0;
       }
     }
   }

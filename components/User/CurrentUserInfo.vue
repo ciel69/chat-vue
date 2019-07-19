@@ -81,12 +81,12 @@
     }
 
     @Emit()
-    handleEdit () {
+    handleEdit() {
       console.log('handleEdit');
     }
 
     @Emit()
-    handleExit () {
+    handleExit() {
       this.userLogout();
     }
 
@@ -95,6 +95,8 @@
 
 <style lang="scss">
   .current-user-info {
+    padding: 0 16px;
+
     .v-speed-dial {
       float: right;
       bottom: 0 !important;
