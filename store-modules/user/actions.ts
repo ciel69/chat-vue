@@ -20,11 +20,13 @@ export default {
       console.error(e)
     }
   },
-  loginUser({commit}, data) {
+  loginUser({commit, dispatch}, data) {
     commit('login', data);
+    dispatch('channels/clearDialogs', null, {root: true});
   },
-  logout({commit}) {
+  logout({commit, dispatch}) {
     commit('loadToken', null);
+    dispatch('channels/clearDialogs', null, {root: true});
     this.app.$cookies.remove('currentUser');
     this.app.$cookies.remove('token');
     this.app.$cookies.remove('id');

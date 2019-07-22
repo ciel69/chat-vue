@@ -295,4 +295,7 @@ export default {
   chatChangeInput(context: any, data: object) {
     context.commit('chatChangeInput', data);
   },
+  clearDialogs(context) {
+    context.commit('clearListDialog');
+  }
 };
