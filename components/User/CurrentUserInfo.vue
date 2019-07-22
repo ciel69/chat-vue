@@ -16,7 +16,7 @@
       </v-avatar>
     </v-flex>
 
-    <v-flex hidden-xs-only>
+    <v-flex>
       <strong>{{userName}}</strong>
     </v-flex>
     <v-flex xs2>

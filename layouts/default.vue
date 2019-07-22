@@ -3,11 +3,8 @@
     <v-toolbar color="orange" fixed app class="vchat__top-panel">
       <v-container grid-list-md fluid fill-height>
         <v-layout row wrap>
-          <v-flex xl2 lg3>
+          <v-flex xs12 md4 lg3 xl2>
             <current-user-info/>
-          </v-flex>
-          <v-flex xl10 lg9>
-            info chat
           </v-flex>
         </v-layout>
       </v-container>
@@ -15,7 +12,7 @@
     <v-content>
       <v-container grid-list-md fluid fill-height>
         <v-layout row wrap>
-          <v-flex xl2 lg3>
+          <v-flex xs12 md6 lg3 xl2>
             <v-tabs
               v-model="activeTab"
               color="orange"
@@ -49,7 +46,7 @@
               </v-tab-item>
             </v-tabs>
           </v-flex>
-          <v-flex xl10 lg9>
+          <v-flex xs12 md6 lg6 xl8>
             <nuxt/>
           </v-flex>
         </v-layout>
