@@ -2,7 +2,7 @@
   <v-app dark>
     <v-container grid-list-md>
       <v-layout row justify-center>
-        <v-flex xs4>
+        <v-flex xs12 sm8 md6 lg4>
           <nuxt/>
         </v-flex>
       </v-layout>
