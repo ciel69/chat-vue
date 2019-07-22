@@ -1,9 +1,7 @@
 <template>
   <v-layout row>
     <v-flex xs12>
-      <v-card>
         <v-list subheader>
-          <v-subheader>Список диалогов</v-subheader>
           <v-list-tile
             v-for="(channel, key) in listChannels"
             :key="key"
@@ -16,9 +14,9 @@
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title v-html="channel.name"></v-list-tile-title>
+              <v-list-tile-title v-html="nameDialog(channel.name)"></v-list-tile-title>
               <v-list-tile-sub-title
-                v-html="channel.messages[channel.messages.length - 1].text"></v-list-tile-sub-title>
+                v-html="channel.messages.length ? channel.messages[channel.messages.length - 1].text : ''"></v-list-tile-sub-title>
             </v-list-tile-content>
 
             <v-list-tile-action>
@@ -26,21 +24,35 @@
             </v-list-tile-action>
           </v-list-tile>
         </v-list>
-      </v-card>
     </v-flex>
   </v-layout>
 </template>
 
 <script lang="ts">
-  import {Component} from 'nuxt-property-decorator';
-  import {State} from 'vuex-class';
+  import {Component, Emit} from 'nuxt-property-decorator';
+  import {Getter, State} from 'vuex-class';
 
-  import {VueNuxt} from '~/types'
+  import {VueNuxt, IDialog, IUser} from '~/types'
 
   @Component
   export default class DialogList extends VueNuxt {
 
-    @State(state => state.channels.list)
-    listChannels!: any[];
+    @State(state => state.user) currentUser: IUser;
+    @Getter('channels/getChannelList') getChannelList!: Function;
+
+    get listChannels(): IDialog {
+      return this.getChannelList();
+    }
+
+    @Emit()
+    nameDialog(name) {
+      if (!name) return 'Без названия';
+      name = name.split('‡');
+      if (name.length === 0) {
+        return name[0]
+      }
+      name = name.filter(item => item !== this.currentUser.firstName);
+      return name[0]
+    }
   }
 </script>

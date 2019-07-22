@@ -7,6 +7,9 @@ export default {
     }
     return null;
   },
+  getChannelList: state => () => {
+    return state.list.filter(item => item.messages.length);
+  },
   getNameCurrentUser: state => (channelId, uId) => {
     let user;
     if (!state.current) return '';

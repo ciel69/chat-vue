@@ -6,28 +6,6 @@ import {Process} from 'types'
 declare var process: Process;
 
 export default {
-  async getChannels(commit, app) {
-    const client = app.apolloProvider.defaultClient;
-
-    let result;
-    try {
-      result = await client.query({
-        query: gql`
-          query {
-            getChannels {
-              id
-              name
-            }
-          }
-        `,
-      });
-      commit('loadChannels', result.data.getChannels);
-      // commit('chat/loadMessage', result.data.getMessage);
-    } catch (e) {
-      console.error(e);
-    }
-    return result;
-  },
   async getChannelsFront(context) {
     const client = this.app.apolloProvider.defaultClient;
     const { id } = context.rootState.user;
@@ -79,39 +57,6 @@ export default {
     }
     return result;
   },
-  async getMessage(commit, app) {
-    const client = app.apolloProvider.defaultClient;
-
-    let result;
-    try {
-      result = await client.query({
-        query: gql`
-          query getChannel($id: ID!) {
-            getChannel(id: $id) {
-              id
-              messages {
-                id
-                text
-                user {
-                  id
-                  firstName
-                }
-              }
-            }
-          }
-        `,
-        variables: {
-          id: 0,
-        },
-      });
-      // commit('loadMessage', result.data.getChannel.messages);
-      // commit('chat/loadMessage', result.data.getMessage);
-      commit('channels/loadChannelMessage', {cid: 0, messages: result.data.getChannel.messages});
-    } catch (e) {
-      console.error(e);
-    }
-    return result;
-  },
   async getMessageFront({ commit }, id) {
     const client = this.app.apolloProvider.defaultClient;
     let result;
@@ -122,6 +67,7 @@ export default {
           query getChannel($id: ID!) {
             getChannel(id: $id) {
               id
+              name
               users {
                 id
                 firstName
@@ -171,8 +117,6 @@ export default {
     const client = this.app.apolloProvider.defaultClient;
     const id = this.state.user.id;
 
-    console.log('chatInitial', id);
-
     const observerChannel = client.subscribe({
       query: gql`
         subscription subscribeUser($id: ID!) {
@@ -220,6 +164,9 @@ export default {
               message: data.message,
               cid: data.message.channel.id,
             });
+          } else {
+            //newChannel
+            context.commit('newChannel', data.channel);
           }
           // if (channel) {
           //   context.dispatch('subscribeChannel', channel.id);
@@ -263,7 +210,7 @@ export default {
   async createChannel(context: any, uid: number) {
     if (!uid) return;
 
-    const { uid: userId } = context.rootState.user;
+    const { id: userId } = context.rootState.user;
 
     const usersId = [uid, +userId];
 
@@ -273,6 +220,18 @@ export default {
         mutation createChannel($usersId: [Int]) {
           createChannel(usersId: $usersId) {
             id
+            name
+            messages {
+              id
+              text
+              user {
+                id
+              }
+            }
+            users {
+              firstName
+              id
+            }
           }
         }
       `,

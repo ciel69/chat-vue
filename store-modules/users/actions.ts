@@ -34,6 +34,9 @@ export default {
             allUsers {
               id
               firstName
+              lastName
+              email
+              login
             }
           }
         `,

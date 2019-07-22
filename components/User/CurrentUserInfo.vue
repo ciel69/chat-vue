@@ -64,7 +64,7 @@
   import {Component, Emit} from 'nuxt-property-decorator';
   import {State, Action} from 'vuex-class';
 
-  import {VueNuxt} from '~/types'
+  import {VueNuxt, IUser} from '~/types'
 
   @Component
   export default class CurrentUserInfo extends VueNuxt {
@@ -72,7 +72,7 @@
     fab: boolean = false;
     transition: string = 'slide-y-reverse-transition';
 
-    @State(state => state.user) currentUser: any;
+    @State(state => state.user) currentUser: IUser;
 
     @Action('user/logout') userLogout: any;
 
