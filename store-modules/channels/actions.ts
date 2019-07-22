@@ -54,6 +54,8 @@ export default {
       }
     } catch (e) {
       console.error(e);
+      context.commit('setListDialog', []);
+      result = [];
     }
     return result;
   },

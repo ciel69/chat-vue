@@ -35,6 +35,9 @@ export default {
   chatInitialSubscribe(state, data) {
     state.isSubscribe = data;
   },
+  setListDialog(state, data) {
+    state.list = data;
+  },
   clearListDialog(state) {
     state.list = [];
   },

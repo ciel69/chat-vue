@@ -1,7 +1,6 @@
 import {ApolloClient} from 'apollo-client';
 import {WebSocketLink} from 'apollo-link-ws'
 import {split} from 'apollo-link';
-import {setContext} from 'apollo-link-context';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {HttpLink} from 'apollo-link-http';
 import {getMainDefinition} from 'apollo-utilities';
@@ -52,9 +51,17 @@ export default class ApolloNuxt {
   }
 
   connect() {
+    console.log('this.context.app', this.context.isClient);
     return new ApolloClient({
       link: from([...this.middleware, this.apolloLink]),
       cache: new InMemoryCache(),
+      ...(!process.browser ? {
+        // Set this on the server to optimize queries when SSR
+        ssrMode: true,
+      } : {
+        // This will temporary disable query force-fetching
+        ssrForceFetchDelay: 100,
+      })
     })
   }
 
