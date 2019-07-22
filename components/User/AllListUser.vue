@@ -1,5 +1,5 @@
 <template>
-  <v-layout row>
+  <v-layout class="users-list" row>
     <v-flex xs12>
       <v-list subheader>
         <v-list-tile
@@ -40,6 +40,9 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+.users-list {
+  overflow: auto;
+  max-height: 80vh;
+}
 </style>

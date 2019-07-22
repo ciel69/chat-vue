@@ -1,5 +1,5 @@
 <template>
-  <v-app dark class="vchat__app">
+  <v-app dark class="vchat">
     <v-toolbar color="orange" fixed app class="vchat__top-panel">
       <v-container grid-list-md fluid fill-height>
         <v-layout row wrap>
@@ -10,7 +10,7 @@
       </v-container>
     </v-toolbar>
     <v-content>
-      <v-container grid-list-md fluid fill-height>
+      <v-container class="vchat__container" grid-list-md fluid fill-height>
         <v-layout row wrap>
           <v-flex xs12 md6 lg3 xl2>
             <v-tabs
@@ -83,7 +83,6 @@
 
     beforeMount() {
       this.chatInitial();
-      OverlayScrollbars(document.querySelectorAll('body'), {});
     }
 
     @Watch('activeTab')
@@ -120,12 +119,20 @@
     background: #FF0000;
   }
 
+  body {
+    overflow: hidden;
+  }
+
   .vchat {
     &__top-panel {
       /*background-color: #424242 !important;*/
       .container {
         padding: 0;
       }
+    }
+    &__container {
+      overflow: hidden;
+      padding-bottom: 0;
     }
   }
 </style>

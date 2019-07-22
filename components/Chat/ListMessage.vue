@@ -87,7 +87,7 @@
 <style lang="scss">
   .list-message {
     .v-card {
-      max-height: calc(100vh - 160px);
+      max-height: calc(100vh - 180px);
       overflow: auto;
     }
 
