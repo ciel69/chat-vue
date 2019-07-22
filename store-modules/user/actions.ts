@@ -25,6 +25,7 @@ export default {
   },
   logout({commit}) {
     commit('loadToken', null);
+    this.app.$cookies.remove('currentUser');
     this.app.$cookies.remove('token');
     this.app.$cookies.remove('id');
     this.app.router.push('/auth');
