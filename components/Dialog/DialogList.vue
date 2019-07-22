@@ -39,6 +39,7 @@
 
     @State(state => state.user) currentUser: IUser;
     @Getter('channels/getChannelList') getChannelList!: Function;
+    @Getter('channels/getDialogName') getDialogName!: Function;
 
     get listChannels(): IDialog {
       return this.getChannelList();
@@ -46,13 +47,7 @@
 
     @Emit()
     nameDialog(name) {
-      if (!name) return 'Без названия';
-      name = name.split('‡');
-      if (name.length === 1) {
-        return name[0]
-      }
-      name = name.filter(item => item !== this.currentUser.firstName);
-      return name[0]
+      return this.getDialogName(name, this.currentUser)
     }
   }
 </script>

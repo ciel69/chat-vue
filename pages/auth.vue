@@ -2,7 +2,7 @@
   <section class="auth-page">
     <v-tabs
       v-model="active"
-      color="cyan"
+      color="orange"
       dark
       slider-color="yellow"
     >

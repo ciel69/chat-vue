@@ -28,7 +28,8 @@
         <template v-slot:activator>
           <v-btn
             v-model="fab"
-            color="teal"
+            color="white"
+            outline
             small
             dark
             fab
@@ -102,7 +103,8 @@
       bottom: 0 !important;
 
       .v-btn__content {
-        height: 20px;
+        height: 18px;
+        margin-left: -1px;
       }
     }
   }

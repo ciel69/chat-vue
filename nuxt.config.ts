@@ -73,6 +73,7 @@ const config: INuxtConfiguration = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/onesignal',
     "@nuxtjs/apollo",
     '@nuxtjs/pwa',
     ['nuxt-validate', {
@@ -90,6 +91,15 @@ const config: INuxtConfiguration = {
   /*
   ** Build configuration
   */
+  oneSignal: {
+    init: {
+      appId: 'ceb6ad07-d4ae-46e7-a107-38bc06c96b36',
+      allowLocalhostAsSecureOrigin: true,
+      welcomeNotification: {
+        disable: true
+      }
+    }
+  },
   build: {
     /*
     ** You can extend webpack config here

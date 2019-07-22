@@ -19,6 +19,7 @@
     "@nuxt/typescript": "^2.8.1",
     "@nuxtjs/apollo": "^4.0.0-rc8.1",
     "@nuxtjs/axios": "5.4.1",
+    "@nuxtjs/onesignal": "^3.0.0-beta.16",
     "@nuxtjs/pwa": "^3.0.0-beta.16",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.5.1",

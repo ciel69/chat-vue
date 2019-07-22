@@ -8,7 +8,7 @@ declare var process: Process;
 export default {
   async getChannelsFront(context) {
     const client = this.app.apolloProvider.defaultClient;
-    const { id } = context.rootState.user;
+    const {id} = context.rootState.user;
 
     if (!id) return;
 
@@ -57,7 +57,7 @@ export default {
     }
     return result;
   },
-  async getMessageFront({ commit }, id) {
+  async getMessageFront({commit}, id) {
     const client = this.app.apolloProvider.defaultClient;
     let result;
     try {
@@ -109,10 +109,21 @@ export default {
 
   chatInitial(context: any) {
     const token = this.app.$cookies.get('token');
+    const self = this;
 
 
     if (!token || this.state.channels.isSubscribe) return;
     context.commit('chatInitialSubscribe', true);
+
+    self.$OneSignal.push(() => {
+      self.$OneSignal.isPushNotificationsEnabled((isEnabled) => {
+        if (isEnabled) {
+          console.log('Push notifications are enabled!')
+        } else {
+          console.log('Push notifications are not enabled yet.')
+        }
+      })
+    });
 
     const client = this.app.apolloProvider.defaultClient;
     const id = this.state.user.id;
@@ -156,10 +167,32 @@ export default {
     observerChannel.subscribe({
       next(res) {
         console.log('subscribe', res);
+
         if (res) {
           const data = res.data.subscribeUser;
+          let title = 'Нет заголовка';
+
+          if (self.getters['channels/getChannel']) {
+            const dialog = self.getters['channels/getChannel'](data.message.channel.id);
+            title = dialog.name;
+          }
+
 
           if (data.type === 'message') {
+            self.$OneSignal.sendSelfNotification(
+              /* Title (defaults if unset) */
+              title,
+              /* Message (defaults if unset) */
+              data.message.text,
+              /* URL (defaults if unset) */
+              `https://ad3059a1.ngrok.io/channel/${data.message.channel.id}`,
+              /* Icon */
+              'https://onesignal.com/images/notification_logo.png',
+              {
+                /* Additional data hash */
+                notificationType: 'news-feature'
+              }
+            );
             context.commit('sendMessage', {
               message: data.message,
               cid: data.message.channel.id,
@@ -181,8 +214,8 @@ export default {
   async chatSendMessage(context: any, data) {
     if (!data) return;
 
-    const { store } = this.app;
-    const { user } = store.state;
+    const {store} = this.app;
+    const {user} = store.state;
 
     const client = this.app.apolloProvider.defaultClient;
     client.mutate({
@@ -210,7 +243,7 @@ export default {
   async createChannel(context: any, uid: number) {
     if (!uid) return;
 
-    const { id: userId } = context.rootState.user;
+    const {id: userId} = context.rootState.user;
 
     const usersId = [uid, +userId];
 
@@ -241,17 +274,17 @@ export default {
     });
 
     if (
-        result.data.createChannel.id &&
-        !this.state.channels.subscribe.includes(result.data.createChannel.id)
+      result.data.createChannel.id &&
+      !this.state.channels.subscribe.includes(result.data.createChannel.id)
     ) {
       context.dispatch(
-          'subscribeChannel',
-          result.data.createChannel.id
+        'subscribeChannel',
+        result.data.createChannel.id
       );
     }
 
     const isChannel = this.state.channels.list.find(
-        item => item.id === result.data.createChannel.id,
+      item => item.id === result.data.createChannel.id,
     );
     if (!isChannel) {
       context.commit('newChannel', result.data.createChannel);

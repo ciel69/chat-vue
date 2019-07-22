@@ -1,6 +1,6 @@
 <template>
   <v-app dark class="vchat__app">
-    <v-toolbar fixed app class="vchat__top-panel">
+    <v-toolbar color="orange" fixed app class="vchat__top-panel">
       <v-container grid-list-md fluid fill-height>
         <v-layout row wrap>
           <v-flex xl2 lg3>
@@ -18,7 +18,7 @@
           <v-flex xl2 lg3>
             <v-tabs
               v-model="activeTab"
-              color="cyan"
+              color="orange"
               dark
               grow
               slider-color="yellow"
@@ -125,7 +125,7 @@
 
   .vchat {
     &__top-panel {
-      background-color: #424242 !important;
+      /*background-color: #424242 !important;*/
       .container {
         padding: 0;
       }
