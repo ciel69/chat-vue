@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Watch } from 'nuxt-property-decorator';
+  import { Component, Watch, Emit } from 'nuxt-property-decorator';
   import { State, Getter } from 'vuex-class';
 
   import OverlayScrollbars from 'overlayscrollbars';
@@ -75,6 +75,8 @@
       return this.dialog ? this.dialog.messages : [];
     }
 
+
+    @Emit()
     uName(message) {
       const channelId = this.$route.params.id;
       return this.getNameCurrentUser(channelId, message.user.id);

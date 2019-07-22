@@ -48,7 +48,7 @@
     nameDialog(name) {
       if (!name) return 'Без названия';
       name = name.split('‡');
-      if (name.length === 0) {
+      if (name.length === 1) {
         return name[0]
       }
       name = name.filter(item => item !== this.currentUser.firstName);
