@@ -23,6 +23,7 @@ export default {
     state.list.push({ ...data, messages: [] });
   },
   sendMessage(state, data) {
+    console.log('sendMessage');
     const channel = state.list.find(item => +item.id === +data.cid);
     channel.messages.push(data.message);
   },

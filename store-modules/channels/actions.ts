@@ -43,15 +43,7 @@ export default {
         },
       });
 
-      context.commit('loadChannels', result.data.user.dialogs);
-      if (process.browser) {
-        result.data.user.dialogs.forEach(item => {
-          if (!context.state.subscribe.includes(item.id)) {
-            context.dispatch('subscribeChannel', item.id);
-          }
-          // self.subscribeChannel(context, item.id)
-        });
-      }
+      context.commit('setListDialog', result.data.user.dialogs);
     } catch (e) {
       console.error(e);
       context.commit('setListDialog', []);
@@ -174,9 +166,11 @@ export default {
           const data = res.data.subscribeUser;
           let title = 'Нет заголовка';
 
-          if (self.getters['channels/getChannel']) {
+          if (data.message.channel && self.getters['channels/getChannel']) {
             const dialog = self.getters['channels/getChannel'](data.message.channel.id);
             title = dialog.name;
+          } else {
+            title = data.channel.name;
           }
 
 
@@ -200,12 +194,8 @@ export default {
               cid: data.message.channel.id,
             });
           } else {
-            //newChannel
             context.commit('newChannel', data.channel);
           }
-          // if (channel) {
-          //   context.dispatch('subscribeChannel', channel.id);
-          // }
         }
       },
       error(error) {
