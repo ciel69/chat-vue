@@ -181,7 +181,7 @@ export default {
               /* Message (defaults if unset) */
               data.message.text,
               /* URL (defaults if unset) */
-              `https://ad3059a1.ngrok.io/channel/${data.message.channel.id}`,
+              `https://chat-front.herokuapp.com/channel/${data.message.channel.id}`,
               /* Icon */
               'https://onesignal.com/images/notification_logo.png',
               {
