@@ -109,7 +109,7 @@ export default {
     if (!token || this.state.channels.isSubscribe) return;
     context.commit('chatInitialSubscribe', true);
 
-    self.$OneSignal.push(() => {
+    self.$OneSignal && self.$OneSignal.push(() => {
       self.$OneSignal.isPushNotificationsEnabled((isEnabled) => {
         if (isEnabled) {
           console.log('Push notifications are enabled!')
@@ -175,7 +175,7 @@ export default {
 
 
           if (data.type === 'message') {
-            self.$OneSignal.sendSelfNotification(
+            self.$OneSignal && self.$OneSignal.sendSelfNotification(
               /* Title (defaults if unset) */
               title,
               /* Message (defaults if unset) */
