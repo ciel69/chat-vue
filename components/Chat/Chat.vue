@@ -4,11 +4,17 @@
     <form @submit.prevent="sendForm">
       <v-layout>
         <v-flex xs12>
-          <v-text-field
-            v-model="textMessage"
-            label="Введите сообщение"
-            required
-          ></v-text-field>
+          <div class="wrapper">
+            <v-textarea
+              label="Введите сообщение"
+              rows="1"
+              auto-grow
+              required
+              v-model="textMessage">
+            </v-textarea>
+
+            <v-emoji-picker @append-e="append"/>
+          </div>
         </v-flex>
         <v-flex>
           <v-btn color="primary" small @click="sendForm">
@@ -27,10 +33,12 @@
   import {VueNuxt, IDialog} from '~/types'
 
   import ListMessage from '~/components/Chat/ListMessage.vue';
+  import VEmojiPicker from '~/components/EmojiPicker/EmojiPicker.vue';
 
   @Component({
     components: {
       ListMessage,
+      VEmojiPicker,
     },
   })
   export default class Chat extends VueNuxt {
@@ -68,6 +76,11 @@
     }
 
     @Emit()
+    append(emoji) {
+      this.textMessage += emoji
+    }
+
+    @Emit()
     sendForm() {
       if (this.textMessage.trim().length > 0) {
         const cid = this.$route.params.id;
@@ -82,6 +95,11 @@
   .custom-input {
     border: 1px solid #ccc;
     height: 40px;
+    width: 100%;
+  }
+  .wrapper {
+    position: relative;
+    display: inline-block;
     width: 100%;
   }
 </style>
