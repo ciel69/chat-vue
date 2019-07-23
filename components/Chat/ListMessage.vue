@@ -17,7 +17,7 @@
 
               <v-list-tile-content>
                 <v-list-tile-sub-title v-html="uName(message)"></v-list-tile-sub-title>
-                <v-list-tile-title v-html="message.text"></v-list-tile-title>
+                <span class="list-message__text" v-html="message.text"></span>
               </v-list-tile-content>
 
               <v-list-tile-action>
@@ -91,6 +91,10 @@
       overflow: auto;
     }
 
+    &__text {
+      width: 100%;
+    }
+
 
     &__item {
 
@@ -98,7 +102,7 @@
         .v-list__tile {
           flex-direction: row-reverse;
 
-          &__title, &__content {
+          &__title, &__content, .list-message__text {
             text-align: right;
           }
 
