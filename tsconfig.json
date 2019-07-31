@@ -22,8 +22,8 @@
         "./*"
       ]
     },
-    "target": "esnext",
-    "module": "esnext",
+    "target": "es5",
+    "module": "commonjs",
     "moduleResolution": "node",
     "lib": [
       "esnext",
@@ -34,5 +34,15 @@
     "allowJs": true,
     "sourceMap": true,
     "noEmit": true
-  }
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.vue"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "./types/vue-shims.d.ts"
+  ]
 }
