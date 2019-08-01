@@ -73,6 +73,17 @@ const config: INuxtConfiguration = {
   ** Nuxt.js modules
   */
   modules: [
+    ['@nuxtjs/vuetify', {
+      theme: {
+        dark: true,
+        themes: {
+          dark: {
+            primary: '#9C3CA2',
+            accent: '#9C3CA2',
+          },
+        },
+      },
+    }],
     '@nuxtjs/onesignal',
     "@nuxtjs/apollo",
     '@nuxtjs/pwa',

@@ -40,11 +40,12 @@
     "ts-node": "^8.3.0",
     "vee-validate": "^2.2.12",
     "vue-emoji-picker": "^1.0.1",
-    "vuetify": "^1.5.16",
+    "vuetify": "^2.0.3",
     "vuex-class": "^0.3.2"
   },
   "devDependencies": {
     "@nuxt/vue-app": "2.8.1",
+    "@nuxtjs/vuetify": "^1.1.0",
     "@types/node": "^12.6.2",
     "@types/overlayscrollbars": "^1.8.0",
     "@typescript-eslint/eslint-plugin": "^1.11.0",

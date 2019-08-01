@@ -10,10 +10,8 @@ import {
   Vue
 } from 'nuxt-property-decorator'
 
-@Component({
-  name: 'Index'
-})
-export default class extends Vue {
+@Component
+export default class Index extends Vue {
   layout() {
     return 'design';
   }

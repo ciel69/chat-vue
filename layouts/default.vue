@@ -30,14 +30,14 @@
               >
                 <v-icon>account_box</v-icon>
               </v-tab>
-              <v-tab-item >
+              <v-tab-item>
                 <v-card flat>
                   <v-card-text>
                     <dialog-list/>
                   </v-card-text>
                 </v-card>
               </v-tab-item>
-              <v-tab-item >
+              <v-tab-item>
                 <v-card flat>
                   <v-card-text>
                     <all-list-user/>
@@ -107,7 +107,7 @@
 <style lang="scss">
   @import 'material-design-icons/iconfont/material-icons.css';
   @import 'overlayscrollbars/css/OverlayScrollbars.css';
-  @import 'vuetify/dist/vuetify.min.css';
+  @import '~/assets/customVuetify.scss';
 
   ::-webkit-scrollbar {
     width: 0px; /* Remove scrollbar space */
@@ -130,6 +130,7 @@
         padding: 0;
       }
     }
+
     &__container {
       overflow: hidden;
       padding-bottom: 0;

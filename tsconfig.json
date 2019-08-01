@@ -22,8 +22,8 @@
         "./*"
       ]
     },
-    "target": "es5",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "node",
     "lib": [
       "esnext",

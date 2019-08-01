@@ -1,71 +1,162 @@
 <template>
-  <div class="page-container">
-    <md-app md-waterfall md-mode="fixed">
-      <md-app-toolbar class="md-primary" md-elevation="0">
-        <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
-          <md-icon>menu</md-icon>
-        </md-button>
-        <span class="md-title">Title design</span>
-      </md-app-toolbar>
+  <v-app id="sandbox">
+    <v-navigation-drawer
+      v-model="primaryDrawer.model"
+      :clipped="primaryDrawer.clipped"
+      :floating="primaryDrawer.floating"
+      :mini-variant="primaryDrawer.mini"
+      :permanent="primaryDrawer.type === 'permanent'"
+      :temporary="primaryDrawer.type === 'temporary'"
+      :width="350"
+      app
+      overflow
+    >
+      <current-user-info/>
+    </v-navigation-drawer>
 
-      <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
-        <md-toolbar class="md-transparent" md-elevation="0">
-          <span>Navigation</span>
+    <v-app-bar
+      :clipped-left="primaryDrawer.clipped"
+      app
+    >
+      <v-app-bar-nav-icon
+        v-if="primaryDrawer.type !== 'permanent'"
+        @click.stop="primaryDrawer.model = !primaryDrawer.model"
+      ></v-app-bar-nav-icon>
+      <v-toolbar-title>Vuetify</v-toolbar-title>
+    </v-app-bar>
 
-          <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button md-dense" @click="toggleMenu">
-              <md-icon>keyboard_arrow_left</md-icon>
-            </md-button>
-          </div>
-        </md-toolbar>
+    <v-content>
+      <v-container fluid>
+        <v-layout
+          align-center
+          justify-center
+        >
+          <v-flex xs10>
+            <v-card>
+              <v-card-text>
+                <v-layout
+                  wrap
+                >
+                  <v-flex
+                    xs12
+                    md6
+                  >
+                    <span>Scheme</span>
+                    <v-switch
+                      v-model="$vuetify.theme.dark"
+                      primary
+                      label="Dark"
+                    ></v-switch>
+                  </v-flex>
+                  <v-flex
+                    xs12
+                    md6
+                  >
+                    <span>Drawer</span>
+                    <v-radio-group
+                      v-model="primaryDrawer.type"
+                      column
+                    >
+                      <v-radio
+                        v-for="drawer in drawers"
+                        :key="drawer"
+                        :label="drawer"
+                        :value="drawer.toLowerCase()"
+                        primary
+                      ></v-radio>
+                    </v-radio-group>
+                    <v-switch
+                      v-model="primaryDrawer.clipped"
+                      label="Clipped"
+                      primary
+                    ></v-switch>
+                    <v-switch
+                      v-model="primaryDrawer.floating"
+                      label="Floating"
+                      primary
+                    ></v-switch>
+                    <v-switch
+                      v-model="primaryDrawer.mini"
+                      label="Mini"
+                      primary
+                    ></v-switch>
+                  </v-flex>
+                  <v-flex
+                    xs12
+                    md6
+                  >
+                    <span>Footer</span>
+                    <v-switch
+                      v-model="footer.inset"
+                      label="Inset"
+                      primary
+                    ></v-switch>
+                  </v-flex>
+                  <nuxt/>
+                </v-layout>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn text>Cancel</v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                >Submit
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
 
-        <md-list>
-          <md-list-item to="/">
-            <md-icon>home</md-icon>
-            <span class="md-list-item-text">Главная</span>
-          </md-list-item>
-
-          <md-list-item  to="/users">
-            <md-icon>face</md-icon>
-            <span class="md-list-item-text">Люди</span>
-          </md-list-item>
-
-          <md-list-item  to="/channels">
-            <md-icon>mode_comment</md-icon>
-            <span class="md-list-item-text">Сообщения</span>
-          </md-list-item>
-        </md-list>
-      </md-app-drawer>
-
-      <md-app-content>
-        <nuxt/>
-      </md-app-content>
-    </md-app>
-  </div>
+    <v-footer
+      :inset="true"
+      app
+    >
+      <span class="px-4">&copy; {{ new Date().getFullYear() }}</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from 'nuxt-property-decorator';
+  import {Component} from 'nuxt-property-decorator';
 
-@Component
-export default class Layout extends Vue {
-  menuVisible: boolean = false;
+  import {VueNuxt} from '~/types';
 
-  @Emit()
-  toggleMenu() {
-    this.menuVisible = !this.menuVisible;
+  import CurrentUserInfo from '~/components/User/CurrentUserInfo.vue';
+
+  @Component({
+    components: {
+      CurrentUserInfo,
+    },
+  })
+  export default class Layout extends VueNuxt {
+
+    drawers: Array<string> = ['Default (no property)', 'Permanent', 'Temporary'];
+    primaryDrawer: Object = {
+      model: true,
+      type: 'default (no property)',
+      clipped: false,
+      floating: false,
+      mini: false,
+    };
+    footer: Object = {
+      inset: false,
+    };
   }
-}
 </script>
 
 <style lang="scss">
+  @import 'material-design-icons/iconfont/material-icons.css';
+  @import '~/assets/customVuetify.scss';
 
-.page-container {
-  height: 100vh;
-  display: flex;
+  .page-container {
+    height: 100vh;
+    display: flex;
 
-  .md-app {
-    width: 100%;
+    .md-app {
+      width: 100%;
+    }
   }
-}
 </style>

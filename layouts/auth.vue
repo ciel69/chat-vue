@@ -23,7 +23,7 @@
 
 <style lang="scss">
   @import 'material-design-icons/iconfont/material-icons.css';
-  @import 'vuetify/dist/vuetify.min.css';
+  @import '~/assets/customVuetify.scss';
 
   .page-container {
     height: 100vh;

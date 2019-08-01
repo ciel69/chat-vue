@@ -2,9 +2,7 @@
   <section class="auth-page">
     <v-tabs
       v-model="active"
-      color="orange"
       dark
-      slider-color="yellow"
     >
       <v-tab
         ripple

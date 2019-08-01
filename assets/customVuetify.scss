@@ -1,0 +1,31 @@
+@import 'variables/colors';
+
+.v-application {
+  &.theme--dark {
+    background: $darkPurple !important;
+  }
+
+  .v-toolbar.v-sheet,
+  .v-tabs-bar {
+    background-color: $lightPurple2 !important;
+  }
+
+  .v-tabs-items {
+    background-color: transparent;
+  }
+
+  .v-navigation-drawer,
+  .v-sheet {
+    background-color: $lightPurple;
+  }
+
+  .accent--text {
+    color: $purple !important;
+    caret-color: $purple !important;
+  }
+  .purple--text {
+    color: $purple !important;
+    caret-color: $purple !important;
+  }
+
+}

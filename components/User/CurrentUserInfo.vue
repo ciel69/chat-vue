@@ -2,7 +2,6 @@
   <v-layout
     class="v-chat__current-user-info current-user-info"
     align-center
-    row
     spacer
   >
     <v-flex xs4 sm2>
@@ -28,14 +27,14 @@
         <template v-slot:activator>
           <v-btn
             v-model="fab"
-            color="white"
-            outline
+            color="purple"
+            outlined
             small
             dark
             fab
           >
-            <v-icon dark>list</v-icon>
-            <v-icon>close</v-icon>
+            <v-icon v-if="!fab">settings</v-icon>
+            <v-icon v-else>close</v-icon>
           </v-btn>
         </template>
         <v-btn
@@ -96,7 +95,7 @@
 
 <style lang="scss">
   .current-user-info {
-    padding: 0 16px;
+    padding: 12px;
 
     .v-speed-dial {
       float: right;
