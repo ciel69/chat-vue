@@ -4,31 +4,31 @@
       <v-card>
         <v-list two-line  ref="scrollList">
           <template v-for="(message, key) in listMessage">
-            <v-list-tile
+            <v-list-item
                 :key="`item${key}`"
                 avatar
                 ripple
                 v-if="message"
                 :class="{'list-message__item': true, 'my-message': +userId === +message.user.id}"
             >
-              <v-list-tile-avatar>
+              <v-list-item-avatar>
                 <img src="https://placeimg.com/40/40/people/1"/>
-              </v-list-tile-avatar>
+              </v-list-item-avatar>
 
-              <v-list-tile-content>
-                <v-list-tile-sub-title v-html="uName(message)"></v-list-tile-sub-title>
+              <v-list-item-content>
+                <v-list-item-subtitle v-html="uName(message)"></v-list-item-subtitle>
                 <span class="list-message__text" v-html="message.text"></span>
-              </v-list-tile-content>
+              </v-list-item-content>
 
-              <v-list-tile-action>
-                <v-list-tile-action-text>15 min</v-list-tile-action-text>
+              <v-list-item-action>
+                <v-list-item-action-text>15 min</v-list-item-action-text>
                 <v-icon
                     color="grey lighten-1"
                 >
                   star_border
                 </v-icon>
-              </v-list-tile-action>
-            </v-list-tile>
+              </v-list-item-action>
+            </v-list-item>
             <v-divider
                 v-if="key + 1 < listMessage.length"
                 :key="key"
@@ -84,10 +84,11 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .list-message {
+    margin: 0;
     .v-card {
-      height: calc(100vh - 180px);
+      height: calc(100vh - 135px);
       overflow: auto;
     }
 

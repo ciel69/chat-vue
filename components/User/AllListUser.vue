@@ -2,25 +2,25 @@
   <v-layout class="users-list" row>
     <v-flex xs12>
       <v-list subheader>
-        <v-list-tile
+        <v-list-item
           v-for="(user, key) in listUsers"
           :key="key"
           avatar
           ripple
           @click="actionsNewChannel(user.id)"
         >
-          <v-list-tile-avatar>
+          <v-list-item-avatar>
             <img src="https://placeimg.com/40/40/people/1"/>
-          </v-list-tile-avatar>
+          </v-list-item-avatar>
 
-          <v-list-tile-content>
-            <v-list-tile-title v-html="user.firstName"></v-list-tile-title>
-          </v-list-tile-content>
+          <v-list-item-content>
+            <v-list-item-title v-html="user.firstName"></v-list-item-title>
+          </v-list-item-content>
 
-          <v-list-tile-action>
+          <v-list-item-action>
             <v-icon color="grey">chat_bubble</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
+          </v-list-item-action>
+        </v-list-item>
       </v-list>
     </v-flex>
   </v-layout>
@@ -40,9 +40,13 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .users-list {
+  margin: 0;
   overflow: auto;
-  max-height: 80vh;
+  max-height: calc(88vh + 4px);
+  .v-list {
+    background: transparent;
+  }
 }
 </style>

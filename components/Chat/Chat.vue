@@ -1,5 +1,5 @@
 <template>
-  <div class="md-layout-item md-size-45">
+  <div class="chat">
     <ListMessage/>
     <form @submit.prevent="sendForm">
       <v-layout>
@@ -92,6 +92,9 @@
 </script>
 
 <style scoped lang="scss">
+  .chat {
+    height: 100%;
+  }
   .custom-input {
     border: 1px solid #ccc;
     height: 40px;

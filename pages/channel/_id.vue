@@ -1,8 +1,6 @@
 <template>
-  <section>
-    <div class="md-layout md-alignment-top-center">
-      <Chat/>
-    </div>
+  <section class="page-dialog">
+    <Chat/>
   </section>
 </template>
 
@@ -35,3 +33,8 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+  .page-dialog {
+    height: 100%;
+  }
+</style>

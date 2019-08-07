@@ -12,6 +12,28 @@
       overflow
     >
       <current-user-info/>
+      <v-tabs
+        v-model="activeTab"
+        dark
+        grow
+      >
+        <v-tab
+          ripple
+        >
+          <v-icon>chat_bubble</v-icon>
+        </v-tab>
+        <v-tab
+          ripple
+        >
+          <v-icon>account_box</v-icon>
+        </v-tab>
+        <v-tab-item>
+          <dialog-list/>
+        </v-tab-item>
+        <v-tab-item>
+          <all-list-user/>
+        </v-tab-item>
+      </v-tabs>
     </v-navigation-drawer>
 
     <v-app-bar
@@ -120,19 +142,25 @@
 </template>
 
 <script lang="ts">
-  import {Component} from 'nuxt-property-decorator';
+  import {Component, Watch} from 'nuxt-property-decorator';
+  import {Action} from 'vuex-class';
 
   import {VueNuxt} from '~/types';
 
   import CurrentUserInfo from '~/components/User/CurrentUserInfo.vue';
+  import DialogList from '~/components/Dialog/DialogList.vue';
+  import AllListUser from '~/components/User/AllListUser.vue';
 
   @Component({
     components: {
       CurrentUserInfo,
+      DialogList,
+      AllListUser
     },
   })
   export default class Layout extends VueNuxt {
 
+    activeTab: number = 0;
     drawers: Array<string> = ['Default (no property)', 'Permanent', 'Temporary'];
     primaryDrawer: Object = {
       model: true,
@@ -144,6 +172,16 @@
     footer: Object = {
       inset: false,
     };
+
+    @Action('users/getUsersFront') actionUsersGetList;
+
+    @Watch('activeTab')
+    changeTab() {
+      if (this.activeTab === 1) {
+        this.actionUsersGetList()
+      }
+    }
+
   }
 </script>
 

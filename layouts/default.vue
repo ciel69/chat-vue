@@ -1,89 +1,98 @@
 <template>
-  <v-app dark class="vchat">
-    <v-toolbar color="orange" fixed app class="vchat__top-panel">
-      <v-container grid-list-md fluid fill-height>
-        <v-layout row wrap>
-          <v-flex xs12 md4 lg3 xl2>
-            <current-user-info/>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-toolbar>
+  <v-app id="sandbox">
+    <v-navigation-drawer
+      v-model="primaryDrawer.model"
+      :clipped="primaryDrawer.clipped"
+      :floating="primaryDrawer.floating"
+      :mini-variant="primaryDrawer.mini"
+      :permanent="primaryDrawer.type === 'permanent'"
+      :temporary="primaryDrawer.type === 'temporary'"
+      :width="350"
+      app
+      overflow
+    >
+      <current-user-info/>
+      <v-tabs
+        v-model="activeTab"
+        dark
+        grow
+      >
+        <v-tab
+          ripple
+        >
+          <v-icon>chat_bubble</v-icon>
+        </v-tab>
+        <v-tab
+          ripple
+        >
+          <v-icon>account_box</v-icon>
+        </v-tab>
+        <v-tab-item>
+          <dialog-list/>
+        </v-tab-item>
+        <v-tab-item>
+          <all-list-user/>
+        </v-tab-item>
+      </v-tabs>
+    </v-navigation-drawer>
+
+    <v-app-bar
+      :clipped-left="primaryDrawer.clipped"
+      app
+    >
+      <v-app-bar-nav-icon
+        v-if="primaryDrawer.type !== 'permanent'"
+        @click.stop="primaryDrawer.model = !primaryDrawer.model"
+      ></v-app-bar-nav-icon>
+      <v-toolbar-title>Vuetify</v-toolbar-title>
+    </v-app-bar>
+
     <v-content>
-      <v-container class="vchat__container" grid-list-md fluid fill-height>
-        <v-layout row wrap>
-          <v-flex xs12 md6 lg3 xl2>
-            <v-tabs
-              v-model="activeTab"
-              color="orange"
-              dark
-              grow
-              slider-color="yellow"
-            >
-              <v-tab
-                ripple
-              >
-                <v-icon>chat_bubble</v-icon>
-              </v-tab>
-              <v-tab
-                ripple
-              >
-                <v-icon>account_box</v-icon>
-              </v-tab>
-              <v-tab-item>
-                <v-card flat>
-                  <v-card-text>
-                    <dialog-list/>
-                  </v-card-text>
-                </v-card>
-              </v-tab-item>
-              <v-tab-item>
-                <v-card flat>
-                  <v-card-text>
-                    <all-list-user/>
-                  </v-card-text>
-                </v-card>
-              </v-tab-item>
-            </v-tabs>
-          </v-flex>
-          <v-flex xs12 md6 lg6 xl8>
-            <nuxt/>
-          </v-flex>
-        </v-layout>
-      </v-container>
+      <nuxt/>
     </v-content>
+
+<!--    <v-footer-->
+<!--      :inset="true"-->
+<!--      app-->
+<!--    >-->
+<!--      <span class="px-4">&copy; {{ new Date().getFullYear() }}</span>-->
+<!--    </v-footer>-->
   </v-app>
 </template>
 
 <script lang="ts">
-  import {Component, Emit, Watch} from 'nuxt-property-decorator';
+  import {Component, Watch} from 'nuxt-property-decorator';
   import {Action} from 'vuex-class';
 
-  import {VueNuxt} from '~/types'
+  import {VueNuxt} from '~/types';
 
-  import OverlayScrollbars from 'overlayscrollbars';
-
-  import DialogList from '~/components/Dialog/DialogList.vue';
   import CurrentUserInfo from '~/components/User/CurrentUserInfo.vue';
+  import DialogList from '~/components/Dialog/DialogList.vue';
   import AllListUser from '~/components/User/AllListUser.vue';
 
   @Component({
     components: {
-      DialogList,
       CurrentUserInfo,
+      DialogList,
       AllListUser
     },
   })
   export default class Layout extends VueNuxt {
-    menuVisible: boolean = false;
-    activeTab: number = 0;
-    @Action('channels/chatInitial') chatInitial;
-    @Action('user/logout') actionLogout;
-    @Action('users/getUsersFront') actionUsersGetList;
 
-    beforeMount() {
-      this.chatInitial();
-    }
+    activeTab: number = 0;
+    drawers: Array<string> = ['Default (no property)', 'Permanent', 'Temporary'];
+    primaryDrawer: Object = {
+      model: true,
+      type: 'default (no property)',
+      clipped: false,
+      floating: false,
+      mini: false,
+    };
+    footer: Object = {
+      inset: false,
+    };
+
+    @Action('users/getUsersFront') actionUsersGetList;
 
     @Watch('activeTab')
     changeTab() {
@@ -92,15 +101,6 @@
       }
     }
 
-    @Emit()
-    toggleMenu() {
-      this.menuVisible = !this.menuVisible;
-    }
-
-    @Emit()
-    logout() {
-      this.actionLogout();
-    }
   }
 </script>
 
@@ -108,7 +108,6 @@
   @import 'material-design-icons/iconfont/material-icons.css';
   @import 'overlayscrollbars/css/OverlayScrollbars.css';
   @import '~/assets/customVuetify.scss';
-
   ::-webkit-scrollbar {
     width: 0px; /* Remove scrollbar space */
     background: transparent; /* Optional: just make scrollbar invisible */
@@ -123,17 +122,12 @@
     overflow: hidden;
   }
 
-  .vchat {
-    &__top-panel {
-      /*background-color: #424242 !important;*/
-      .container {
-        padding: 0;
-      }
-    }
+  .page-container {
+    height: 100vh;
+    display: flex;
 
-    &__container {
-      overflow: hidden;
-      padding-bottom: 0;
+    .md-app {
+      width: 100%;
     }
   }
 </style>

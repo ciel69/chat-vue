@@ -1,28 +1,28 @@
 <template>
-  <v-layout row>
+  <v-layout row class="dialog-list">
     <v-flex xs12>
         <v-list subheader>
-          <v-list-tile
+          <v-list-item
             v-for="(channel, key) in listChannels"
             :key="key"
             avatar
             ripple
             :to="`/channel/${channel.id}`"
           >
-            <v-list-tile-avatar>
+            <v-list-item-avatar>
               <img src="https://placeimg.com/40/40/people/1"/>
-            </v-list-tile-avatar>
+            </v-list-item-avatar>
 
-            <v-list-tile-content>
-              <v-list-tile-title v-html="nameDialog(channel.name)"></v-list-tile-title>
-              <v-list-tile-sub-title
-                v-html="channel.messages.length ? channel.messages[channel.messages.length - 1].text : ''"></v-list-tile-sub-title>
-            </v-list-tile-content>
+            <v-list-item-content>
+              <v-list-item-title v-html="nameDialog(channel.name)"></v-list-item-title>
+              <v-list-item-subtitle
+                v-html="channel.messages.length ? channel.messages[channel.messages.length - 1].text : ''"></v-list-item-subtitle>
+            </v-list-item-content>
 
-            <v-list-tile-action>
+            <v-list-item-action>
               <v-icon color="grey">chat_bubble</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
+            </v-list-item-action>
+          </v-list-item>
         </v-list>
     </v-flex>
   </v-layout>
@@ -51,3 +51,14 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .dialog-list {
+    margin: 0;
+    overflow: auto;
+    max-height: calc(88vh + 4px);
+    .v-list {
+      background: transparent;
+    }
+  }
+</style>
