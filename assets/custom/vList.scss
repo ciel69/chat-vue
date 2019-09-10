@@ -1,0 +1,9 @@
+@import '../variables/colors';
+
+.v-list {
+    &-item {
+      &--active {
+        color: $purple !important;
+      }
+    }
+}

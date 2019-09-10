@@ -1,0 +1,12 @@
+@import '../variables/colors';
+
+.v-navigation {
+
+  &-drawer {
+    background: $darkPurple;
+    &__content {
+      background-color: $lightPurple;
+      border-radius: 0;
+    }
+  }
+}
