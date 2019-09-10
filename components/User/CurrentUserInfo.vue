@@ -100,6 +100,7 @@
     .v-speed-dial {
       float: right;
       bottom: 0 !important;
+      z-index: 1;
 
       .v-btn__content {
         height: 18px;

@@ -1,6 +1,9 @@
 @import 'variables/colors';
+@import 'custom/vList';
+@import 'custom/vNavigation';
 
 .v-application {
+  background: red !important;
   &.theme--dark {
     background: $darkPurple !important;
   }
@@ -14,7 +17,6 @@
     background-color: transparent;
   }
 
-  .v-navigation-drawer,
   .v-sheet {
     background-color: $lightPurple;
     border-radius: 0;
@@ -24,7 +26,9 @@
     color: $purple !important;
     caret-color: $purple !important;
   }
-  .purple--text {
+  .purple--text,
+  .accent--text,
+  .v-tabs-slider-wrapper {
     color: $purple !important;
     caret-color: $purple !important;
   }

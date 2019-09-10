@@ -53,6 +53,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '~/assets/variables/colors.scss';
+
   .dialog-list {
     margin: 0;
     overflow: auto;
