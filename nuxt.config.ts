@@ -1,16 +1,16 @@
-import NuxtConfiguration from '@nuxt/config'
+import {Configuration} from '@nuxt/types'
 
-interface INuxtConfiguration extends NuxtConfiguration {
-  env: any
+interface INuxtConfiguration extends Configuration {
+  env: any;
 }
 
-const parseArgs = require('minimist');
+const parseArgs = require('minimist')
 const argv = parseArgs(process.argv.slice(2), {
   alias: {
-    H: "hostname",
-    p: "port"
+    H: 'hostname',
+    p: 'port'
   },
-  string: ["H"],
+  string: ['H'],
   unknown: parameter => false
 });
 
@@ -18,108 +18,108 @@ const port =
   argv.port ||
   process.env.PORT ||
   process.env.npm_package_config_nuxt_port ||
-  "3000";
+  '3000';
 const host =
   argv.hostname ||
   process.env.HOST ||
   process.env.npm_package_config_nuxt_host ||
-  "localhost";
-
+  'localhost';
 
 const config: INuxtConfiguration = {
   mode: 'universal',
   env: {
     apolloConfig: {
-      wsUrl: process.env.NODE_ENV === 'production' ? 'wss://ciel-chat-api.herokuapp.com/graphql' : 'ws://localhost:3030/graphql',
+      wsUrl:
+        process.env.NODE_ENV === 'production'
+          ? 'wss://ciel-chat-api.herokuapp.com/graphql'
+          : 'ws://localhost:3030/graphql',
       optionsLink: {
-        uri: process.env.NODE_ENV === 'production' ? 'https://ciel-chat-api.herokuapp.com/graphql' : 'http://localhost:3030/graphql',
+        uri:
+          process.env.NODE_ENV === 'production'
+            ? 'https://ciel-chat-api.herokuapp.com/graphql'
+            : 'http://localhost:3030/graphql',
         // Additional fetch options like `credentials` or `headers`
         credentials: 'same-origin',
         transportBatching: true
       }
     },
-    baseUrl:
-      process.env.BASE_URL ||
-      `http://${host}:${port}`
+    baseUrl: process.env.BASE_URL || `http://${host}:${port}`
   },
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
     title: process.env.npm_package_name || '',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'theme-color', content: '#353058' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {name: 'theme-color', content: '#353058'},
+      {
+        hid: 'description',
+        name: 'description',
+        content: process.env.npm_package_description || ''
+      }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}]
   },
   /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
+   ** Customize the progress-bar color
+   */
+  loading: {color: '#fff'},
   /*
-  ** Global CSS
-  */
-  css: [
-  ],
+   ** Global CSS
+   */
+  css: [],
   /*
-  ** Plugins to load before mounting the App
-  */
+   ** Plugins to load before mounting the App
+   */
   plugins: ['~plugins/vuetify'],
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
-    ['@nuxtjs/vuetify', {
-      theme: {
-        dark: true,
-        themes: {
-          dark: {
-            primary: '#9C3CA2',
-            accent: '#9C3CA2',
-          },
-        },
-      },
-    }],
-    '@nuxtjs/onesignal',
-    "@nuxtjs/apollo",
+    [
+      '@nuxtjs/vuetify',
+      {
+        theme: {
+          dark: true,
+          themes: {
+            dark: {
+              primary: '#9C3CA2',
+              accent: '#9C3CA2'
+            }
+          }
+        }
+      }
+    ],
+    '@nuxtjs/apollo',
     '@nuxtjs/pwa',
-    ['nuxt-validate', {
-      lang: 'ru',
-      inject: false,
-    }],
+    [
+      'nuxt-validate',
+      {
+        lang: 'ru',
+        inject: false
+      }
+    ],
     'nuxt-session',
-    'cookie-universal-nuxt',
+    'cookie-universal-nuxt'
   ],
   apollo: {
     clientConfigs: {
       default: '~/services/apollo/network-interfaces/'
     }
   },
+  buildModules: ['@nuxt/typescript-build'],
   /*
-  ** Build configuration
-  */
-  oneSignal: {
-    init: {
-      appId: 'ceb6ad07-d4ae-46e7-a107-38bc06c96b36',
-      allowLocalhostAsSecureOrigin: true,
-      welcomeNotification: {
-        disable: true
-      }
-    }
-  },
+   ** Build configuration
+   */
   build: {
     /*
-    ** You can extend webpack config here
-    */
+     ** You can extend webpack config here
+     */
     extend(config, ctx) {
     }
   }
-}
-
+};
 
 export default config

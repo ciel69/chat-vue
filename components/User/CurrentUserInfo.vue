@@ -61,18 +61,18 @@
 </template>
 
 <script lang="ts">
-  import {Component, Emit} from 'nuxt-property-decorator';
+  import {Component, Emit, Vue} from 'nuxt-property-decorator';
   import {State, Action} from 'vuex-class';
 
-  import {VueNuxt, IUser} from '~/types'
+  import {User} from '~/model'
 
   @Component
-  export default class CurrentUserInfo extends VueNuxt {
+  export default class CurrentUserInfo extends Vue {
     direction: string = 'bottom';
     fab: boolean = false;
     transition: string = 'slide-y-reverse-transition';
 
-    @State(state => state.user) currentUser: IUser;
+    @State(state => state.user) currentUser: User;
 
     @Action('user/logout') userLogout: any;
 

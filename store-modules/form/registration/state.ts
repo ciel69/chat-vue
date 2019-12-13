@@ -9,11 +9,11 @@ interface IAuthForm {
 }
 
 export default {
-  firstName: '',
-  lastName: '',
-  email: '',
-  login: '',
-  password: '',
-  passwordConfirmation: '',
-  error: false,
+  firstName: "",
+  lastName: "",
+  email: "",
+  login: "",
+  password: "",
+  passwordConfirmation: "",
+  error: false
 }

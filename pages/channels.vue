@@ -14,13 +14,11 @@
 </template>
 
 <script lang="ts">
-  import {Component} from 'nuxt-property-decorator';
+  import {Component, Vue} from 'nuxt-property-decorator';
   import {State} from 'vuex-class';
 
-  import {VueNuxt} from '~/types';
-
   @Component
-  export default class Channels extends VueNuxt {
+  export default class Channels extends Vue {
 
     fetch({store, params}) {
       return store.dispatch('channels/getChannelsFront');

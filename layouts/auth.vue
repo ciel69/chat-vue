@@ -11,12 +11,10 @@
 </template>
 
 <script lang="ts">
-  import {Component} from 'nuxt-property-decorator';
-
-  import {VueNuxt} from '~/types'
+  import {Component, Vue} from 'nuxt-property-decorator';
 
   @Component
-  export default class Auth extends VueNuxt {
+  export default class Auth extends Vue {
 
   }
 </script>

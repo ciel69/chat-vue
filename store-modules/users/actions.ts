@@ -1,10 +1,10 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag"
 
 export default {
   async getUsers(commit, app) {
-    let client = app.apolloProvider.defaultClient;
+    const client = app.apolloProvider.defaultClient
 
-    let result;
+    let result
     try {
       result = await client.query({
         query: gql`
@@ -14,19 +14,19 @@ export default {
               firstName
             }
           }
-        `,
-      });
-      commit('loadUsers', result.data.allUsers);
+        `
+      })
+      commit("loadUsers", result.data.allUsers)
       // commit('chat/loadMessage', result.data.getMessage);
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
-    return result;
+    return result
   },
   async getUsersFront({ commit }) {
-    const client = this.app.apolloProvider.defaultClient;
-    console.log('getUsersFront');
-    let result;
+    const client = this.app.apolloProvider.defaultClient
+    console.log("getUsersFront")
+    let result
     try {
       result = await client.query({
         query: gql`
@@ -39,13 +39,13 @@ export default {
               login
             }
           }
-        `,
-      });
-      console.log('getUsersFront result', result);
-      commit('loadUsers', result.data.allUsers);
+        `
+      })
+      console.log("getUsersFront result", result)
+      commit("loadUsers", result.data.allUsers)
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
-    return result;
-  },
-};
+    return result
+  }
+}

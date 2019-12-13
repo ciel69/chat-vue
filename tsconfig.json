@@ -7,11 +7,12 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "types": [
-      "@nuxt/vue-app",
+      "@nuxt/types",
       "@types/node",
       "@types/webpack-env"
     ],
     "typeRoots": [
+      "types",
       "node_modules/@types"
     ],
     "paths": {

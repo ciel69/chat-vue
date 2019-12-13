@@ -1,5 +1,5 @@
 export default {
-    loadUsers(state, data) {
-        state.list = data;
-    },
-};
+  loadUsers(state, data) {
+    state.list = data
+  }
+}

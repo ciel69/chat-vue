@@ -15,7 +15,7 @@
   import {Component, Emit, Vue} from 'nuxt-property-decorator';
   import {State, Action} from 'vuex-class';
 
-  @Component({})
+  @Component
   export default class Users extends Vue {
     @Action('users/getUsersFront') actionsGetUsers: any;
     @Action('channels/createChannel') actionsNewChannel: any;

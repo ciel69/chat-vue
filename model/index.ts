@@ -1,11 +1,9 @@
-export * from './state';
-export * from './dialog';
-export * from './users';
-export * from './vue';
-
+export * from "./state"
+export * from "./dialog"
+export * from "./users"
 
 export interface Process {
-  browser: boolean
+  browser: boolean;
 }
 
 export interface Person {
@@ -30,4 +28,12 @@ export interface Address {
   postalCode: string;
   state: string;
   street: string;
+}
+
+export interface IGraphql {
+  query?: any;
+  subscribe?: any;
+  mutate?: any;
+  fetchPolicy?: string;
+  variables?: Record<string, any>;
 }

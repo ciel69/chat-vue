@@ -1,25 +1,27 @@
-// @ts-ignore
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
-import {Process} from 'types'
+import {Process, IGraphql, Message} from '~/model'
 
-declare var process: Process;
+declare let process: Process;
+
+export interface ActionsChannel {
+  chatSendMessage: (message: Message) => void;
+  chatChangeInput: (text: string) => void;
+}
 
 export default {
   async getChannelsFront(context) {
-    const client = this.app.apolloProvider.defaultClient;
-    const {id} = context.rootState.user;
+    const client: IGraphql = this.app.apolloProvider.defaultClient
+    const {id} = context.rootState.user
 
-    if (!id) return;
+    if (!id) return
 
-    console.log('getChannelsFront');
-
-    let result;
+    let result
     try {
       result = await client.query({
         fetchPolicy: 'no-cache',
         query: gql`
-          query user($id: ID!){
+          query user($id: ID!) {
             user(id: $id) {
               id
               firstName
@@ -39,21 +41,21 @@ export default {
           }
         `,
         variables: {
-          id: id,
-        },
-      });
+          id: id
+        }
+      })
 
-      context.commit('setListDialog', result.data.user.dialogs);
+      context.commit('setListDialog', result.data.user.dialogs)
     } catch (e) {
-      console.error(e);
-      context.commit('setListDialog', []);
-      result = [];
+      console.error(e)
+      result = []
+      context.commit('setListDialog', result)
     }
-    return result;
+    return result
   },
   async getMessageFront({commit}, id) {
-    const client = this.app.apolloProvider.defaultClient;
-    let result;
+    const client: IGraphql = this.app.apolloProvider.defaultClient
+    let result
     try {
       result = await client.query({
         fetchPolicy: 'no-cache',
@@ -78,50 +80,40 @@ export default {
           }
         `,
         variables: {
-          id,
-        },
-      });
-      commit('loadChannelMessage', result.data.getChannel);
-      return result.data.getChannel;
+          id
+        }
+      })
+      commit('loadChannelMessage', result.data.getChannel)
+      return result.data.getChannel
     } catch (e) {
-      console.error(e);
-      return e;
+      console.error(e)
+      return e
     }
-    return result;
+    return result
   },
   subscribeChannel(context: any, cid) {
-    const client = this.app.apolloProvider.defaultClient;
-    const self = this;
+    const client = this.app.apolloProvider.defaultClient
+    const self = this
 
-    if (!process.browser) return;
+    if (!process.browser) return
 
-    context.commit('addSubscribe', cid);
+    context.commit('addSubscribe', cid)
   },
   newChannel(context: any, data: object) {
-    context.commit('newChannel', data);
+    context.commit('newChannel', data)
   },
 
   chatInitial(context: any) {
-    const token = this.app.$cookies.get('token');
-    const self = this;
+    const token = this.app.$cookies.get('token')
+    const self = this
 
+    if (!token || this.state.channels.isSubscribe) return
+    context.commit('chatInitialSubscribe', true)
 
-    if (!token || this.state.channels.isSubscribe) return;
-    context.commit('chatInitialSubscribe', true);
+    const client: IGraphql = this.app.apolloProvider.defaultClient
+    const id = this.state.user.id
 
-    self.$OneSignal && self.$OneSignal.push(() => {
-      self.$OneSignal.isPushNotificationsEnabled((isEnabled) => {
-        if (isEnabled) {
-          console.log('Push notifications are enabled!')
-        } else {
-          console.log('Push notifications are not enabled yet.')
-        }
-      })
-    });
-
-    const client = this.app.apolloProvider.defaultClient;
-    const id = this.state.user.id;
-
+    console.log('chatInitial')
     const observerChannel = client.subscribe({
       query: gql`
         subscription subscribeUser($id: ID!) {
@@ -154,62 +146,49 @@ export default {
         }
       `,
       variables: {
-        id,
-      },
-    });
+        id
+      }
+    })
 
     observerChannel.subscribe({
       next(res) {
-        console.log('subscribe', res);
+        console.log('subscribe', res)
 
         if (res) {
-          const data = res.data.subscribeUser;
-          let title = 'Нет заголовка';
+          const data = res.data.subscribeUser
+          let title = 'Нет заголовка'
 
           if (data.message.channel && self.getters['channels/getChannel']) {
-            const dialog = self.getters['channels/getChannel'](data.message.channel.id);
-            title = dialog.name;
+            const dialog = self.getters['channels/getChannel'](
+              data.message.channel.id
+            )
+            title = dialog.name
           } else {
-            title = data.channel.name;
+            title = data.channel.name
           }
 
-
           if (data.type === 'message') {
-            self.$OneSignal && self.$OneSignal.sendSelfNotification(
-              /* Title (defaults if unset) */
-              title,
-              /* Message (defaults if unset) */
-              data.message.text,
-              /* URL (defaults if unset) */
-              `https://chat-front.herokuapp.com/channel/${data.message.channel.id}`,
-              /* Icon */
-              'https://onesignal.com/images/notification_logo.png',
-              {
-                /* Additional data hash */
-                notificationType: 'news-feature'
-              }
-            );
             context.commit('sendMessage', {
               message: data.message,
-              cid: data.message.channel.id,
-            });
+              cid: data.message.channel.id
+            })
           } else {
-            context.commit('newChannel', data.channel);
+            context.commit('newChannel', data.channel)
           }
         }
       },
       error(error) {
-        console.error('subscribeChannel error', error);
-      },
-    });
+        console.error('subscribeChannel error', error)
+      }
+    })
   },
   async chatSendMessage(context: any, data) {
-    if (!data) return;
+    if (!data) return
 
-    const {store} = this.app;
-    const {user} = store.state;
+    const {store} = this.app
+    const {user} = store.state
 
-    const client = this.app.apolloProvider.defaultClient;
+    const client: IGraphql = this.app.apolloProvider.defaultClient
     client.mutate({
       mutation: gql`
         mutation createMessage($text: String, $id: ID, $channelId: ID) {
@@ -227,19 +206,19 @@ export default {
       `,
       variables: {
         text: data.text,
-        channelId: data.cid,
-        id: user.id,
-      },
-    });
+        channelId: data.channelId,
+        id: user.id
+      }
+    })
   },
   async createChannel(context: any, uid: number) {
-    if (!uid) return;
+    if (!uid) return
 
-    const {id: userId} = context.rootState.user;
+    const {id: userId} = context.rootState.user
 
-    const usersId = [uid, +userId];
+    const usersId = [uid, +userId]
 
-    const client = this.app.apolloProvider.defaultClient;
+    const client: IGraphql = this.app.apolloProvider.defaultClient
     const result = await client.mutate({
       mutation: gql`
         mutation createChannel($usersId: [Int]) {
@@ -262,32 +241,29 @@ export default {
       `,
       variables: {
         usersId
-      },
-    });
+      }
+    })
 
     if (
       result.data.createChannel.id &&
       !this.state.channels.subscribe.includes(result.data.createChannel.id)
     ) {
-      context.dispatch(
-        'subscribeChannel',
-        result.data.createChannel.id
-      );
+      context.dispatch('subscribeChannel', result.data.createChannel.id)
     }
 
     const isChannel = this.state.channels.list.find(
-      item => item.id === result.data.createChannel.id,
-    );
+      item => item.id === result.data.createChannel.id
+    )
     if (!isChannel) {
-      context.commit('newChannel', result.data.createChannel);
+      context.commit('newChannel', result.data.createChannel)
     }
 
-    this.app.router.push(`/channel/${result.data.createChannel.id}`);
+    this.app.router.push(`/channel/${result.data.createChannel.id}`)
   },
   chatChangeInput(context: any, data: object) {
-    context.commit('chatChangeInput', data);
+    context.commit('chatChangeInput', data)
   },
   clearDialogs(context) {
-    context.commit('clearListDialog');
+    context.commit('clearListDialog')
   }
-};
+}

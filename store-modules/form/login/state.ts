@@ -1,11 +1,11 @@
 interface IAuthForm {
-    login: string;
-    password: string;
-    error: boolean;
+  login: string;
+  password: string;
+  error: boolean;
 }
 
 export default {
-    login: '',
-    password: '',
-    error: false,
+  login: "",
+  password: "",
+  error: false
 }

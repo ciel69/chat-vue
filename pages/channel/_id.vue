@@ -6,10 +6,9 @@
 
 <script lang="ts">
   import {
-    Component
+    Component,
+    Vue
   } from 'nuxt-property-decorator'
-
-  import {VueNuxt} from '~/types';
 
   import Chat from '~/components/Chat/Chat.vue';
 
@@ -18,7 +17,7 @@
       Chat
     },
   })
-  export default class ChannelDetail extends VueNuxt {
+  export default class ChannelDetail extends Vue {
     async asyncData(ctx) {
       if (!ctx.store.state.user.token) {
         return ctx.redirect('/auth')

@@ -142,10 +142,8 @@
 </template>
 
 <script lang="ts">
-  import {Component, Watch} from 'nuxt-property-decorator';
+  import {Component, Watch, Vue} from 'nuxt-property-decorator';
   import {Action} from 'vuex-class';
-
-  import {VueNuxt} from '~/types';
 
   import CurrentUserInfo from '~/components/User/CurrentUserInfo.vue';
   import DialogList from '~/components/Dialog/DialogList.vue';
@@ -158,7 +156,7 @@
       AllListUser
     },
   })
-  export default class Layout extends VueNuxt {
+  export default class Layout extends Vue {
 
     activeTab: number = 0;
     drawers: Array<string> = ['Default (no property)', 'Permanent', 'Temporary'];

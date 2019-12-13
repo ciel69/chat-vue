@@ -7,12 +7,11 @@
 <script lang="ts">
   import {
     Component,
+    Vue
   } from 'nuxt-property-decorator';
 
-  import {VueNuxt} from '~/types';
-
   @Component
-  export default class Index extends VueNuxt {
+  export default class Index extends Vue {
     async asyncData(ctx) {
       if (!ctx.store.state.user.token) {
         return ctx.redirect('/auth')

@@ -1,5 +1,5 @@
 export default {
   setSession(state, session) {
-    state.session = session;
+    state.session = session
   }
-};
+}

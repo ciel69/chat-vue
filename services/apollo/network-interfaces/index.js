@@ -1,8 +1,8 @@
-import ApolloNuxt from './ApolloNuxt';
+import ApolloNuxt from "./ApolloNuxt"
 
-import apolloAuth from '../middleware/apollo-auth'
+import apolloAuth from "../middleware/apollo-auth"
 
-const apolloNuxt = (ctx) => new ApolloNuxt(ctx).setMiddleware([apolloAuth]).connect();
+const apolloNuxt = ctx =>
+  new ApolloNuxt(ctx).setMiddleware([apolloAuth]).connect()
 
-
-export default apolloNuxt;
+export default apolloNuxt

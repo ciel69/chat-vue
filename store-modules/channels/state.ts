@@ -1,7 +1,7 @@
 export default {
-    inputText: '',
-    list: [],
-    subscribe: [],
-    isSubscribe: false,
-    current: {}
+  inputText: "",
+  list: [],
+  subscribe: [],
+  isSubscribe: false,
+  current: {}
 }

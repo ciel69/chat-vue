@@ -33,12 +33,10 @@
 </template>
 
 <script lang="ts">
-  import {Component, Emit} from 'nuxt-property-decorator';
-
-  import {VueNuxt} from '~/types'
+  import {Component, Emit, Vue} from 'nuxt-property-decorator';
 
   @Component
-  export default class VEmojiPicker extends VueNuxt {
+  export default class VEmojiPicker extends Vue {
     search: string = '';
 
     @Emit()

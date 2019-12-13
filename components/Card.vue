@@ -11,7 +11,7 @@ import {
   Prop,
   Vue
 } from 'nuxt-property-decorator'
-import { Person } from "~/types";
+import { Person } from "~/model";
 
 @Component({})
 export default class Card extends Vue {

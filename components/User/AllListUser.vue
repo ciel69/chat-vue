@@ -10,7 +10,7 @@
           @click="actionsNewChannel(user.id)"
         >
           <v-list-item-avatar>
-            <img src="https://placeimg.com/40/40/people/1"/>
+            <img src="https://placeimg.com/40/40/people/1" alt="ava"/>
           </v-list-item-avatar>
 
           <v-list-item-content>
@@ -27,16 +27,19 @@
 </template>
 
 <script lang="ts">
-  import {Component} from 'nuxt-property-decorator';
+  import {Component, Vue} from 'nuxt-property-decorator';
   import {State, Action} from 'vuex-class';
 
-  import {VueNuxt, IUser} from '~/types';
+  import {User} from '~/model';
 
   @Component
-  export default class AllListUser extends VueNuxt {
-    @Action('channels/createChannel') actionsNewChannel: any;
+  export default class AllListUser extends Vue {
 
-    @State(state => state.users.list) listUsers: [IUser];
+    @State(state => state.users.list)
+    listUsers: User[];
+
+    @Action('channels/createChannel')
+    actionsNewChannel: any;
   }
 </script>
 
@@ -44,7 +47,7 @@
 .users-list {
   margin: 0;
   overflow: auto;
-  max-height: calc(88vh + 4px);
+  max-height: 88vh;
   .v-list {
     background: transparent;
   }

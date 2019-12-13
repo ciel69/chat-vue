@@ -34,10 +34,9 @@
 
 <script lang="ts">
   import {
-    Component
+    Component,
+    Vue
   } from 'nuxt-property-decorator'
-
-  import {VueNuxt} from '~/types';
 
   import Login from '~/components/Auth/Login.vue';
   import Registration from '~/components/Auth/Registration.vue';
@@ -52,7 +51,7 @@
       Registration,
     }
   })
-  export default class AuthPage extends VueNuxt {
+  export default class AuthPage extends Vue {
     active: number = null;
   }
 </script>
