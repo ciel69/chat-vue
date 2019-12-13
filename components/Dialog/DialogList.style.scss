@@ -1,0 +1,10 @@
+@import '~/assets/variables/colors.scss';
+
+.dialog-list {
+  margin: 0;
+  overflow: auto;
+  max-height: 87vh;
+  .v-list {
+    background: transparent;
+  }
+}
