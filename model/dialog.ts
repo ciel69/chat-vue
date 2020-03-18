@@ -4,7 +4,7 @@ export interface Dialog {
   id: number;
   name: string;
   messages: Message[];
-  users: any[];
+  users: User[];
 }
 
 export interface Message {

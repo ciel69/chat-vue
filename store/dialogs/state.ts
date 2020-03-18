@@ -5,10 +5,10 @@ export interface ChannelsState {
   isSubscribe: boolean;
   current: object;
 }
-export default {
+export default (): ChannelsState => ({
   inputText: "",
   list: [],
   subscribe: [],
   isSubscribe: false,
   current: {}
-} as ChannelsState
+});

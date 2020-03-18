@@ -23,6 +23,7 @@
     "@nuxtjs/axios": "5.4.1",
     "@nuxtjs/onesignal": "^3.0.0-beta.16",
     "@nuxtjs/pwa": "^3.0.0-beta.16",
+    "@types/lodash": "^4.14.149",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.5.1",
     "apollo-link": "^1.2.11",

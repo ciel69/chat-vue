@@ -9,10 +9,10 @@ export default class DialogListComponent extends Vue {
   @State(state => state.user)
   currentUser!: User;
 
-  @Getter('channels/getChannelList')
+  @Getter('dialogs/getChannelList')
   getChannelList!: () => Dialog[];
 
-  @Getter('channels/getDialogName')
+  @Getter('dialogs/getDialogName')
   getDialogName!: (name: string, user: User) => string;
 
   nameDialog(name: string): string {

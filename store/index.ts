@@ -6,7 +6,7 @@ export const actions: ActionTree<RootState, RootState> = {
   async nuxtServerInit({dispatch, commit}, context) {
     await Promise.all([
       dispatch('user/checkToken', context.app),
-      dispatch('channels/getChannelsFront'),
+      dispatch('dialogs/getChannelsFront'),
       dispatch('session/initSession', context)
     ])
   }

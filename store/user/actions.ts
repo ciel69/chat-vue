@@ -35,18 +35,18 @@ export async function checkToken({commit, state}: NuxtAppOptions, app: NuxtAppOp
 
 export function loginUser({commit, dispatch}: NuxtAppOptions, data: any): void {
   commit('login', data);
-  dispatch('channels/clearDialogs', null, {root: true});
+  dispatch('dialogs/clearDialogs', null, {root: true});
 }
 
-export function logout(this: Context, {commit, dispatch}: NuxtAppOptions): void {
+export function logout(this: Context|any, {commit, dispatch}: NuxtAppOptions): void {
   commit('loadToken', null);
-  dispatch('channels/clearDialogs', null, {root: true});
+  dispatch('dialogs/clearDialogs', null, {root: true});
   this.app.$cookies.remove('currentUser');
   this.app.$cookies.remove('token');
   this.app.$cookies.remove('id');
-  (this.app.router as VueRouter).push('/auth');
+  this.app.router.push('/auth');
 }
 
-export function chatChangeInput(context: any, data: object): void {
+export function chatChangeInput(context: NuxtAppOptions, data: object): void {
   context.commit('chatChangeInput', data)
 }

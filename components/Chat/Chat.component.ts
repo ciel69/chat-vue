@@ -3,8 +3,8 @@ import {State, Action, Getter} from 'vuex-class';
 
 import {Dialog, Message} from '~/model'
 
-import {GetterChannel} from '~/store-modules/channels/getters';
-import {chatSendMessage, chatChangeInput} from '~/store-modules/channels/actions';
+import {GetterChannel} from '~/store/dialogs/getters';
+import {chatSendMessage, chatChangeInput} from '~/store/dialogs/actions';
 
 import ListMessage from '~/components/ListMessage/ListMessage.vue';
 import VEmojiPicker from '~/components/EmojiPicker/EmojiPicker.vue';
@@ -17,16 +17,16 @@ import VEmojiPicker from '~/components/EmojiPicker/EmojiPicker.vue';
 })
 export default class Chat extends Vue {
 
-  @State(state => state.channels.inputText)
+  @State(state => state.dialogs.inputText)
   inputText!: string;
 
-  @Getter('channels/getChannel')
+  @Getter('dialogs/getChannel')
   currentDialog!: GetterChannel['getChannel'];
 
-  @Action('channels/chatSendMessage')
+  @Action('dialogs/chatSendMessage')
   chatSendMessage!: chatSendMessage;
 
-  @Action('channels/chatChangeInput')
+  @Action('dialogs/chatChangeInput')
   chatChangeInput!: chatChangeInput;
 
   head() {

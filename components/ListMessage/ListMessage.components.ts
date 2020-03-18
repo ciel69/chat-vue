@@ -12,10 +12,10 @@ export default class ListMessage extends Vue {
   @State(state => state.user.id)
   userId!: number;
 
-  @Getter('channels/getChannel')
+  @Getter('dialogs/getChannel')
   currentDialog!: getChannel;
 
-  @Getter('channels/getNameCurrentUser')
+  @Getter('dialogs/getNameCurrentUser')
   getNameCurrentUser!: getNameCurrentUser;
 
   mounted(): void {

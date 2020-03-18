@@ -19,10 +19,10 @@
       if (!ctx.store.state.user.token) {
         return ctx.redirect('/auth')
       }
-      await ctx.app.store.dispatch('channels/getMessageFront', ctx.route.params.id);
+      await ctx.app.store.dispatch('dialogs/getMessageFront', ctx.route.params.id);
     }
 
-    fetch({store, redirect}) {
+    fetch({store, redirect}: any) {
       if (!store.state.user.token) {
         return redirect('/auth')
       }

@@ -36,9 +36,9 @@
   export default class AllListUser extends Vue {
 
     @State(state => state.users.list)
-    listUsers: User[];
+    listUsers!: User[];
 
-    @Action('channels/createChannel')
+    @Action('dialogs/createChannel')
     actionsNewChannel: any;
   }
 </script>

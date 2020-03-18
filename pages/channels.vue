@@ -20,11 +20,11 @@
   @Component
   export default class Channels extends Vue {
 
-    fetch({store, params}) {
-      return store.dispatch('channels/getChannelsFront');
+    fetch({store, params}: any) {
+      return store.dispatch('dialogs/getChannelsFront');
     }
 
-    @State(state => state.channels.list)
+    @State(state => state.dialogs.list)
     listChannels!: any[];
   }
 </script>

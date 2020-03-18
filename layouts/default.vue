@@ -90,8 +90,11 @@
       inset: false,
     };
 
-    @Action('users/getUsersFront') actionUsersGetList;
-    @Action('channels/chatInitial') chatInitial;
+    @Action('users/getUsersFront')
+    actionUsersGetList!: () => void;
+
+    @Action('dialogs/chatInitial')
+    chatInitial!: () => void;
 
     beforeMount() {
       this.chatInitial();

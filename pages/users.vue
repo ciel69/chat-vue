@@ -18,7 +18,7 @@
   @Component
   export default class Users extends Vue {
     @Action('users/getUsersFront') actionsGetUsers: any;
-    @Action('channels/createChannel') actionsNewChannel: any;
+    @Action('dialogs/createChannel') actionsNewChannel: any;
 
     created() {
       this.actionsGetUsers();
@@ -28,7 +28,7 @@
     listUsers!: any[];
 
     @Emit()
-    newChannel(id) {
+    newChannel(id: number) {
       this.$router.push(`/channel/${id}`);
     }
   }
