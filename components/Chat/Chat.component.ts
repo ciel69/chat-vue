@@ -1,10 +1,10 @@
 import {Component, Vue} from 'nuxt-property-decorator';
 import {State, Action, Getter} from 'vuex-class';
 
-import {Dialog} from '~/model'
+import {Dialog, Message} from '~/model'
 
 import {GetterChannel} from '~/store-modules/channels/getters';
-import {ActionsChannel} from '~/store-modules/channels/actions';
+import {chatSendMessage, chatChangeInput} from '~/store-modules/channels/actions';
 
 import ListMessage from '~/components/ListMessage/ListMessage.vue';
 import VEmojiPicker from '~/components/EmojiPicker/EmojiPicker.vue';
@@ -24,10 +24,10 @@ export default class Chat extends Vue {
   currentDialog!: GetterChannel['getChannel'];
 
   @Action('channels/chatSendMessage')
-  chatSendMessage: ActionsChannel['chatSendMessage'];
+  chatSendMessage!: chatSendMessage;
 
   @Action('channels/chatChangeInput')
-  chatChangeInput: ActionsChannel['chatChangeInput'];
+  chatChangeInput!: chatChangeInput;
 
   head() {
     return {
@@ -55,14 +55,14 @@ export default class Chat extends Vue {
     this.chatChangeInput(value);
   }
 
-  append(emoji): void {
+  append(emoji: any): void {
     this.textMessage += emoji
   }
 
   sendForm(): void {
     if (this.textMessage.trim().length > 0) {
       const cid = this.$route.params.id;
-      this.chatSendMessage({text: this.textMessage, channelId: cid});
+      this.chatSendMessage({text: this.textMessage, channelId: cid} as Message);
       this.chatChangeInput('');
     }
   }

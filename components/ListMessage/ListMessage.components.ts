@@ -4,7 +4,7 @@ import {State, Getter} from 'vuex-class';
 import OverlayScrollbars from 'overlayscrollbars';
 
 import {Dialog, Message} from '~/model';
-import {GetterChannel} from '~/store-modules/channels/getters';
+import {getChannel, getNameCurrentUser} from '~/store-modules/channels/getters';
 
 @Component
 export default class ListMessage extends Vue {
@@ -13,10 +13,10 @@ export default class ListMessage extends Vue {
   userId!: number;
 
   @Getter('channels/getChannel')
-  currentDialog!: GetterChannel['getChannel'];
+  currentDialog!: getChannel;
 
   @Getter('channels/getNameCurrentUser')
-  getNameCurrentUser: GetterChannel['getNameCurrentUser'];
+  getNameCurrentUser!: getNameCurrentUser;
 
   mounted(): void {
     this.listMessageChanged();
@@ -25,7 +25,11 @@ export default class ListMessage extends Vue {
   @Watch('listMessage')
   private listMessageChanged() {
     setTimeout(() => {
-      OverlayScrollbars(this.$el.querySelector('.list-message .v-card'), {}).scrollStop().scroll({y: '100%'}, 100);
+      OverlayScrollbars(
+        // @ts-ignore
+        this.$el.querySelector('.list-message .v-card'),
+        {}
+      ).scrollStop().scroll({y: '100%'}, 100);
     }, 50)
   }
 
@@ -37,7 +41,7 @@ export default class ListMessage extends Vue {
     return this.dialog ? this.dialog.messages : [];
   }
 
-  userName(message): string {
+  userName(message: Message): string {
     const channelId = this.$route.params.id;
     return this.getNameCurrentUser(Number(channelId), message.user.id);
   }

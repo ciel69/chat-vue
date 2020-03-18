@@ -1,5 +1,6 @@
-import {Person} from '~/model'
+import {Message, Person, User} from '~/model'
 
 export interface RootState {
-  people: Person[];
+  user: User;
+  messages: Message[];
 }

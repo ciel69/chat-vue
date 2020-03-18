@@ -5,10 +5,7 @@
 </template>
 
 <script lang="ts">
-  import {
-    Component,
-    Vue
-  } from 'nuxt-property-decorator'
+  import {Component, Vue} from 'nuxt-property-decorator'
 
   import Chat from '~/components/Chat/Chat.vue';
 
@@ -18,7 +15,7 @@
     },
   })
   export default class ChannelDetail extends Vue {
-    async asyncData(ctx) {
+    async asyncData(ctx: any): Promise<void> {
       if (!ctx.store.state.user.token) {
         return ctx.redirect('/auth')
       }

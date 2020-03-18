@@ -72,7 +72,8 @@
     fab: boolean = false;
     transition: string = 'slide-y-reverse-transition';
 
-    @State(state => state.user) currentUser: User;
+    @State(state => state.user)
+    currentUser?: User;
 
     @Action('user/logout') userLogout: any;
 

@@ -49,6 +49,7 @@
     "@babel/runtime-corejs2": "^7.7.6",
     "@nuxt/typescript-build": "^0.5.1",
     "@nuxt/vue-app": "^2.10.2",
+    "@nuxtjs/eslint-config-typescript": "^1.0.0",
     "@nuxtjs/vuetify": "^1.9.1",
     "@types/node": "^12.6.2",
     "@types/overlayscrollbars": "^1.8.0",

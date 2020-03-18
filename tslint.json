@@ -1,7 +1,7 @@
 {
     "defaultSeverity": "error",
     "extends": [
-        "tslint:recommended"
+        "@nuxtjs/eslint-config-typescript"
     ],
     "jsRules": {
         "no-unused-expression": true

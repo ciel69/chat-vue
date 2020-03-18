@@ -1,12 +1,16 @@
 import {Dialog, User} from '~/model'
+import {ChannelsState} from '~/store-modules/channels/state';
 
 export interface GetterChannel {
-  getChannel: (id: number) => Dialog
-  getNameCurrentUser: (channelId: number, uId: number) => string
+  getChannel: getChannel
+  getNameCurrentUser: getNameCurrentUser
 }
 
+export type getNameCurrentUser = (channelId: number, uId: number) => string
+export type getChannel = (id: number) => Dialog
+
 export default {
-  getChannel: state => (id: number) => {
+  getChannel: (state: ChannelsState) => (id: number) => {
     if (!id || state.list.length === 0) return []
     const channel = state.list.find(item => item.id === id);
     if (channel) {
@@ -14,27 +18,27 @@ export default {
     }
     return null
   },
-  getChannelList: state => () => {
+  getChannelList: (state: ChannelsState) => () => {
     return state.list.filter(item => item.messages.length)
   },
-  getDialogName: () => (name, user: User): string => {
-    if (!name) return "Без названия";
-    name = name.split("‡");
+  getDialogName: () => (name: any, user: User): string => {
+    if (!name) return 'Без названия';
+    name = name.split('‡');
     if (name.length === 1) {
       return name[0]
     }
-    name = name.filter(item => item !== user.firstName)
+    name = name.filter((item: number) => item !== user.firstName);
     return name[0]
   },
-  getNameCurrentUser: state => (channelId: number, uId: number) => {
+  getNameCurrentUser: (state: ChannelsState) => (channelId: number, uId: number) => {
     let user;
-    if (!state.current) return "";
+    if (!state.current) return '';
     if (!uId || state.list.length === 0) return [];
     const channel = state.list.find(item => item.id === channelId);
     if (channel) {
-      user = channel.users ? channel.users.find(user => user.id === uId) : "";
+      user = channel.users ? channel.users.find((user: User) => user.id === uId) : '';
     }
-    if (!user) return "";
+    if (!user) return '';
 
     return user.firstName
   }

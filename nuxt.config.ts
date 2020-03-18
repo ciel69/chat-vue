@@ -11,7 +11,7 @@ const argv = parseArgs(process.argv.slice(2), {
     p: 'port'
   },
   string: ['H'],
-  unknown: parameter => false
+  unknown: () => false
 });
 
 const port =
@@ -110,6 +110,11 @@ const config: INuxtConfiguration = {
     }
   },
   buildModules: ['@nuxt/typescript-build'],
+  typescript: {
+    typeCheck: {
+      eslint: true
+    }
+  },
   /*
    ** Build configuration
    */

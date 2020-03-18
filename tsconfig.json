@@ -1,16 +1,20 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "noImplicitAny": false,
-    "strict": false,
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "baseUrl": ".",
-    "types": [
-      "@nuxt/types",
-      "@types/node",
-      "@types/webpack-env"
+    "target": "es2018",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": [
+      "esnext",
+      "esnext.asynciterable",
+      "dom"
     ],
+    "esModuleInterop": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "strict": true,
+    "noEmit": true,
+    "baseUrl": ".",
     "typeRoots": [
       "types",
       "node_modules/@types"
@@ -23,18 +27,10 @@
         "./*"
       ]
     },
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "lib": [
-      "esnext",
-      "esnext.asynciterable",
-      "dom"
-    ],
-    "esModuleInterop": true,
-    "allowJs": true,
-    "sourceMap": true,
-    "noEmit": true
+    "types": [
+      "@types/node",
+      "@nuxt/types"
+    ]
   },
   "include": [
     "./**/*.ts",

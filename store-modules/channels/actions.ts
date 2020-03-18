@@ -1,22 +1,26 @@
 import gql from 'graphql-tag'
 
 import {Process, IGraphql, Message} from '~/model'
+import {Context, NuxtAppOptions} from '@nuxt/types';
 
 declare let process: Process;
 
 export interface ActionsChannel {
-  chatSendMessage: (message: Message) => void;
+  chatSendMessage: chatSendMessage;
   chatChangeInput: (text: string) => void;
 }
 
+export type chatSendMessage = (message: Message) => void;
+export type chatChangeInput = (text: string) => void;
+
 export default {
-  async getChannelsFront(context) {
+  async getChannelsFront(context: NuxtAppOptions) {
     const client: IGraphql = this.app.apolloProvider.defaultClient
-    const {id} = context.rootState.user
+    const {id} = context.rootState.user;
 
-    if (!id) return
+    if (!id) return;
 
-    let result
+    let result: any;
     try {
       result = await client.query({
         fetchPolicy: 'no-cache',
@@ -53,9 +57,9 @@ export default {
     }
     return result
   },
-  async getMessageFront({commit}, id) {
-    const client: IGraphql = this.app.apolloProvider.defaultClient
-    let result
+  async getMessageFront({commit}: NuxtAppOptions, id: number) {
+    const client: IGraphql = this.app.apolloProvider.defaultClient;
+    let result;
     try {
       result = await client.query({
         fetchPolicy: 'no-cache',
@@ -82,35 +86,35 @@ export default {
         variables: {
           id
         }
-      })
-      commit('loadChannelMessage', result.data.getChannel)
+      });
+      commit('loadChannelMessage', result.data.getChannel);
       return result.data.getChannel
     } catch (e) {
-      console.error(e)
-      return e
+      console.error(e);
+      return e;
     }
-    return result
+    return result;
   },
-  subscribeChannel(context: any, cid) {
-    const client = this.app.apolloProvider.defaultClient
-    const self = this
+  subscribeChannel(context: NuxtAppOptions, cid: number) {
+    const client = this.app.apolloProvider.defaultClient;
+    const self = this;
 
-    if (!process.browser) return
+    if (!process.browser) return;
 
     context.commit('addSubscribe', cid)
   },
-  newChannel(context: any, data: object) {
-    context.commit('newChannel', data)
+  newChannel(context: NuxtAppOptions, data: object) {
+    context.commit('newChannel', data);
   },
 
-  chatInitial(context: any) {
-    const token = this.app.$cookies.get('token')
-    const self = this
+  chatInitial(context: NuxtAppOptions) {
+    const token = this.app.$cookies.get('token');
+    const self = this;
 
-    if (!token || this.state.channels.isSubscribe) return
-    context.commit('chatInitialSubscribe', true)
+    if (!token || this.state.channels.isSubscribe) return;
+    context.commit('chatInitialSubscribe', true);
 
-    const client: IGraphql = this.app.apolloProvider.defaultClient
+    const client: IGraphql = this.app.apolloProvider.defaultClient;
     const id = this.state.user.id
 
     console.log('chatInitial')
@@ -266,4 +270,4 @@ export default {
   clearDialogs(context) {
     context.commit('clearListDialog')
   }
-}
+} as Context | any;
