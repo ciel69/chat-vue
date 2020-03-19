@@ -195,7 +195,7 @@ export async function chatSendMessage(this: Context|any, context: any, data: any
   const {store} = this.app;
   const {user} = store.state;
 
-  const client: IGraphql = this.app.apolloProvider.defaultClient
+  const client: IGraphql = this.app.apolloProvider.defaultClient;
   client.mutate({
     mutation: gql`
       mutation createMessage($text: String, $id: ID, $channelId: ID) {
@@ -216,7 +216,7 @@ export async function chatSendMessage(this: Context|any, context: any, data: any
       channelId: data.channelId,
       id: user.id
     }
-  })
+  });
 }
 
 export async function createChannel(this: Context|any, context: NuxtAppOptions, uid: number): Promise<void> {
