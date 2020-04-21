@@ -1,0 +1,11 @@
+@import './variables.scss';
+
+.v-application {
+  .primary {
+    background-color: $c !important;
+  }
+
+  a {
+    color: lighten($d, 30%);
+  }
+}

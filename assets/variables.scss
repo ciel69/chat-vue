@@ -1,0 +1,51 @@
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+// $font-size-root: 20px;
+
+$a: #E0E0E0;
+$b: #C5B9CB;
+$c: #A26192;
+$d: #683A65;
+$e: #342D3F;
+$f: #4E666C;
+
+$material-dark-elevation-colors: (
+  16: $d
+);
+
+$material-dark: (
+  'app-bar': rgba($d, .6),
+  'background': $e,
+  'navigation-drawer': rgba($d, .4),
+  'cards': rgba($d, .4),
+  'text': (
+    'theme': $a,
+    'primary': $a,
+    'secondary': rgba($a, 0.7),
+    'disabled': rgba($a, 0.5),
+  ),
+  'buttons': (
+    'disabled': rgba($c, 0.3),
+    'focused': rgba($c, 0.12),
+    'focused-alt': rgba($c, 0.1),
+    'pressed': rgba($c, 0.25)
+  ),
+  'inputs': (
+    'box': green,
+    'solo-inverted': rgba(green, 0.16),
+    'solo-inverted-focused': red,
+    'solo-inverted-focused-label': rgba(red, .6),
+    'solo-inverted-focused-placeholder': rgba(red, 0.38),
+    'solo-inverted-focused-text': rgba(red, 0.87)
+  ),
+  'text-fields': (
+    'filled': rgba(green, 0.08),
+    'filled-hover': rgba(green, 0.16),
+    'outlined': rgba(red, 0.24),
+    'outlined-disabled': rgba(red, 0.16),
+    'outlined-hover': red
+  ),
+);
+
+@import '~vuetify/src/styles/styles.sass';
