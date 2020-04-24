@@ -10,6 +10,7 @@
       <v-list>
         <v-list-item
           v-for="(item, i) in items"
+          v-ripple="{ class: 'primary--text' }"
           :key="i"
           :to="item.to"
           router
@@ -29,20 +30,23 @@
       fixed
       app
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-ripple="{ class: 'primary--text' }"/>
       <v-btn
+        v-ripple="{ class: 'primary--text' }"
         icon
         @click.stop="miniVariant = !miniVariant"
       >
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
       <v-btn
+        v-ripple="{ class: 'primary--text' }"
         icon
         @click.stop="clipped = !clipped"
       >
         <v-icon>mdi-application</v-icon>
       </v-btn>
       <v-btn
+        v-ripple="{ class: 'primary--text' }"
         icon
         @click.stop="fixed = !fixed"
       >
@@ -51,6 +55,7 @@
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn
+        v-ripple="{ class: 'primary--text' }"
         icon
         @click.stop="rightDrawer = !rightDrawer"
       >

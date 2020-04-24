@@ -26,7 +26,7 @@
           </div>
         </v-flex>
         <v-flex xs12>
-          <v-btn type="submit" color="primary" small :disabled="sending">Авторизоваться</v-btn>
+          <v-btn type="submit" color="primary" :disabled="sending">Авторизоваться</v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -37,17 +37,14 @@
   import {
     Component,
     Emit,
-    Inject,
     Vue
   } from 'nuxt-property-decorator'
-  import {State, Action} from 'vuex-class'
 
 
   @Component
   export default class LoginForm extends Vue {
 
     sending: boolean = false;
-    errors: any;
 
     created() {
     }

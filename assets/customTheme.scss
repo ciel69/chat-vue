@@ -1,11 +1,28 @@
-@import './variables.scss';
+@import './colors';
+@import './variables';
 
 .v-application {
-  .primary {
-    background-color: $c !important;
-  }
 
   a {
     color: lighten($d, 30%);
+  }
+
+  .v-list {
+    .v-list-item {
+      &:hover {
+        background-color: rgba($c, .25);
+      }
+    }
+
+    .v-list-item--active {
+      background-color: $c;
+
+      &::before {
+        opacity: .08;
+      }
+      &:hover {
+        background-color: $c;
+      }
+    }
   }
 }

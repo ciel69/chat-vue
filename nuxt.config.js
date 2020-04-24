@@ -53,7 +53,18 @@ export default {
       customProperties: true
     },
     theme: {
-      dark: true
+      dark: true,
+      themes: {
+        dark: {
+          primary: '#A26192',
+          secondary: '#683a65',
+          accent: '#82B1FF',
+          error: '#FF5252',
+          info: '#2196F3',
+          success: '#4CAF50',
+          warning: '#FFC107',
+        }
+      }
     },
   },
   /*
