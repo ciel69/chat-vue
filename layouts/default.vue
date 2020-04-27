@@ -1,13 +1,25 @@
 <template>
   <v-app dark>
     <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
+      v-model="navigationDrawer.drawer"
+      :mini-variant="navigationDrawer.miniVariant"
+      :clipped="navigationDrawer.clipped"
+      :floating="true"
+      :width="350"
+      overflow
       app
     >
-      <v-list>
+      <v-list-item two-line :class="navigationDrawer.miniVariant && 'px-2'">
+        <v-list-item-avatar>
+          <img src="https://randomuser.me/api/portraits/men/81.jpg" alt="Avatars"/>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title>Application</v-list-item-title>
+          <v-list-item-subtitle>Subtext</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list class="py-0">
         <v-list-item
           v-for="(item, i) in items"
           v-ripple="{ class: 'primary--text' }"
@@ -20,40 +32,26 @@
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title v-text="item.title"/>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar
-      :clipped-left="clipped"
+      :clipped-left="navigationDrawer.clipped"
       fixed
       app
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-ripple="{ class: 'primary--text' }"/>
+      <v-app-bar-nav-icon @click.stop="navigationDrawer.drawer = !navigationDrawer.drawer" v-ripple="{ class: 'primary--text' }"/>
       <v-btn
         v-ripple="{ class: 'primary--text' }"
         icon
-        @click.stop="miniVariant = !miniVariant"
+        @click.stop="navigationDrawer.miniVariant = !navigationDrawer.miniVariant"
       >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
+        <v-icon>mdi-{{ `chevron-${navigationDrawer.miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <v-btn
-        v-ripple="{ class: 'primary--text' }"
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        v-ripple="{ class: 'primary--text' }"
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
+      <v-toolbar-title v-text="title"/>
+      <v-spacer/>
       <v-btn
         v-ripple="{ class: 'primary--text' }"
         icon
@@ -63,7 +61,7 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <v-container>
+      <v-container fluid>
         <nuxt />
       </v-container>
     </v-content>
@@ -84,39 +82,39 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-footer
-      :fixed="fixed"
-      app
-    >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
   </v-app>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
+<script lang="ts">
+  import {Component, Vue} from 'nuxt-property-decorator'
+
+  @Component
+  export default class extends Vue {
+    navigationDrawer = {
+      drawer: true,
       clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    }
+      miniVariant: true,
+    };
+    items = [
+      {
+        icon: 'mdi-apps',
+        title: 'Welcome',
+        to: '/'
+      },
+      {
+        icon: 'mdi-chart-bubble',
+        title: 'Inspire',
+        to: '/inspire'
+      },
+      {
+        icon: 'mdi-view-dashboard',
+        title: 'List Components',
+        to: '/template'
+      }
+    ];
+    right = true;
+    rightDrawer = false;
+    title = 'Vuetify.js';
   }
-}
+
 </script>
