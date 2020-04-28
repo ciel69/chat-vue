@@ -1,19 +1,19 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="2">
+      <v-col cols="12" md="2">
         <v-card class="pa-2">Column</v-card>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="12" md="2">
         <v-card class="pa-2">Column</v-card>
       </v-col>
-      <v-col>
+      <v-col cols="12" md="8">
         <v-card class="pa-2">Column</v-card>
       </v-col>
     </v-row>
 
     <v-row>
-      <v-col cols="2">
+      <v-col cols="12" md="2">
         <v-text-field
           name="field"
           label="Поле"
@@ -21,7 +21,7 @@
           value="Я - текстовое поле"
         ></v-text-field>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="12" md="2">
         <v-text-field
           name="field"
           label="Поле с подсказкой"
@@ -29,14 +29,14 @@
           required
         ></v-text-field>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="12" md="2">
         <v-text-field
           name="field"
           label="Поле"
           required
         ></v-text-field>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="12" md="2">
         <v-text-field
           name="field-disabled"
           label="Не активное поле"
@@ -44,7 +44,7 @@
           disabled
         ></v-text-field>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="12" md="2">
         <v-text-field
           name="field-disabled"
           label="Поле"
@@ -57,7 +57,7 @@
     </v-row>
 
     <v-row>
-      <v-col md="auto">
+      <v-col cols="12" md="auto">
         <v-btn
           type="submit"
           color="primary"
@@ -65,7 +65,7 @@
           Кнопка
         </v-btn>
       </v-col>
-      <v-col md="auto">
+      <v-col cols="12" md="auto">
         <v-btn
           type="submit"
           color="primary"
@@ -74,7 +74,7 @@
           Кнопка
         </v-btn>
       </v-col>
-      <v-col md="auto">
+      <v-col cols="12" md="auto">
         <v-btn
           type="submit"
           color="primary"
@@ -86,7 +86,7 @@
     </v-row>
 
     <v-row>
-      <v-col md="auto">
+      <v-col cols="12" md="auto">
           <v-btn
             icon
             color="primary"
@@ -95,7 +95,7 @@
             <v-icon large>mdi-send</v-icon>
           </v-btn>
       </v-col>
-      <v-col md="auto">
+      <v-col cols="12" md="auto">
         <v-btn
           icon
           color="primary"
@@ -105,7 +105,7 @@
           <v-icon large>mdi-send</v-icon>
         </v-btn>
       </v-col>
-      <v-col md="auto">
+      <v-col cols="12" md="auto">
         <v-btn
           icon
           color="primary"
@@ -118,7 +118,7 @@
     </v-row>
 
     <v-row>
-      <v-col md="auto">
+      <v-col cols="12" md="auto">
         <v-tabs>
           <v-tab v-ripple="{ class: 'primary--text' }">Item One</v-tab>
           <v-tab v-ripple="{ class: 'primary--text' }">Item Two</v-tab>
