@@ -28,7 +28,7 @@ export default {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [],
+  plugins: ['~plugins/emoji-picker'],
   /*
   ** Nuxt.js dev-modules
   */

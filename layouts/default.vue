@@ -118,3 +118,7 @@
   }
 
 </script>
+
+<style lang="scss">
+  @import 'overlayscrollbars/css/OverlayScrollbars.css';
+</style>

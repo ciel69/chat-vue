@@ -126,13 +126,25 @@
         </v-tabs>
       </v-col>
     </v-row>
+
+    <v-row>
+      <v-col md="4">
+        <textarea-emoji></textarea-emoji>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from 'nuxt-property-decorator'
+  import {Component, Vue} from 'nuxt-property-decorator';
 
-  @Component
+  import TextareaEmoji from '~/components/TextareaEmoji.vue';
+
+  @Component({
+    components: {
+      TextareaEmoji,
+    }
+  })
   export default class Template extends Vue {
 
   }
