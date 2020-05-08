@@ -61,7 +61,7 @@
 
     mounted(): void {
       // console.log(this.$refs.emoji);
-      this.emojis = this.$refs.emoji.emojis;
+      this.emojis = (this.$refs.emoji as any).emojis;
     }
 
     handleClick(): void {
