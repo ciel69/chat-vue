@@ -25,4 +25,10 @@
       }
     }
   }
+
+  .os-viewport {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }

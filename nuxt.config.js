@@ -24,7 +24,10 @@ export default {
   /*
   ** Global CSS
   */
-  css: ['~/assets/customTheme.scss'],
+  css: [
+    '~/assets/customTheme.scss',
+    '~/node_modules/overlayscrollbars/css/OverlayScrollbars.css',
+  ],
   /*
   ** Plugins to load before mounting the App
   */
