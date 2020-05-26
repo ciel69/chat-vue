@@ -1,6 +1,6 @@
 <template>
   <div class="emoji-block">
-    <emoji-picker ref="emoji" @emoji="e => $emit('append-e', e)" :search="search">
+    <emoji-picker ref="refEmoji" @emoji="e => $emit('append-e', e)" :search="search">
       <div
         class="emoji-invoker"
         slot="emoji-invoker"
@@ -25,7 +25,7 @@
                 <span
                   v-for="(emoji, emojiName) in emojiGroup"
                   :key="emojiName"
-                  @click="insert(emoji)"
+                  @click="append(emoji)"
                   :title="emojiName"
                 >{{ emoji }}</span>
               </div>
@@ -39,16 +39,25 @@
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from 'nuxt-property-decorator';
+  import {Component, Emit, Ref, Vue} from 'nuxt-property-decorator';
 
   @Component
   export default class VEmojiPicker extends Vue {
+
     search: string = '';
     display: boolean = false;
-    emojis = {};
+    emojis: Record<string, string> = {};
+
+    @Ref()
+    readonly refEmoji!: any;
+
+    @Emit()
+    append(data: string): string {
+      return data;
+    }
 
     getNameCategory(category: string): string {
-      const field: { [key: string]: string } = {
+      const field: Record<string, string> = {
         'Frequently used': 'Часто используемые',
         'Nature': 'Природа',
         'Objects': 'Объекты',
@@ -60,17 +69,11 @@
     }
 
     mounted(): void {
-      // console.log(this.$refs.emoji);
-      this.emojis = (this.$refs.emoji as any).emojis;
+      this.emojis = this.refEmoji.emojis;
     }
 
     handleClick(): void {
       this.display = !this.display
-    }
-
-    insert(data: any): void {
-      console.log('insert', data);
-      this.$emit('append-e', data)
     }
   }
 </script>
@@ -89,11 +92,11 @@
   }
 
   .fade-enter-active {
-    animation: circleEnter .4s;
+    animation: circleEnter .25s;
   }
 
   .fade-leave-active {
-    animation: circleLeave .4s;
+    animation: circleLeave .25s;
   }
 
   .emoji-invoker {
