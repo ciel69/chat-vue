@@ -52,6 +52,7 @@
   @Component
   export default class VEmojiPicker extends Vue {
 
+    timeout?: ReturnType<typeof setTimeout>;
     search: string = '';
     display: boolean = false;
     emojis: Record<string, string> = {};
@@ -81,10 +82,14 @@
     }
 
     handleMouseLeave(): void {
-      this.display = false;
+      this.timeout = setTimeout(() => {
+        this.display = false;
+      }, 300);
+
     }
 
     handleMouseEnter(): void {
+      this.timeout && clearTimeout(this.timeout);
       this.display = true;
     }
   }
