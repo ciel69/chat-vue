@@ -118,7 +118,12 @@
     title = 'Vuetify.js';
 
     mounted(): void {
-      OverlayScrollbars(document.body, { });
+      OverlayScrollbars(document.body, {
+        className : 'os-theme-dark',
+        scrollbars: {
+          autoHide: 'move'
+        },
+      });
     }
   }
 

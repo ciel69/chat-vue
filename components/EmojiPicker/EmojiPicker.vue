@@ -19,8 +19,8 @@
           <overlay-scrollbars
             :options="{
               scrollbars: {
-                autoHide: 'leave'
-                },
+                autoHide: 'move'
+              },
             }"
             class="emoji-scroll"
           >

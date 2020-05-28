@@ -1,7 +1,7 @@
 <template>
   <div class="textarea-emoji__wrapper">
     <v-row>
-      <v-col md="11">
+      <v-col md="11" cols="11">
         <v-textarea
           ref="refTextarea"
           label="Введите сообщение"
@@ -13,7 +13,7 @@
           v-model="textMessage">
         </v-textarea>
       </v-col>
-      <v-col md="1">
+      <v-col md="1" cols="1">
         <v-emoji-picker @append="append"/>
       </v-col>
     </v-row>
@@ -48,7 +48,7 @@
       OverlayScrollbars(this.refTextarea.$refs.input, {
         className : 'os-theme-dark',
         scrollbars: {
-          autoHide: 'leave'
+          autoHide: 'move'
         },
         textarea: {
           dynWidth  : false,
