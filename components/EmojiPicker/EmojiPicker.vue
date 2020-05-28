@@ -1,5 +1,9 @@
 <template>
-  <div class="emoji-block">
+  <div
+    class="emoji-block"
+    @mouseleave="handleMouseLeave"
+    @mouseenter="handleMouseEnter"
+  >
     <emoji-picker ref="refEmoji" @emoji="e => $emit('append-e', e)" :search="search">
       <div
         class="emoji-invoker"
@@ -79,6 +83,14 @@
 
     handleClick(): void {
       this.display = !this.display
+    }
+
+    handleMouseLeave(): void {
+      this.display = false;
+    }
+
+    handleMouseEnter(): void {
+      this.display = true;
     }
   }
 </script>
