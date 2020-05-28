@@ -17,6 +17,11 @@
       <div class="emoji-picker__animate" v-show="display">
         <div class="emoji-picker">
           <overlay-scrollbars
+            :options="{
+              scrollbars: {
+                autoHide: 'leave'
+                },
+            }"
             class="emoji-scroll"
           >
             <div v-for="(emojiGroup, category) in emojis" :key="category">
@@ -82,13 +87,21 @@
   @import '~assets/colors';
 
   @keyframes circleEnter {
-    0% { clip-path: circle(0% at 91% 104%); }
-    100% { clip-path: circle(150% at 91% 104%); }
+    0% {
+      clip-path: circle(0% at 91% 104%);
+    }
+    100% {
+      clip-path: circle(150% at 91% 104%);
+    }
   }
 
   @keyframes circleLeave {
-    0% { clip-path: circle(150% at 91% 104%); }
-    100% { clip-path: circle(0% at 91% 104%); }
+    0% {
+      clip-path: circle(150% at 91% 104%);
+    }
+    100% {
+      clip-path: circle(0% at 91% 104%);
+    }
   }
 
   .fade-enter-active {
@@ -143,7 +156,8 @@
   .emoji {
     &-invoker {
       position: absolute;
-      top: 0.5rem;
+      /*top: 0.5rem;*/
+      bottom: 30px;
       right: 0.5rem;
       width: 1.5rem;
       height: 1.5rem;

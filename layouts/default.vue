@@ -87,6 +87,7 @@
 
 <script lang="ts">
   import {Component, Vue} from 'nuxt-property-decorator'
+  import OverlayScrollbars from 'overlayscrollbars';
 
   @Component
   export default class extends Vue {
@@ -115,10 +116,18 @@
     right = true;
     rightDrawer = false;
     title = 'Vuetify.js';
+
+    mounted(): void {
+      OverlayScrollbars(document.body, { });
+    }
   }
 
 </script>
 
 <style lang="scss">
   @import 'overlayscrollbars/css/OverlayScrollbars.css';
+  html, body {
+    height: 100%;
+    overflow: hidden !important;
+  }
 </style>
