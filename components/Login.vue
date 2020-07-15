@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Emit, Vue} from 'nuxt-property-decorator';
+import {Component, Vue} from 'nuxt-property-decorator';
 
 @Component
 export default class LoginForm extends Vue {
@@ -50,6 +50,7 @@ export default class LoginForm extends Vue {
   }
 
   set login(value) {
+    // eslint-disable-next-line no-console
     console.log('login', value);
   }
 
@@ -58,11 +59,12 @@ export default class LoginForm extends Vue {
   }
 
   set password(value) {
+    // eslint-disable-next-line no-console
     console.log('password', value);
   }
 
-  @Emit()
   loginUser(): void {
+    // eslint-disable-next-line no-console
     console.log('loginUser');
   }
 
