@@ -11,7 +11,7 @@
     >
       <v-list-item two-line :class="navigationDrawer.miniVariant && 'px-2'">
         <v-list-item-avatar>
-          <img src="https://randomuser.me/api/portraits/men/81.jpg" alt="Avatars"/>
+          <img src="https://randomuser.me/api/portraits/men/81.jpg" alt="Avatars">
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -22,8 +22,8 @@
       <v-list class="py-0">
         <v-list-item
           v-for="(item, i) in items"
-          v-ripple="{ class: 'primary--text' }"
           :key="i"
+          v-ripple="{ class: 'primary--text' }"
           :to="item.to"
           router
           exact
@@ -32,7 +32,7 @@
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title"/>
+            <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -42,7 +42,10 @@
       fixed
       app
     >
-      <v-app-bar-nav-icon @click.stop="navigationDrawer.drawer = !navigationDrawer.drawer" v-ripple="{ class: 'primary--text' }"/>
+      <v-app-bar-nav-icon
+        v-ripple="{ class: 'primary--text' }"
+        @click.stop="navigationDrawer.drawer = !navigationDrawer.drawer"
+      />
       <v-btn
         v-ripple="{ class: 'primary--text' }"
         icon
@@ -50,8 +53,8 @@
       >
         <v-icon>mdi-{{ `chevron-${navigationDrawer.miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title"/>
-      <v-spacer/>
+      <v-toolbar-title v-text="title" />
+      <v-spacer />
       <v-btn
         v-ripple="{ class: 'primary--text' }"
         icon
@@ -86,16 +89,21 @@
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from 'nuxt-property-decorator'
-  import OverlayScrollbars from 'overlayscrollbars';
+import {Component, Vue} from 'nuxt-property-decorator';
+import OverlayScrollbars from 'overlayscrollbars';
 
-  @Component
-  export default class extends Vue {
+import RootModule from '~/module/root.module';
+
+  @Component({
+    mixins: [RootModule]
+  })
+export default class extends Vue {
     navigationDrawer = {
       drawer: true,
       clipped: false,
-      miniVariant: true,
+      miniVariant: true
     };
+
     items = [
       {
         icon: 'mdi-apps',
@@ -113,24 +121,26 @@
         to: '/template'
       }
     ];
+
     right = true;
     rightDrawer = false;
     title = 'Vuetify.js';
 
     mounted(): void {
       OverlayScrollbars(document.body, {
-        className : 'os-theme-dark',
+        className: 'os-theme-dark',
         scrollbars: {
           autoHide: 'move'
-        },
+        }
       });
     }
-  }
+}
 
 </script>
 
 <style lang="scss">
   @import 'overlayscrollbars/css/OverlayScrollbars.css';
+
   html, body {
     height: 100%;
     overflow: hidden !important;

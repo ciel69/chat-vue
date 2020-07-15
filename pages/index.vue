@@ -64,7 +64,7 @@
             Nuxt GitHub
           </a>
 
-          <LoginForm></LoginForm>
+          <LoginForm />
           <div class="d-flex flex-row-reverse">
             <v-btn
               color="primary"
@@ -81,9 +81,9 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-import LoginForm from '~/components/Login'
+import Logo from '~/components/Logo.vue';
+import VuetifyLogo from '~/components/VuetifyLogo.vue';
+import LoginForm from '~/components/Login';
 
 export default {
   components: {
@@ -97,13 +97,13 @@ export default {
     lastname: '',
     nameRules: [
       v => !!v || 'Name is required',
-      v => v.length <= 10 || 'Name must be less than 10 characters',
+      v => v.length <= 10 || 'Name must be less than 10 characters'
     ],
     email: '',
     emailRules: [
       v => !!v || 'E-mail is required',
-      v => /.+@.+/.test(v) || 'E-mail must be valid',
-    ],
-  }),
-}
+      v => /.+@.+/.test(v) || 'E-mail must be valid'
+    ]
+  })
+};
 </script>

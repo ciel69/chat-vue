@@ -2,6 +2,11 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   mode: 'universal',
+  typescript: {
+    typeCheck: {
+      eslint: true
+    }
+  },
   /*
   ** Headers of the page
   */

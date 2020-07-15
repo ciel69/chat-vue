@@ -9,7 +9,7 @@
           height="100"
           width="100"
           class="popover__content"
-        ></v-card>
+        />
       </v-expand-transition>
       <v-btn
         class="ma-2"
@@ -20,7 +20,7 @@
       </v-btn>
     </v-col>
 
-    <div class="mx-4 hidden-sm-and-down"></div>
+    <div class="mx-4 hidden-sm-and-down" />
 
     <v-col class="shrink">
       <v-btn
@@ -33,26 +33,26 @@
 
       <v-expand-x-transition>
         <v-card
-          :elevation="10"
           v-show="expand2"
+          :elevation="10"
           height="100"
           width="100"
           class="mx-auto"
-        ></v-card>
+        />
       </v-expand-x-transition>
     </v-col>
   </v-row>
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from 'nuxt-property-decorator';
+import {Component, Vue} from 'nuxt-property-decorator';
 
-  @Component
-  export default class Animation extends Vue {
-    visible = false;
-    expand = false;
-    expand2 = false;
-  }
+@Component
+export default class Animation extends Vue {
+  visible = false;
+  expand = false;
+  expand2 = false;
+}
 </script>
 
 <style scoped lang="scss">
