@@ -139,7 +139,7 @@ export default class extends Vue {
 </script>
 
 <style lang="scss">
-  @import 'overlayscrollbars/css/OverlayScrollbars.css';
+  @import 'node_modules/overlayscrollbars/css/OverlayScrollbars.css';
 
   html, body {
     height: 100%;

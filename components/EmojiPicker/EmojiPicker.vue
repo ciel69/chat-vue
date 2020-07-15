@@ -108,23 +108,29 @@ export default class VEmojiPicker extends Vue {
 </script>
 
 <style scoped lang="scss">
-  @import '~assets/colors';
+  @import 'assets/colors';
+
+  $posA: 0%;
+  $posB: 91%;
+  $posC: 150%;
+
+  $circleSize: 104%;
 
   @keyframes circleEnter {
     0% {
-      clip-path: circle(0% at 91% 104%);
+      clip-path: circle($posA at $posB $circleSize);
     }
     100% {
-      clip-path: circle(150% at 91% 104%);
+      clip-path: circle($posC at $posB $circleSize);
     }
   }
 
   @keyframes circleLeave {
     0% {
-      clip-path: circle(150% at 91% 104%);
+      clip-path: circle($posC at $posB $circleSize);
     }
     100% {
-      clip-path: circle(0% at 91% 104%);
+      clip-path: circle($posA at $posB $circleSize);
     }
   }
 
