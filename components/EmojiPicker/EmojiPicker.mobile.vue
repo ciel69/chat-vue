@@ -137,7 +137,7 @@ export default class VEmojiPickerMobile extends VEmojiPickerCore {
       margin-top: -25px;
       width: 100%;
       height: 15rem;
-      padding: 1rem;
+      padding: 13px;
       box-sizing: border-box;
       background: $d40;
       box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
@@ -159,8 +159,13 @@ export default class VEmojiPickerMobile extends VEmojiPickerCore {
       .emojis {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
         font-size: 20pt;
+        margin-left: -5px;
+        margin-right: -5px;
+
+        span {
+          margin: 5px;
+        }
       }
 
       &__wrapper {
