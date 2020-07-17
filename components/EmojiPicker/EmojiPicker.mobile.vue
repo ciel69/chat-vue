@@ -160,6 +160,7 @@ export default class VEmojiPickerMobile extends VEmojiPickerCore {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+        font-size: 20pt;
       }
 
       &__wrapper {
