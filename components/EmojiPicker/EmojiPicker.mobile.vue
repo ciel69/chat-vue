@@ -42,7 +42,6 @@
               </div>
             </div>
           </overlay-scrollbars>
-          <div class="arrow-down" />
         </div>
       </div>
     </transition>
@@ -55,7 +54,7 @@ import {Component} from 'nuxt-property-decorator';
 import VEmojiPickerCore from '~/components/EmojiPicker/EmojiPicker.core.vue';
 
 @Component
-export default class VEmojiPicker extends VEmojiPickerCore {
+export default class VEmojiPickerMobile extends VEmojiPickerCore {
 }
 </script>
 
@@ -99,28 +98,6 @@ export default class VEmojiPicker extends VEmojiPickerCore {
     z-index: 10;
   }
 
-  .arrow-down {
-    width: 50px;
-    height: 47px;
-    position: absolute;
-    bottom: -46px;
-    right: 0;
-    overflow: hidden;
-    transform: rotate(180deg);
-
-    &:after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: $d40;
-      transform: rotate(45deg);
-      top: 37.5px;
-      left: 12.5px;
-      box-shadow: -1px -1px 10px -2px rgba(0, 0, 0, 0.5);
-    }
-  }
-
   .wrapper {
     position: relative;
     display: inline-block;
@@ -138,7 +115,7 @@ export default class VEmojiPicker extends VEmojiPickerCore {
   .emoji {
     &-invoker {
       position: absolute;
-      /*top: 0.5rem;*/
+      top: 1.8rem;
       bottom: 30px;
       right: 0.5rem;
       width: 1.5rem;
@@ -157,11 +134,11 @@ export default class VEmojiPicker extends VEmojiPickerCore {
     }
 
     &-picker {
-      width: 15rem;
-      height: 20rem;
+      margin-top: -25px;
+      width: 100%;
+      height: 15rem;
       padding: 1rem;
       box-sizing: border-box;
-      border-radius: 0.5rem;
       background: $d40;
       box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
 
@@ -173,7 +150,7 @@ export default class VEmojiPicker extends VEmojiPickerCore {
       }
 
       &__animate {
-        position: absolute;
+        max-height: 300px;
         z-index: 1;
         bottom: 75px;
         right: 0;
@@ -183,22 +160,6 @@ export default class VEmojiPicker extends VEmojiPickerCore {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-
-        &:after {
-          content: "";
-          flex: auto;
-        }
-
-        span {
-          padding: 0.2rem;
-          cursor: pointer;
-          border-radius: 5px;
-
-          &:hover {
-            background: $c;
-            cursor: pointer;
-          }
-        }
       }
 
       &__wrapper {

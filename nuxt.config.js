@@ -1,5 +1,3 @@
-import colors from 'vuetify/es5/util/colors'
-
 export default {
   mode: 'universal',
   typescript: {
@@ -14,24 +12,24 @@ export default {
     titleTemplate: '%s - ' + process.env.npm_package_name,
     title: process.env.npm_package_name || '',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {hid: 'description', name: 'description', content: process.env.npm_package_description || ''}
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
     ]
   },
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: {color: '#fff'},
   /*
   ** Global CSS
   */
   css: [
     '~/assets/customTheme.scss',
-    '~/node_modules/overlayscrollbars/css/OverlayScrollbars.css',
+    '~/node_modules/overlayscrollbars/css/OverlayScrollbars.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -70,10 +68,10 @@ export default {
           error: '#FF5252',
           info: '#2196F3',
           success: '#4CAF50',
-          warning: '#FFC107',
+          warning: '#FFC107'
         }
       }
-    },
+    }
   },
   /*
   ** Build configuration
@@ -84,11 +82,12 @@ export default {
     */
     babel: {
       plugins: [
-        ["@babel/plugin-proposal-decorators", { legacy: true }],
-        ["@babel/plugin-proposal-class-properties", { loose: true }]
+        ['@babel/plugin-proposal-decorators', {legacy: true}],
+        ['@babel/plugin-proposal-class-properties', {loose: true}]
       ]
     },
-    extend (config, ctx) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    extend(config, ctx) {
     }
   }
-}
+};

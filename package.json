@@ -9,7 +9,7 @@
     "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
     "start": "nuxt-ts start",
-    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore .",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
@@ -31,14 +31,18 @@
     "vuex-class": "^0.3.2"
   },
   "devDependencies": {
+    "@nuxt/types": "^2.13.3",
     "@nuxt/typescript-build": "^1.0.3",
     "@nuxtjs/eslint-config-typescript": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.2.0",
     "@nuxtjs/vuetify": "^1.11.2",
     "@types/overlayscrollbars": "^1.12.0",
     "@types/ramda": "^0.27.6",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
     "babel-eslint": "^10.0.1",
-    "eslint": "^6.1.0",
-    "eslint-plugin-nuxt": ">=0.4.2"
+    "eslint": "^7.4.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "typescript": "^3.9.7"
   }
 }

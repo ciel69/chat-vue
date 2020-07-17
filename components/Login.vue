@@ -17,10 +17,10 @@
           <div :class="getValidationClass('password')">
             <v-text-field
               v-model="password"
+              required
               type="password"
               name="password"
               label="Пароль"
-              required
               :disabled="sending"
             />
           </div>
@@ -40,6 +40,7 @@ import {Component, Vue} from 'nuxt-property-decorator';
 
 @Component
 export default class LoginForm extends Vue {
+
   sending: boolean = false;
 
   created() {
@@ -72,6 +73,7 @@ export default class LoginForm extends Vue {
   getValidationClass(fieldName: string) {
     return {'md-invalid': false};
   }
+
 }
 </script>
 

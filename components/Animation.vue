@@ -49,14 +49,16 @@ import {Component, Vue} from 'nuxt-property-decorator';
 
 @Component
 export default class Animation extends Vue {
+
   visible = false;
   expand = false;
   expand2 = false;
+
 }
 </script>
 
 <style scoped lang="scss">
-  @import '~assets/colors';
+  @import 'assets/colors';
 
   .popover {
     position: relative;

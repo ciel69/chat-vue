@@ -94,10 +94,11 @@ import OverlayScrollbars from 'overlayscrollbars';
 
 import RootModule from '~/module/root.module';
 
-  @Component({
-    mixins: [RootModule]
-  })
+@Component({
+  mixins: [RootModule]
+})
 export default class extends Vue {
+
     navigationDrawer = {
       drawer: true,
       clipped: false,
@@ -134,6 +135,7 @@ export default class extends Vue {
         }
       });
     }
+
 }
 
 </script>

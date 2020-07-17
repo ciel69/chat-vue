@@ -152,13 +152,24 @@
         />
       </v-col>
     </v-row>
+    <v-row>
+      <v-col md="12" cols="12">
+        <v-label>Mobile</v-label>
+      </v-col>
+      <v-col md="4" class="pb0">
+        <textarea-emoji
+          :is-mobile="true"
+          @send="handleSend"
+        />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Vue} from 'nuxt-property-decorator';
 
-import TextareaEmoji from '~/components/TextareaEmoji.vue';
+import TextareaEmoji from '~/components/TextareaEmoji/TextareaEmoji.vue';
 import Animation from '~/components/Animation.vue';
 
 @Component({
@@ -168,10 +179,12 @@ import Animation from '~/components/Animation.vue';
   }
 })
 export default class Template extends Vue {
+
   handleSend(message: string): void {
     // eslint-disable-next-line no-console
     console.log('handleSend', message);
   }
+
 }
 
 </script>
