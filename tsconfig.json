@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
     "target": "es2018",
     "module": "esnext",
     "moduleResolution": "node",
@@ -14,11 +13,8 @@
     "sourceMap": true,
     "strict": true,
     "noEmit": true,
+    "experimentalDecorators": true,
     "baseUrl": ".",
-    "typeRoots": [
-      "types",
-      "node_modules/@types"
-    ],
     "paths": {
       "~/*": [
         "./*"
@@ -37,7 +33,9 @@
     "./**/*.vue"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    ".nuxt",
+    "dist"
   ],
   "files": [
     "./types/vue-shims.d.ts"

@@ -1,0 +1,28 @@
+@import './colors';
+@import './tools';
+
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+$font-size-root: 18.286px;
+
+$material-dark-elevation-colors: (
+  16: $d
+);
+
+$material-dark: (
+  'app-bar': $d40,
+  'background': $e,
+  'navigation-drawer': $d15,
+  'primary': $a,
+  'cards': $d50,
+  'text': (
+    'theme': $a,
+    'primary': $a,
+    'secondary': $b,
+    'disabled': darker($b, 0.5),
+  ),
+);
+
+@import '~vuetify/src/styles/styles.sass';
+@import '~vuetify/src/styles/generic/transitions.scss';

@@ -1,0 +1,55 @@
+@import './colors';
+@import './variables';
+@import 'padding';
+
+.v-application {
+
+  a {
+    color: lighten($d, 30%);
+  }
+
+  .v-list {
+    .v-list-item {
+      &:hover {
+        background-color: rgba($c, .25);
+      }
+    }
+
+    .v-list-item--active {
+      background-color: $c;
+
+      &::before {
+        opacity: .08;
+      }
+
+      &:hover {
+        background-color: $c;
+      }
+    }
+  }
+
+  .os-viewport {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+body {
+  &.os-theme-dark, .os-theme-dark {
+    & > .os-scrollbar {
+      & > .os-scrollbar-track > .os-scrollbar-handle {
+        background-color: rgba($c, .5);
+        cursor: pointer;
+
+        &.active {
+          background: rgba($c, .7);
+        }
+      }
+
+      &:hover > .os-scrollbar-track > .os-scrollbar-handle {
+        background: rgba($c, .7);
+      }
+    }
+  }
+}

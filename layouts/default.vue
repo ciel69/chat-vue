@@ -1,139 +1,150 @@
 <template>
-  <v-app id="sandbox">
+  <v-app dark>
     <v-navigation-drawer
-      v-model="primaryDrawer.model"
-      :clipped="primaryDrawer.clipped"
-      :floating="primaryDrawer.floating"
-      :mini-variant="primaryDrawer.mini"
-      :permanent="primaryDrawer.type === 'permanent'"
-      :temporary="primaryDrawer.type === 'temporary'"
+      v-model="navigationDrawer.drawer"
+      :mini-variant="navigationDrawer.miniVariant"
+      :clipped="navigationDrawer.clipped"
+      :floating="true"
       :width="350"
-      app
       overflow
+      app
     >
-      <current-user-info/>
-      <v-tabs
-        v-model="activeTab"
-        dark
-        grow
-      >
-        <v-tab
-          ripple
-        >
-          <v-icon>chat_bubble</v-icon>
-        </v-tab>
-        <v-tab
-          ripple
-        >
-          <v-icon>account_box</v-icon>
-        </v-tab>
-        <v-tab-item>
-          <dialog-list/>
-        </v-tab-item>
-        <v-tab-item>
-          <all-list-user/>
-        </v-tab-item>
-      </v-tabs>
-    </v-navigation-drawer>
+      <v-list-item two-line :class="navigationDrawer.miniVariant && 'px-2'">
+        <v-list-item-avatar>
+          <img src="https://randomuser.me/api/portraits/men/81.jpg" alt="Avatars">
+        </v-list-item-avatar>
 
+        <v-list-item-content>
+          <v-list-item-title>Application</v-list-item-title>
+          <v-list-item-subtitle>Subtext</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list class="py-0">
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          v-ripple="{ class: 'primary--text' }"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
     <v-app-bar
-      :clipped-left="primaryDrawer.clipped"
+      :clipped-left="navigationDrawer.clipped"
+      fixed
       app
     >
       <v-app-bar-nav-icon
-        v-if="primaryDrawer.type !== 'permanent'"
-        @click.stop="primaryDrawer.model = !primaryDrawer.model"
-      ></v-app-bar-nav-icon>
-      <v-toolbar-title>Vuetify</v-toolbar-title>
+        v-ripple="{ class: 'primary--text' }"
+        @click.stop="navigationDrawer.drawer = !navigationDrawer.drawer"
+      />
+      <v-btn
+        v-ripple="{ class: 'primary--text' }"
+        icon
+        @click.stop="navigationDrawer.miniVariant = !navigationDrawer.miniVariant"
+      >
+        <v-icon>mdi-{{ `chevron-${navigationDrawer.miniVariant ? 'right' : 'left'}` }}</v-icon>
+      </v-btn>
+      <v-toolbar-title v-text="title" />
+      <v-spacer />
+      <v-btn
+        v-ripple="{ class: 'primary--text' }"
+        icon
+        @click.stop="rightDrawer = !rightDrawer"
+      >
+        <v-icon>mdi-menu</v-icon>
+      </v-btn>
     </v-app-bar>
-
-    <v-content>
-      <nuxt/>
-    </v-content>
-
-<!--    <v-footer-->
-<!--      :inset="true"-->
-<!--      app-->
-<!--    >-->
-<!--      <span class="px-4">&copy; {{ new Date().getFullYear() }}</span>-->
-<!--    </v-footer>-->
+    <v-main>
+      <v-container fluid>
+        <nuxt />
+      </v-container>
+    </v-main>
+    <v-navigation-drawer
+      v-model="rightDrawer"
+      :right="right"
+      temporary
+      fixed
+    >
+      <v-list>
+        <v-list-item @click.native="right = !right">
+          <v-list-item-action>
+            <v-icon light>
+              mdi-repeat
+            </v-icon>
+          </v-list-item-action>
+          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
   </v-app>
 </template>
 
 <script lang="ts">
-  import {Component, Watch, Vue} from 'nuxt-property-decorator';
-  import {Action} from 'vuex-class';
+import {Component, Vue} from 'nuxt-property-decorator';
+import OverlayScrollbars from 'overlayscrollbars';
 
-  import CurrentUserInfo from '~/components/User/CurrentUserInfo.vue';
-  import DialogList from '~/components/Dialog/DialogList.vue';
-  import AllListUser from '~/components/User/AllListUser.vue';
+import RootModule from '~/module/root.module';
 
-  @Component({
-    components: {
-      CurrentUserInfo,
-      DialogList,
-      AllListUser
-    },
-  })
-  export default class Layout extends Vue {
+@Component({
+  mixins: [RootModule]
+})
+export default class extends Vue {
 
-    activeTab: number = 0;
-    drawers: Array<string> = ['Default (no property)', 'Permanent', 'Temporary'];
-    primaryDrawer: Object = {
-      model: true,
-      type: 'default (no property)',
+    navigationDrawer = {
+      drawer: true,
       clipped: false,
-      floating: false,
-      mini: false,
-    };
-    footer: Object = {
-      inset: false,
+      miniVariant: true
     };
 
-    @Action('users/getUsersFront')
-    actionUsersGetList!: () => void;
-
-    @Action('dialogs/chatInitial')
-    chatInitial!: () => void;
-
-    beforeMount() {
-      this.chatInitial();
-    }
-
-    @Watch('activeTab')
-    changeTab() {
-      if (this.activeTab === 1) {
-        this.actionUsersGetList()
+    items = [
+      {
+        icon: 'mdi-apps',
+        title: 'Welcome',
+        to: '/'
+      },
+      {
+        icon: 'mdi-chart-bubble',
+        title: 'Inspire',
+        to: '/inspire'
+      },
+      {
+        icon: 'mdi-view-dashboard',
+        title: 'List Components',
+        to: '/template'
       }
+    ];
+
+    right = true;
+    rightDrawer = false;
+    title = 'Vuetify.js';
+
+    mounted(): void {
+      OverlayScrollbars(document.body, {
+        className: 'os-theme-dark',
+        scrollbars: {
+          autoHide: 'move'
+        }
+      });
     }
 
-  }
+}
+
 </script>
 
 <style lang="scss">
-  @import 'material-design-icons/iconfont/material-icons.css';
-  @import 'overlayscrollbars/css/OverlayScrollbars.css';
-  @import '~/assets/customVuetify.scss';
-  ::-webkit-scrollbar {
-    width: 0px; /* Remove scrollbar space */
-    background: transparent; /* Optional: just make scrollbar invisible */
-  }
+  @import 'node_modules/overlayscrollbars/css/OverlayScrollbars.css';
 
-  /* Optional: show position indicator in red */
-  ::-webkit-scrollbar-thumb {
-    background: #FF0000;
-  }
-
-  body {
-    overflow: hidden;
-  }
-
-  .page-container {
-    height: 100vh;
-    display: flex;
-
-    .md-app {
-      width: 100%;
-    }
+  html, body {
+    height: 100%;
+    overflow: hidden !important;
   }
 </style>

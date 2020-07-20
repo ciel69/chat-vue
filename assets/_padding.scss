@@ -1,0 +1,63 @@
+// IMPORTANT: Add new css rules ON DEMAND only when you need them!
+// Try to use multiples of 5 when using pixels
+
+// .p0 .px10 .py5 - example classes for px paddings
+// .px10p - example class for % padding
+
+// Percents
+
+$padding-x-p: 10;
+
+// Generators
+
+@mixin padding {
+
+  @for $i from 0 to 100 {
+    .p#{$i} {
+      padding: #{$i}px !important;
+    }
+  }
+  @for $i from 0 to 100 {
+    .px#{$i} {
+      padding-left: #{$i}px !important;
+      padding-right: #{$i}px !important;
+    }
+  }
+  @each $i in $padding-x-p {
+    .px#{$i}p {
+      padding-left: percentage($i/100) !important;
+      padding-right: percentage($i/100) !important;
+    }
+  }
+  @for $i from 0 to 100 {
+    .py#{$i} {
+      padding-top: #{$i}px !important;
+      padding-bottom: #{$i}px !important;
+    }
+  }
+  @for $i from 0 to 100 {
+    .pt#{$i} {
+      padding-top: #{$i}px !important;
+    }
+  }
+  @for $i from 0 to 100 {
+    .pb#{$i} {
+      padding-bottom: #{$i}px !important;
+    }
+  }
+  @for $i from 0 to 100 {
+    .pr#{$i} {
+      padding-right: #{$i}px !important;
+    }
+  }
+  @for $i from 0 to 100 {
+    .pl#{$i} {
+      padding-left: #{$i}px !important;
+    }
+  }
+}
+
+body {
+    @include padding;
+}
+
