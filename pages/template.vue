@@ -163,6 +163,11 @@
         />
       </v-col>
     </v-row>
+    <v-row>
+      <v-col md="12" cols="12">
+        <ListMessage />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -171,10 +176,12 @@ import {Component, Vue} from 'nuxt-property-decorator';
 
 import TextareaEmoji from '~/components/TextareaEmoji/TextareaEmoji.vue';
 import Animation from '~/components/Animation.vue';
+import ListMessage from '~/components/ListMessage.vue';
 
 @Component({
   components: {
     TextareaEmoji,
+    ListMessage,
     Animation
   }
 })
