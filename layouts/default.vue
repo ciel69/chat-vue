@@ -86,6 +86,7 @@
       floating: false,
       mini: false,
     };
+
     footer: Object = {
       inset: false,
     };
