@@ -149,7 +149,7 @@
       <v-col md="12" cols="12">
         <v-label>Virtual scroll</v-label>
       </v-col>
-      <v-col md="3" cols="3">
+      <v-col md="3" cols="12">
         <ListMessage />
       </v-col>
     </v-row>
