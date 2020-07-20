@@ -146,6 +146,15 @@
     </v-row>
 
     <v-row>
+      <v-col md="12" cols="12">
+        <v-label>Virtual scroll</v-label>
+      </v-col>
+      <v-col md="3" cols="3">
+        <ListMessage />
+      </v-col>
+    </v-row>
+
+    <v-row>
       <v-col md="4">
         <textarea-emoji
           @send="handleSend"
@@ -161,11 +170,6 @@
           :is-mobile="true"
           @send="handleSend"
         />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col md="12" cols="12">
-        <ListMessage />
       </v-col>
     </v-row>
   </div>

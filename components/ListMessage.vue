@@ -25,7 +25,7 @@ export default class ListMessage extends Vue {
   readonly virtualList!: HTMLTextAreaElement | any;
 
   created(): void {
-    const length = 250;
+    const length = 100000;
 
     for (let i = 0; i < length; i++) {
       this.items.push({
@@ -35,19 +35,6 @@ export default class ListMessage extends Vue {
     }
   }
 
-  mounted(): void {
-    // OverlayScrollbars(this.virtualList.$refs.root, {
-    //   className: 'os-theme-dark',
-    //   scrollbars: {
-    //     autoHide: 'move'
-    //   },
-    //   textarea: {
-    //     dynWidth: false,
-    //     dynHeight: true
-    //   }
-    // });
-  }
-
 }
 </script>
 
@@ -55,6 +42,5 @@ export default class ListMessage extends Vue {
 .virtual-list {
   height: 360px;
   overflow-y: auto;
-  /*overflow: hidden;*/
 }
 </style>
