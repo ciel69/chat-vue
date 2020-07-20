@@ -53,3 +53,28 @@ body {
     }
   }
 }
+/* width */
+::-webkit-scrollbar {
+  transition: .4s;
+  cursor: pointer;
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background: rgba($c, .5);
+  border-radius: 20px;
+  transition: .4s;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  transition: .4s;
+  background-color: rgba($c, .7);
+}
