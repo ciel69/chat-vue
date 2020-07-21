@@ -43,7 +43,7 @@ export default class Message extends Vue {
   .item-message {
     max-width: 70%;
     display: flex;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
 
     &__ava {
       display: block;
