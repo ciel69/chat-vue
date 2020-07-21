@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Ref, Vue} from 'nuxt-property-decorator';
+import {Component, Prop, Ref, Vue} from 'nuxt-property-decorator';
 
 import Message from './Message.vue';
 
@@ -19,21 +19,12 @@ import Message from './Message.vue';
 export default class ListMessage extends Vue {
 
   itemComponent = Message;
-  items = [{uid: 'unique_1', text: 'abc'}, {uid: 'unique_2', text: 'xyz'}];
+
+  @Prop({default: []})
+  items!: any[];
 
   @Ref()
   readonly virtualList!: HTMLTextAreaElement | any;
-
-  created(): void {
-    const length = 100000;
-
-    for (let i = 0; i < length; i++) {
-      this.items.push({
-        uid: `unique_${i}`,
-        text: Math.random() + ' text'
-      });
-    }
-  }
 
 }
 </script>
