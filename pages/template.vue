@@ -244,7 +244,7 @@ export default class Template extends Vue {
   ];
 
   created(): void {
-    const length = 1000;
+    const length = 100000;
 
     for (let i = 0; i < length; i++) {
       this.items.push({
