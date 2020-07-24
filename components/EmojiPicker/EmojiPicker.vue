@@ -136,6 +136,15 @@ export default class VEmojiPicker extends VEmojiPickerCore {
   }
 
   .emoji {
+
+    &-block {
+      display: block;
+      float: left;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
     &-invoker {
       position: absolute;
       /*top: 0.5rem;*/

@@ -1,7 +1,7 @@
 <template>
   <div class="textarea-emoji__wrapper">
     <v-row v-if="!isMobile">
-      <v-col md="11" cols="11">
+      <v-col md="10" cols="10">
         <v-textarea
           ref="refTextarea"
           v-model="textMessage"
@@ -15,6 +15,18 @@
       </v-col>
       <v-col md="1" cols="1">
         <v-emoji-picker @append="append" />
+      </v-col>
+      <v-col md="1" cols="1" class="p0">
+        <v-btn
+          icon
+          large
+          color="primary"
+          @click="handleSend"
+        >
+          <v-icon large>
+            mdi-send
+          </v-icon>
+        </v-btn>
       </v-col>
     </v-row>
     <v-row v-if="isMobile">
@@ -39,6 +51,7 @@
 
 <script lang="ts">
 import {Component, Emit, Ref, Prop, Vue} from 'nuxt-property-decorator';
+import {isEmpty} from 'ramda';
 import OverlayScrollbars from 'overlayscrollbars';
 
 import VEmojiPicker from '~/components/EmojiPicker/EmojiPicker.vue';
@@ -63,6 +76,7 @@ export default class TextareaEmoji extends Vue {
 
   @Emit()
   send(data: string): string {
+    this.textMessage = '';
     return data;
   }
 
@@ -96,6 +110,12 @@ export default class TextareaEmoji extends Vue {
   handleKeydown(event: KeyboardEvent): void {
     if (event.keyCode === 13 && !event.shiftKey) {
       event.preventDefault();
+      this.handleSend();
+    }
+  }
+
+  handleSend(): void {
+    if (!isEmpty(this.textMessage)) {
       this.send(this.textMessage);
     }
   }

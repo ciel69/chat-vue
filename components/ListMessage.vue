@@ -3,7 +3,7 @@
     <virtual-list
       ref="virtualList"
       class="virtual-list"
-      :data-key="'uid'"
+      :data-key="'id'"
       :data-sources="items"
       :data-component="itemComponent"
     />

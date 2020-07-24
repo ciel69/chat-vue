@@ -8,7 +8,7 @@
             {{ source.user && source.user.firstName }}
           </v-col>
           <v-col md="auto" class="item-message__date">
-            {{ source.date }}
+            {{ source.creationDate }}
           </v-col>
         </v-row>
         <div class="item-message__text">
@@ -80,11 +80,7 @@ export default class Message extends Vue {
 
     &__content {
       position: relative;
-      padding: 10px;
-
-      .col.p10 {
-
-      }
+      padding: 0 10px 10px;
     }
     &__name {
       color: $c;
