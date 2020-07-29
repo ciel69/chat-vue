@@ -65,6 +65,27 @@
           </a>
 
           <LoginForm />
+          <v-btn
+            nuxt
+            color="primary"
+            @click="loginClick"
+          >
+            Login
+          </v-btn>
+          <v-btn
+            nuxt
+            color="primary"
+            @click="logoutClick"
+          >
+            Logout
+          </v-btn>
+          <v-btn
+            nuxt
+            color="primary"
+            @click="requestClick"
+          >
+            Test request
+          </v-btn>
           <div class="d-flex flex-row-reverse">
             <v-btn
               color="primary"
@@ -80,30 +101,40 @@
   </v-layout>
 </template>
 
-<script>
+<script lang="ts">
+import {Component, Vue} from 'nuxt-property-decorator';
+import {Action} from 'vuex-class';
+
 import Logo from '~/components/Logo.vue';
 import VuetifyLogo from '~/components/VuetifyLogo.vue';
-import LoginForm from '~/components/Login';
+import LoginForm from '~/components/Login.vue';
 
-export default {
+@Component({
   components: {
     Logo,
     LoginForm,
     VuetifyLogo
-  },
-  data: () => ({
-    valid: false,
-    firstname: '',
-    lastname: '',
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => v.length <= 10 || 'Name must be less than 10 characters'
-    ],
-    email: '',
-    emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+/.test(v) || 'E-mail must be valid'
-    ]
-  })
+  }
+})
+export default class IndexPage extends Vue {
+
+  @Action('user/test')
+  actionTest!: () => void;
+
+  @Action('user/login')
+  actionLogin!: () => void;
+
+  requestClick(): void {
+    this.actionTest();
+  }
+
+  logoutClick(): void {
+    this.$apolloHelpers.onLogout();
+  }
+
+  loginClick(): void {
+    this.actionLogin();
+  }
+
 };
 </script>

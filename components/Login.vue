@@ -37,11 +37,15 @@
 
 <script lang="ts">
 import {Component, Vue} from 'nuxt-property-decorator';
+import {Action} from 'vuex-class';
 
 @Component
 export default class LoginForm extends Vue {
 
   sending: boolean = false;
+
+  @Action('user/createUser')
+  actionCreateUser!: () => void;
 
   created() {
   }
@@ -67,6 +71,7 @@ export default class LoginForm extends Vue {
   loginUser(): void {
     // eslint-disable-next-line no-console
     console.log('loginUser');
+    this.actionCreateUser();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

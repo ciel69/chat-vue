@@ -99,42 +99,42 @@ import RootModule from '~/module/root.module';
 })
 export default class extends Vue {
 
-    navigationDrawer = {
-      drawer: true,
-      clipped: false,
-      miniVariant: true
-    };
+  navigationDrawer = {
+    drawer: true,
+    clipped: false,
+    miniVariant: true
+  };
 
-    items = [
-      {
-        icon: 'mdi-apps',
-        title: 'Welcome',
-        to: '/'
-      },
-      {
-        icon: 'mdi-chart-bubble',
-        title: 'Inspire',
-        to: '/inspire'
-      },
-      {
-        icon: 'mdi-view-dashboard',
-        title: 'List Components',
-        to: '/template'
-      }
-    ];
-
-    right = true;
-    rightDrawer = false;
-    title = 'Vuetify.js';
-
-    mounted(): void {
-      OverlayScrollbars(document.body, {
-        className: 'os-theme-dark',
-        scrollbars: {
-          autoHide: 'move'
-        }
-      });
+  items = [
+    {
+      icon: 'mdi-apps',
+      title: 'Welcome',
+      to: '/'
+    },
+    {
+      icon: 'mdi-chart-bubble',
+      title: 'Inspire',
+      to: '/inspire'
+    },
+    {
+      icon: 'mdi-view-dashboard',
+      title: 'List Components',
+      to: '/template'
     }
+  ];
+
+  right = true;
+  rightDrawer = false;
+  title = 'Vuetify.js';
+
+  mounted(): void {
+    OverlayScrollbars(document.body, {
+      className: 'os-theme-dark',
+      scrollbars: {
+        autoHide: 'move'
+      }
+    });
+  }
 
 }
 

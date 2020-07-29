@@ -14,10 +14,12 @@
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.10",
+    "@nuxtjs/apollo": "^4.0.1-rc.1",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@svgdotjs/svg.js": "^3.0.16",
     "@vue/composition-api": "^0.6.1",
     "animate.css": "^4.0.0",
+    "graphql-tag": "^2.10.4",
     "localforage": "^1.7.4",
     "moment": "^2.27.0",
     "nuxt": "^2.13.3",

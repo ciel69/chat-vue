@@ -1,7 +1,18 @@
-import Vue from 'vue';
+import * as OldVue from 'vue';
 
 declare module 'vue/types/vue' {
+
+  // @ts-ignore
+  interface Vue extends OldVue {
+    readonly $apolloHelpers: {
+      onLogout: () => void
+      onLogin: () => void
+      getToken: () => void
+    }
+  }
+
   interface VueConstructor {
+
     beforeCreate(): void
     created(): void
     beforeMount(): void
