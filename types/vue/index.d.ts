@@ -6,7 +6,7 @@ declare module 'vue/types/vue' {
   interface Vue extends OldVue {
     readonly $apolloHelpers: {
       onLogout: () => void
-      onLogin: () => void
+      onLogin: (token: any) => void
       getToken: () => void
     }
   }

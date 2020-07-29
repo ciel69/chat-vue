@@ -2,6 +2,10 @@ export * from './state';
 export * from './dialog';
 export * from './users';
 
+export interface Reqest<T> {
+  data: Record<string, T>;
+}
+
 export interface Process {
   browser: boolean;
 }
