@@ -46,8 +46,38 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/apollo'
   ],
+  apollo: {
+    includeNodeModules: true, // optional, default: false (this includes graphql-tag for node_modules folder)
+    authenticationType: 'Bearer',
+    // required
+    clientConfigs: {
+      default: {
+        // required
+        httpEndpoint: 'http://localhost:3030',
+        // optional
+        // override HTTP endpoint in browser only
+        browserHttpEndpoint: 'http://localhost:3030/graphql',
+        // optional
+        // See https://www.apollographql.com/docs/link/links/http.html#options
+        httpLinkOptions: {
+          credentials: 'same-origin'
+        },
+        // You can use `wss` for secure connection (recommended in production)
+        // Use `null` to disable subscriptions
+        wsEndpoint: 'ws://localhost:3030/graphql', // optional
+        // LocalStorage token
+        tokenName: 'apollo-token', // optional
+        // Enable Automatic Query persisting with Apollo Engine
+        persisting: false, // Optional
+        // Use websockets for everything (no HTTP)
+        // You need to pass a `wsEndpoint` for this to work
+        websocketsOnly: false // Optional
+      }
+    }
+  },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
