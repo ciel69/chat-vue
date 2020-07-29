@@ -1,12 +1,14 @@
 import {Context} from '@nuxt/types';
 import gql from 'graphql-tag';
-import {IGraphql} from '~/model';
+
+import {IGraphql, Reqest, User} from '~/model';
+import {getData} from '~/utils/utils';
 
 export async function test(this: Context): Promise<void> {
   const client: IGraphql = this.app.apolloProvider.defaultClient;
 
   try {
-    const result = await client.query({
+    const result: Reqest<User[]> = await client.query({
       fetchPolicy: 'no-cache',
       query: gql`
         query {
@@ -18,8 +20,9 @@ export async function test(this: Context): Promise<void> {
       `
     });
 
+    const users = getData(result);
     // eslint-disable-next-line no-console
-    console.log('result', result);
+    console.log('result', users);
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
@@ -30,7 +33,7 @@ export async function login(this: Context): Promise<void> {
   const client: IGraphql = this.app.apolloProvider.defaultClient;
 
   try {
-    const result = await client.query({
+    const result: Reqest<User> = await client.query({
       fetchPolicy: 'no-cache',
       query: gql`
         query login($login: String!, $password: String!) {
@@ -46,8 +49,7 @@ export async function login(this: Context): Promise<void> {
         password: 'password'
       }
     });
-
-    this.app.$apolloHelpers.onLogin(result.data.login.token);
+    this.app.$apolloHelpers.onLogin(getData(result).token);
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
