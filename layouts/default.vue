@@ -90,14 +90,18 @@
 
 <script lang="ts">
 import {Component, Vue} from 'nuxt-property-decorator';
+import {Module} from '@vue-ioc/core';
 import OverlayScrollbars from 'overlayscrollbars';
 
-import RootModule from '~/module/root.module';
+import {EmojiService} from '~/services/emoji.service';
 
-@Component({
-  mixins: [RootModule]
+@Module({
+  providers: [
+    EmojiService
+  ]
 })
-export default class extends Vue {
+@Component({})
+export default class Root extends Vue {
 
   navigationDrawer = {
     drawer: true,
