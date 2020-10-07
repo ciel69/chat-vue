@@ -39,6 +39,7 @@ export default class VEmojiPickerCore extends Vue {
   mounted(): void {
     this.emojis = this.refEmoji.emojis;
     this.emojis['Frequently used'] = null;
+    // this.emojis = this.emojis.filret(item => item);
     this.emojiService.getFrequentlyUsed().then((emojis: Emoji) => {
       this.emojis['Frequently used'] = emojis;
     });

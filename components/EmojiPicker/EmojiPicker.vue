@@ -29,7 +29,7 @@
             class="emoji-scroll"
           >
             <div v-for="(emojiGroup, category) in emojis" :key="category">
-              <div v-if="emojiGroup">
+              <div v-if="!$options.filters.isEmpty(emojiGroup)">
                 <h5>{{ getNameCategory(category) }}</h5>
                 <div class="emojis">
                   <span

@@ -185,6 +185,7 @@ import Animation from '~/components/Animation.vue';
 import ListMessage from '~/components/ListMessage.vue';
 
 @Component({
+  middleware: 'authenticated',
   components: {
     TextareaEmoji,
     ListMessage,

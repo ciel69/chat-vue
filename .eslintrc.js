@@ -1,5 +1,11 @@
 module.exports = {
+  root: true,
+  env: {
+    node: true,
+  },
   extends: [
+    'plugin:vue/recommended',
+    '@vue/typescript',
     '@nuxtjs/eslint-config-typescript'
   ],
   rules: {
@@ -12,5 +18,10 @@ module.exports = {
       named: 'never',
       asyncArrow: 'never'
     }]
-  }
+  },
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
+    ecmaVersion: 2018,
+  },
 };
