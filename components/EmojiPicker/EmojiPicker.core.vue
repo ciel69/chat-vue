@@ -1,8 +1,9 @@
 <script lang="ts">
-import {Component, Emit, Inject, Ref, Vue} from 'nuxt-property-decorator';
+import {Component, Emit, Ref, Vue} from 'nuxt-property-decorator';
+import {Inject} from '@vue-ioc/core';
 
 import {Emoji} from '~/types/Emoji';
-import {EmojiService} from '~/utils/emoji.service';
+import {EmojiService} from '~/services/emoji.service';
 
 @Component
 export default class VEmojiPickerCore extends Vue {
@@ -36,13 +37,11 @@ export default class VEmojiPickerCore extends Vue {
     return field[category] || category;
   }
 
-  mounted(): void {
+  async mounted(): Promise<void> {
     this.emojis = this.refEmoji.emojis;
     this.emojis['Frequently used'] = null;
-    // this.emojis = this.emojis.filret(item => item);
-    this.emojiService.getFrequentlyUsed().then((emojis: Emoji) => {
-      this.emojis['Frequently used'] = emojis;
-    });
+    const emojis: Emoji = await this.emojiService.getFrequentlyUsed();
+    this.emojis['Frequently used'] = emojis;
   }
 
   handleMouseLeave(): void {

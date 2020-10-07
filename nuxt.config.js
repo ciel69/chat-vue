@@ -122,5 +122,10 @@ export default {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     extend(config, ctx) {
     }
+  },
+  render: {
+    bundleRenderer: {
+      runInNewContext: false
+    }
   }
 };
