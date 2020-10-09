@@ -1,8 +1,12 @@
-export default {
+import {NuxtConfig} from '@nuxt/types';
+
+const config: NuxtConfig = {
   mode: 'universal',
   typescript: {
     typeCheck: {
-      eslint: true
+      eslint: {
+        files: './**/*.{ts,js,vue}'
+      }
     }
   },
   /*
@@ -127,5 +131,14 @@ export default {
     bundleRenderer: {
       runInNewContext: false
     }
+  },
+  vue: {
+    config: {
+      transpileDependencies: [
+        'vuex-module-decorators'
+      ]
+    }
   }
 };
+
+export default config;

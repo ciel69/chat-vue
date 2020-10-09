@@ -9,8 +9,7 @@
     "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
     "start": "nuxt-ts start",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx,.vue src",
+    "lint": "eslint --cache --ext .js,.ts,.vue",
     "eslint:dump": "eslint --print-config ./.eslintrc.json",
     "heroku-postbuild": "npm run build"
   },
@@ -22,6 +21,7 @@
     "@vue-ioc/core": "^0.2.2",
     "@vue/composition-api": "^0.6.1",
     "animate.css": "^4.0.0",
+    "class-transformer": "^0.3.1",
     "graphql-tag": "^2.10.4",
     "inversify": "^5.0.1",
     "localforage": "^1.7.4",
@@ -60,6 +60,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^6.0.0",
     "prettier": "^2.0.5",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "vuex-module-decorators": "^1.0.1"
   }
 }

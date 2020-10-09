@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import {Injectable} from '@vue-ioc/core';
+import {Injectable, PostConstruct} from '@vue-ioc/core';
 import localforage from 'localforage';
 
 import {Emoji} from '~/types/Emoji';
@@ -10,10 +10,7 @@ export class EmojiService {
   private KEY_EMOJI: string = 'FREQUENT_EMOJI';
   private storeEmoji!: LocalForage;
 
-  constructor() {
-    this.initialStore();
-  }
-
+  @PostConstruct()
   initialStore(): void {
     this.storeEmoji = localforage.createInstance({
       name: this.KEY_EMOJI

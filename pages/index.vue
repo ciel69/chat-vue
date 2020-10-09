@@ -49,6 +49,8 @@
           <div class="text-xs-right">
             <em><small>&mdash; John Leider</small></em>
           </div>
+          <b>axles: {{ testModuleInstance.axles }}</b>
+          <b>wheels: {{ testModuleInstance.wheels }}</b>
           <hr class="my-3">
           <a
             href="https://nuxtjs.org/"
@@ -86,6 +88,20 @@
           >
             Test request
           </v-btn>
+          <v-btn
+            nuxt
+            color="primary"
+            @click="handleClickTest"
+          >
+            Test module
+          </v-btn>
+          <v-btn
+            nuxt
+            color="primary"
+            @click="handleClickUser"
+          >
+            Test user
+          </v-btn>
           <div class="d-flex flex-row-reverse">
             <v-btn
               color="primary"
@@ -103,11 +119,14 @@
 
 <script lang="ts">
 import {Component, Vue} from 'nuxt-property-decorator';
-import {Action} from 'vuex-class';
+import {getModule} from 'vuex-module-decorators';
 
 import Logo from '~/components/Logo.vue';
 import VuetifyLogo from '~/components/VuetifyLogo.vue';
 import LoginForm from '~/components/Login.vue';
+
+import TestModule from '~/store/TestModule';
+import UserModule from '~/store/UserModule';
 
 @Component({
   components: {
@@ -118,22 +137,27 @@ import LoginForm from '~/components/Login.vue';
 })
 export default class IndexPage extends Vue {
 
-  @Action('user/test')
-  actionTest!: () => void;
-
-  @Action('user/login')
-  actionLogin!: () => void;
+  testModuleInstance: TestModule = getModule(TestModule, this.$store);
+  userModuleInstance: UserModule = getModule(UserModule, this.$store);
 
   requestClick(): void {
-    this.actionTest();
+    this.userModuleInstance.testAction();
   }
 
   logoutClick(): void {
-    this.$apolloHelpers.onLogout();
+    this.userModuleInstance.onLogout();
   }
 
   loginClick(): void {
-    this.actionLogin();
+    this.userModuleInstance.onLogin();
+  }
+
+  handleClickTest(): void {
+    this.testModuleInstance.incrWheels(4);
+  }
+
+  handleClickUser(): void {
+    this.userModuleInstance.testAction();
   }
 
 };
