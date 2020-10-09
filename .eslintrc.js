@@ -17,7 +17,9 @@ module.exports = {
       anonymous: 'never',
       named: 'never',
       asyncArrow: 'never'
-    }]
+    }],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error']
   },
   parserOptions: {
     parser: '@typescript-eslint/parser',

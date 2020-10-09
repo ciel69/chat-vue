@@ -4,6 +4,11 @@ import gql from 'graphql-tag';
 import {IGraphql, Reqest, User} from '~/model';
 import {getData} from '~/utils/utils';
 
+export function logout(this: Context, {commit}: any): void {
+  this.app.$apolloHelpers.onLogout();
+  commit('logout');
+}
+
 export async function test(this: Context): Promise<void> {
   const client: IGraphql = this.app.apolloProvider.defaultClient;
 
@@ -29,7 +34,7 @@ export async function test(this: Context): Promise<void> {
   }
 }
 
-export async function login(this: Context): Promise<void> {
+export async function login(this: Context, {commit}: any): Promise<void> {
   const client: IGraphql = this.app.apolloProvider.defaultClient;
 
   try {
@@ -50,6 +55,7 @@ export async function login(this: Context): Promise<void> {
       }
     });
     this.app.$apolloHelpers.onLogin(getData(result).token);
+    commit('login', getData(result));
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);

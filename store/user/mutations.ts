@@ -13,6 +13,15 @@ export const login = (state: StateUser, data: StateUser): void => {
   state.token = data.token;
 };
 
+export const logout = (state: StateUser): void => {
+  state.login = undefined;
+  state.firstName = undefined;
+  state.lastName = undefined;
+  state.email = undefined;
+  state.id = undefined;
+  state.token = undefined;
+};
+
 export const loadToken = (state: StateUser, token: string): void => {
   state.token = token;
 };

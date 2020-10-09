@@ -1,7 +1,7 @@
 import {User} from '~/model';
 
 export interface StateUser extends User {
-  token: string;
+  token?: string;
   list: any[];
   inputText: string;
 }

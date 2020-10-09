@@ -40,8 +40,7 @@ export default class VEmojiPickerCore extends Vue {
   async mounted(): Promise<void> {
     this.emojis = this.refEmoji.emojis;
     this.emojis['Frequently used'] = null;
-    const emojis: Emoji = await this.emojiService.getFrequentlyUsed();
-    this.emojis['Frequently used'] = emojis;
+    this.emojis['Frequently used'] = await this.emojiService.getFrequentlyUsed();
   }
 
   handleMouseLeave(): void {

@@ -2,7 +2,9 @@ export default {
   mode: 'universal',
   typescript: {
     typeCheck: {
-      eslint: true
+      eslint: {
+        files: './**/*.{ts,js,vue}'
+      }
     }
   },
   /*
@@ -126,6 +128,13 @@ export default {
   render: {
     bundleRenderer: {
       runInNewContext: false
+    }
+  },
+  vue: {
+    config: {
+      transpileDependencies: [
+        'vuex-module-decorators'
+      ]
     }
   }
 };
