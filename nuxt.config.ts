@@ -1,4 +1,6 @@
-export default {
+import {NuxtConfig} from '@nuxt/types';
+
+const config: NuxtConfig = {
   mode: 'universal',
   typescript: {
     typeCheck: {
@@ -138,3 +140,5 @@ export default {
     }
   }
 };
+
+export default config;

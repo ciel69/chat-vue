@@ -95,6 +95,13 @@
           >
             Test module
           </v-btn>
+          <v-btn
+            nuxt
+            color="primary"
+            @click="handleClickUser"
+          >
+            Test user
+          </v-btn>
           <div class="d-flex flex-row-reverse">
             <v-btn
               color="primary"
@@ -112,13 +119,14 @@
 
 <script lang="ts">
 import {Component, Vue} from 'nuxt-property-decorator';
-import {Action} from 'vuex-class';
 import {getModule} from 'vuex-module-decorators';
 
 import Logo from '~/components/Logo.vue';
 import VuetifyLogo from '~/components/VuetifyLogo.vue';
 import LoginForm from '~/components/Login.vue';
+
 import TestModule from '~/store/TestModule';
+import UserModule from '~/store/UserModule';
 
 @Component({
   components: {
@@ -130,30 +138,26 @@ import TestModule from '~/store/TestModule';
 export default class IndexPage extends Vue {
 
   testModuleInstance: TestModule = getModule(TestModule, this.$store);
-
-  @Action('user/test')
-  actionTest!: () => void;
-
-  @Action('user/login')
-  actionLogin!: () => void;
-
-  @Action('user/logout')
-  actionLogout!: () => void;
+  userModuleInstance: UserModule = getModule(UserModule, this.$store);
 
   requestClick(): void {
-    this.actionTest();
+    this.userModuleInstance.testAction();
   }
 
   logoutClick(): void {
-    this.actionLogout();
+    this.userModuleInstance.onLogout();
   }
 
   loginClick(): void {
-    this.actionLogin();
+    this.userModuleInstance.onLogin();
   }
 
   handleClickTest(): void {
     this.testModuleInstance.incrWheels(4);
+  }
+
+  handleClickUser(): void {
+    this.userModuleInstance.testAction();
   }
 
 };

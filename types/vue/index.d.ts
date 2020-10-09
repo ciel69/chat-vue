@@ -1,3 +1,5 @@
+import {Context} from '@nuxt/types';
+
 import {ApolloHelpers} from '../ApolloHelpers';
 
 declare module 'vue/types/vue' {
@@ -20,5 +22,14 @@ declare module 'vue/types/vue' {
     asyncData(): void
     head(): void
     fetch(): void
+  }
+}
+declare module 'vuex-module-decorators' {
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface VuexModule {
+
+    store: Context
+
   }
 }
