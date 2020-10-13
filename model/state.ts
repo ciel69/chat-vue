@@ -1,6 +1,7 @@
-import {Message, User} from '~/model';
+import {Message} from '~/model';
+import UserModule from '~/store/UserModule';
 
 export interface RootState {
-  user: User;
+  UserModule: UserModule;
   messages: Message[];
 }

@@ -1,6 +1,7 @@
 import {Context} from '@nuxt/types';
 
 import {ApolloHelpers} from '../ApolloHelpers';
+import {RootState} from '~/model';
 
 declare module 'vue/types/vue' {
 

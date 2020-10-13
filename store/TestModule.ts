@@ -7,7 +7,12 @@ import {Module, VuexModule, Mutation, Action} from 'vuex-module-decorators';
 })
 export default class TestModule extends VuexModule {
 
-  wheels = 2
+  wheels = 2;
+  counter = 0;
+
+  get axles(): number {
+    return this.wheels / 2;
+  }
 
   @Action
   incrWheels(extra: number): void {
@@ -19,8 +24,9 @@ export default class TestModule extends VuexModule {
     this.wheels += extra;
   }
 
-  get axles(): number {
-    return this.wheels / 2;
+  @Mutation
+  incrementCounter(): void {
+    this.counter++;
   }
 
 }
