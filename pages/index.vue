@@ -49,6 +49,7 @@
           <div class="text-xs-right">
             <em><small>&mdash; John Leider</small></em>
           </div>
+          <b>counter: {{ testModuleInstance.counter }}</b>
           <b>axles: {{ testModuleInstance.axles }}</b>
           <b>wheels: {{ testModuleInstance.wheels }}</b>
           <hr class="my-3">
@@ -102,6 +103,13 @@
           >
             Test user
           </v-btn>
+          <v-btn
+            nuxt
+            color="primary"
+            @click="testModuleInstance.incrementCounter"
+          >
+            Increment
+          </v-btn>
           <div class="d-flex flex-row-reverse">
             <v-btn
               color="primary"
@@ -119,7 +127,8 @@
 
 <script lang="ts">
 import {Component, Vue} from 'nuxt-property-decorator';
-import {getModule} from 'vuex-module-decorators';
+
+import {Store} from '~/utils/decorators';
 
 import Logo from '~/components/Logo.vue';
 import VuetifyLogo from '~/components/VuetifyLogo.vue';
@@ -137,8 +146,11 @@ import UserModule from '~/store/UserModule';
 })
 export default class IndexPage extends Vue {
 
-  testModuleInstance: TestModule = getModule(TestModule, this.$store);
-  userModuleInstance: UserModule = getModule(UserModule, this.$store);
+  @Store(TestModule)
+  testModuleInstance!: TestModule;
+
+  @Store(UserModule)
+  userModuleInstance!: UserModule;
 
   requestClick(): void {
     this.userModuleInstance.testAction();

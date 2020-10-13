@@ -18,6 +18,8 @@ export default class UserModule extends VuexModule {
     id: null
   })
 
+  users: User[] = [];
+
   @Action
   async testAction(): Promise<void> {
     const client: IGraphql = this.store.app.apolloProvider.defaultClient;
@@ -37,6 +39,7 @@ export default class UserModule extends VuexModule {
 
       const users = getData(result);
       // eslint-disable-next-line no-console
+      this.setUsers(users);
       console.log('result', users);
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -83,6 +86,11 @@ export default class UserModule extends VuexModule {
   @Mutation
   setUser(user: User): void {
     this.user = user;
+  }
+
+  @Mutation
+  setUsers(users: User[]): void {
+    this.users = users;
   }
 
   @Mutation
