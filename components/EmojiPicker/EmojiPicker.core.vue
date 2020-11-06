@@ -14,7 +14,7 @@ export default class VEmojiPickerCore extends Vue {
   emojis: Emoji = {};
 
   @Inject()
-  emojiService!: EmojiService;
+  readonly emojiService!: EmojiService;
 
   @Ref()
   readonly refEmoji!: any;

@@ -12,16 +12,11 @@ import {getData} from '~/utils/utils';
 })
 export default class UserModule extends VuexModule {
 
-  user: User = plainToClass(User, {
-    token: null,
-    login: null,
-    id: null
-  })
-
+  user: User = plainToClass(User, {});
   users: User[] = [];
 
   @Action
-  async testAction(): Promise<void> {
+  async getUsers(): Promise<void> {
     const client: IGraphql = this.store.app.apolloProvider.defaultClient;
 
     try {
@@ -85,24 +80,17 @@ export default class UserModule extends VuexModule {
 
   @Mutation
   setUser(user: User): void {
-    this.user = user;
+    this.user = plainToClass(User, user);
   }
 
   @Mutation
   setUsers(users: User[]): void {
-    this.users = users;
+    this.users = plainToClass(User, users);
   }
 
   @Mutation
   logout(): void {
-    this.user = {
-      login: undefined,
-      firstName: undefined,
-      lastName: undefined,
-      email: undefined,
-      id: undefined,
-      token: undefined
-    };
+    this.user = plainToClass(User, {});
   }
 
 }

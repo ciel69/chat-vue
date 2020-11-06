@@ -63,7 +63,7 @@ const config: NuxtConfig = {
     clientConfigs: {
       default: {
         // required
-        httpEndpoint: 'http://localhost:3030',
+        httpEndpoint: 'http://localhost:3030/graphql',
         // optional
         // override HTTP endpoint in browser only
         browserHttpEndpoint: 'http://localhost:3030/graphql',

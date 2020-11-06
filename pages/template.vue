@@ -177,7 +177,7 @@
 
 <script lang="ts">
 import {Component, Vue} from 'nuxt-property-decorator';
-import {v4 as uuidv4} from 'uuid';
+import {v4 as uuid} from 'uuid';
 import moment from 'moment';
 
 import TextareaEmoji from '~/components/TextareaEmoji/TextareaEmoji.vue';
@@ -196,7 +196,7 @@ export default class Template extends Vue {
 
   items: any[] = [
     {
-      id: uuidv4(),
+      id: uuid(),
       text: 'Знак, как принято считать, создает дуализм, учитывая опасность, которую представляли собой писания Дюринга для не окрепшего еще немецкого рабочего движения',
       user: {
         firstName: 'User 1'
@@ -211,7 +211,7 @@ export default class Template extends Vue {
 
   createMessage(value: string): void {
     this.items.push({
-      id: uuidv4(),
+      id: uuid(),
       text: value,
       user: {
         firstName: 'Ме'

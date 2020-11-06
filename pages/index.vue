@@ -52,6 +52,11 @@
           <b>counter: {{ testModuleInstance.counter }}</b>
           <b>axles: {{ testModuleInstance.axles }}</b>
           <b>wheels: {{ testModuleInstance.wheels }}</b>
+          <ul id="example-1">
+            <li v-for="user in userModuleInstance.users" :key="user.id">
+              {{ user.firstName }}
+            </li>
+          </ul>
           <hr class="my-3">
           <a
             href="https://nuxtjs.org/"
@@ -106,6 +111,13 @@
           <v-btn
             nuxt
             color="primary"
+            @click="dialogModuleInstance.testAction"
+          >
+            Get dialogs
+          </v-btn>
+          <v-btn
+            nuxt
+            color="primary"
             @click="testModuleInstance.incrementCounter"
           >
             Increment
@@ -136,6 +148,7 @@ import LoginForm from '~/components/Login.vue';
 
 import TestModule from '~/store/TestModule';
 import UserModule from '~/store/UserModule';
+import DialogModule from '~/store/DialogModule';
 
 @Component({
   components: {
@@ -147,13 +160,16 @@ import UserModule from '~/store/UserModule';
 export default class IndexPage extends Vue {
 
   @Store(TestModule)
-  testModuleInstance!: TestModule;
+  readonly testModuleInstance!: TestModule;
 
   @Store(UserModule)
-  userModuleInstance!: UserModule;
+  readonly userModuleInstance!: UserModule;
+
+  @Store(DialogModule)
+  readonly dialogModuleInstance!: DialogModule;
 
   requestClick(): void {
-    this.userModuleInstance.testAction();
+    this.userModuleInstance.getUsers();
   }
 
   logoutClick(): void {
@@ -169,7 +185,7 @@ export default class IndexPage extends Vue {
   }
 
   handleClickUser(): void {
-    this.userModuleInstance.testAction();
+    this.userModuleInstance.getUsers();
   }
 
 };

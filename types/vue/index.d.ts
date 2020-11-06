@@ -30,7 +30,7 @@ declare module 'vuex-module-decorators' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface VuexModule {
 
-    store: Context
+    store: any
 
   }
 }

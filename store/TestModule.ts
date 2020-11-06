@@ -15,6 +15,12 @@ export default class TestModule extends VuexModule {
   }
 
   @Action
+  async testSSRAction(): Promise<void> {
+    await Promise.resolve();
+    console.log('testSSRAction');
+  }
+
+  @Action
   incrWheels(extra: number): void {
     this.setWheels(extra);
   }

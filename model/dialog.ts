@@ -1,10 +1,22 @@
+import {Expose, Type} from 'class-transformer';
+
 import {User} from '~/model';
 
-export interface Dialog {
-  id: number;
-  name: string;
-  messages: Message[];
-  users: User[];
+export class Dialog {
+
+  @Expose()
+  id!: number;
+
+  @Expose()
+  name!: string;
+
+  @Expose()
+  messages?: Message[];
+
+  @Expose()
+  @Type(() => User)
+  users?: User[];
+
 }
 
 export interface Message {
