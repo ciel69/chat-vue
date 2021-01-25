@@ -9,6 +9,7 @@ module.exports = {
     '@nuxtjs/eslint-config-typescript'
   ],
   rules: {
+    indent: 'off',
     semi: [2, 'always'],
     curly: ['error', 'multi-line'],
     'padded-blocks': ['error', {classes: 'always'}],

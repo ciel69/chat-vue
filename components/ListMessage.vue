@@ -18,13 +18,13 @@ import Message from './Message.vue';
 @Component
 export default class ListMessage extends Vue {
 
-  itemComponent = Message;
-
   @Prop({default: []})
   items!: any[];
 
   @Ref()
   readonly virtualList!: HTMLTextAreaElement | any;
+
+  itemComponent = Message;
 
 }
 </script>

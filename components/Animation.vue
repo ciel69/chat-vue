@@ -6,9 +6,9 @@
       <v-expand-transition>
         <v-card
           v-show="expand"
+          class="popover__content"
           height="100"
           width="100"
-          class="popover__content"
         />
       </v-expand-transition>
       <v-btn
@@ -34,10 +34,10 @@
       <v-expand-x-transition>
         <v-card
           v-show="expand2"
-          :elevation="10"
+          class="mx-auto"
           height="100"
           width="100"
-          class="mx-auto"
+          :elevation="10"
         />
       </v-expand-x-transition>
     </v-col>
